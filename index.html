@@ -11,6 +11,32 @@
       margin: 20px;
     }
 
+    /* 上の説明2つ（折りたたみ） */
+    .info-row{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      margin: 10px 0 12px 0;
+    }
+    .info-box{
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #fafafa;
+      min-width: 280px;
+      flex: 1 1 320px;
+    }
+    .info-box summary{
+      cursor: pointer;
+      font-weight: 600;
+      margin: 2px 0 6px 0;
+    }
+    .info-box ul{
+      margin: 6px 0 0 18px;
+      padding: 0;
+    }
+
     #table-wrap{
       height: 80vh;
       overflow: auto;
@@ -58,11 +84,29 @@
     #data-table th:nth-child(6), #data-table td:nth-child(6),
     #data-table th:nth-child(7), #data-table td:nth-child(7){ width: 55px; }
     #data-table th:nth-child(8), #data-table td:nth-child(8){ width: 150px; }
-.note {
-  font-size: 12px;
-  color: #666;
-  margin: 6px 0 10px 0;
-}
+
+    .note {
+      font-size: 12px;
+      color: #666;
+      margin: 6px 0 10px 0;
+    }
+
+    /* スマホ用（あなたの要望：横スクロールOK、餌名は左固定） */
+    @media (max-width: 768px) {
+      #table-wrap { overflow: auto; }
+
+      #data-table th:nth-child(1),
+      #data-table td:nth-child(1) {
+        position: sticky;
+        left: 0;
+        background: #fff;
+        z-index: 3;
+      }
+
+      #data-table th {
+        z-index: 4;
+      }
+    }
   </style>
 </head>
 
@@ -70,51 +114,32 @@
   <h1>メダカ餌 一覧
     <span id="sortStatus" style="font-size:12px; margin-left:12px; color:#666;"></span>
   </h1>
-<div class="info-row">
-  <details open class="info-box">
-    <summary>この一覧の使い方</summary>
-    <ul>
-      <li>各成分をクリックすると並び替えできます</li>
-      <li>ソート後、餌名またはメーカーをクリックすると初期配置に戻ります</li>
-      <li>※ 数値は目安です。詳細は各公式情報をご確認ください</li>
-    </ul>
-  </details>
 
-  <details class="info-box">
-    <summary>餌の用途分類について</summary>
-    <ul>
-      <li><strong>主食</strong>：日常のローテーションの軸となる餌</li>
-      <li><strong>育成</strong>：成長期・稚魚向けの高栄養寄り</li>
-      <li><strong>産卵</strong>：繁殖期のコンディション維持目的</li>
-      <li><strong>機能特化</strong>：色揚げ・消化など目的別</li>
-      <li><strong>補助</strong>：留守時など補助的に使用</li>
-    </ul>
-  </details>
-</div>
+  <div class="info-row">
+    <details open class="info-box">
+      <summary>この一覧の使い方</summary>
+      <ul>
+        <li>各成分をクリックすると並び替えできます</li>
+        <li>ソート後、餌名またはメーカーをクリックすると初期配置に戻ります</li>
+        <li>※ 数値は目安です。詳細は各公式情報をご確認ください</li>
+      </ul>
+    </details>
 
+    <details class="info-box">
+      <summary>餌の用途分類について</summary>
+      <ul>
+        <li><strong>主食</strong>：日常のローテーションの軸となる餌</li>
+        <li><strong>育成</strong>：成長期・稚魚向けの高栄養寄り</li>
+        <li><strong>産卵</strong>：繁殖期のコンディション維持目的</li>
+        <li><strong>機能特化</strong>：色揚げ・消化など目的別</li>
+        <li><strong>補助</strong>：留守時など補助的に使用</li>
+      </ul>
+    </details>
+  </div>
 
   <div id="table-wrap">
     <table id="data-table"></table>
   </div>
-@media (max-width: 768px) {
-  /* 表全体を横スクロール可能にする */
-  #table-wrap { overflow: auto; }
-
-  /* 1列目（餌名）を左に固定 */
-  #data-table th:nth-child(1),
-  #data-table td:nth-child(1) {
-    position: sticky;
-    left: 0;
-    background: #fff;
-    z-index: 3;
-  }
-
-  /* ヘッダー行（th）は餌名より上にしたいので少し上げる */
-  #data-table th {
-    z-index: 4;
-  }
-}
-
 
 <script>
   const CSV_URL = "deta.csv";
@@ -141,6 +166,38 @@
     if (el) el.textContent = text;
   }
 
+  // CSVを最低限ちゃんと読む（カンマ・ダブルクォート対応）
+  function parseCSV(text){
+    const rows = [];
+    let i = 0, field = "", row = [], inQ = false;
+
+    while(i < text.length){
+      const c = text[i];
+
+      if(inQ){
+        if(c === '"'){
+          if(text[i+1] === '"'){ field += '"'; i += 2; continue; }
+          inQ = false; i++; continue;
+        }
+        field += c; i++; continue;
+      }else{
+        if(c === '"'){ inQ = true; i++; continue; }
+        if(c === ','){ row.push(field); field = ""; i++; continue; }
+        if(c === '\n'){
+          row.push(field); field = "";
+          rows.push(row);
+          row = [];
+          i++; continue;
+        }
+        if(c === '\r'){ i++; continue; }
+        field += c; i++; continue;
+      }
+    }
+    row.push(field);
+    rows.push(row);
+    return rows;
+  }
+
   function renderTable(rows){
     const table = document.getElementById("data-table");
     table.innerHTML = "";
@@ -150,17 +207,18 @@
 
       row.forEach((cell, j) => {
         const el = document.createElement(i === 0 ? "th" : "td");
-        if (j === 0 && i > 0) {
-  const a = document.createElement("a");
-  a.textContent = cell;
-  a.href = "detail/" + encodeURIComponent(cell) + ".html";
-  a.style.textDecoration = "none";
-  a.style.color = "#007aff";
-  el.appendChild(a);
-} else {
-  el.textContent = cell;
-}
 
+        // 餌名（1列目）はリンク化（詳細ページ）
+        if (j === 0 && i > 0) {
+          const a = document.createElement("a");
+          a.textContent = cell;
+          a.href = "detail/" + encodeURIComponent(cell) + ".html";
+          a.style.textDecoration = "none";
+          a.style.color = "#007aff";
+          el.appendChild(a);
+        } else {
+          el.textContent = cell;
+        }
 
         // ヘッダ行だけクリック有効
         if (i === 0){
@@ -175,7 +233,7 @@
   }
 
   function resetToOriginal(){
-    if (!ORIGINAL_ROWS) return; // 念のため
+    if (!ORIGINAL_ROWS) return;
     ALL_ROWS = JSON.parse(JSON.stringify(ORIGINAL_ROWS));
     SORT_STATE = { col: -1, step: 0 };
     renderTable(ALL_ROWS);
@@ -205,7 +263,7 @@
       if (SORT_STATE.col !== 2) SORT_STATE = { col: 2, step: 0 };
       else SORT_STATE.step = (SORT_STATE.step === 0 ? 1 : 0);
 
-      const asc = (SORT_STATE.step === 0); // 0=A→E, 1=E→A
+      const asc = (SORT_STATE.step === 0);
       body.sort((a,b)=>{
         const ca = a[2] ?? "";
         const cb = b[2] ?? "";
@@ -218,7 +276,7 @@
       return;
     }
 
-    // 数値列：4ステップ循環（メーカー高がここに入ってる）
+    // 数値列：4ステップ循環
     if (SORT_STATE.col !== col){
       SORT_STATE.col = col;
       SORT_STATE.step = 0;
@@ -238,15 +296,12 @@
       mode === 2 ? "メーカーごと / 高い順" :
                    "分類ごと / 高い順";
 
-    // デバッグ（必要なら）
-    // console.log("STEP:", SORT_STATE.step, "MODE:", mode);
-
     body.sort((a,b)=>{
       // グループ順
       if (mode === 2){
         const ga = MAKER_ORDER.get(a[1] ?? "") ?? 999999;
         const gb = MAKER_ORDER.get(b[1] ?? "") ?? 999999;
-        if (ga !== gb) return ga - gb; // 初期メーカー順固定
+        if (ga !== gb) return ga - gb;
       }
       if (mode === 3){
         const ca = a[2] ?? "";
@@ -271,17 +326,17 @@
     setStatus(`ソート：${header[col]} / ${label}`);
   }
 
-  // ★ここが重要：fetch後に ORIGINAL_ROWS / MAKER_ORDER を作る
-  fetch(CSV_URL)
+  // ★ fetch後に ORIGINAL_ROWS / MAKER_ORDER を作る
+  fetch(CSV_URL, { cache: "no-store" })
     .then(res => res.text())
     .then(text => {
-      ALL_ROWS = text.trim().split("\n").map(r => r.split(","));
+      ALL_ROWS = parseCSV(text.trim());
       ORIGINAL_ROWS = JSON.parse(JSON.stringify(ALL_ROWS));
       buildMakerOrder();
       renderTable(ALL_ROWS);
       setStatus("");
     });
-
 </script>
 </body>
 </html>
+

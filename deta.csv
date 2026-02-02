@@ -1,259 +1,83 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>メダカ餌 一覧</title>
+餌名	メーカー	分類	粗蛋白	粗脂肪	粗繊維	粗灰分
+育てる栄養フード	GEX	主食	44%	6.5％	4%	15%
+彩姫　成長用	GEX	育成	50%	10%	3.5％	18%
+彩姫　産卵繁殖用	GEX	産卵	50%	8%	3.5％	18%
+彩姫　極上complete	GEX	主食	50%	7%	4%	18%
+プロバイオフードクリア	GEX	主食	46%	6%	4%	15%
+繁殖成長用プロバイオフード	GEX	産卵	48%	6%	4%	15%
+メダカ元気産卵育成フード	GEX	育成	33%	4%	2%	14%
+メダカ元気パウダーフード	GEX	主食	38%	4%	4%	15%
+いつでも食べられるフード	GEX	補助	43%	5%	4%	15%
+メダカの舞ベビー	キョーリン	育成	48%	12%	3%	15%
+メダカの舞ネクスト	キョーリン	育成	48%	12%	3%	15%
+メダカの舞コンプリート	キョーリン	主食	48%	12%	3%	15%
+メダカの舞ブリード	キョーリン	産卵	50%	11%	3%	15%
+メダカの舞メンテナンス	キョーリン	機能	38%	7%	3%	15%
+メダカの舞スーパーオレンジ	キョーリン	機能	48%	12%	3%	15%
+ハイパー育成ベビー	キョーリン	育成	48%	12%	3%	15%
+ハイパー育成稚魚	キョーリン	育成	48%	12%	3%	15%
+ハイパー育成幼魚	キョーリン	育成	48%	12%	3%	15%
+金パケ	キョーリン	産卵	51%	10%	3%	17%
+ハイパー良消化	キョーリン	機能	38%	7%	3%	15%
+ハイパー色揚	キョーリン	機能	48%	12%	3%	15%
+すくすくメダカ	キョーリン	主食	35%	3%	3%	12%
+メダカのエサ	キョーリン	主食	48%	5%	2%	16%
+うきうきフレーク	キョーリン	主食	42%	3%	5%	15%
+ちびっこメダカのエサ	キョーリン	育成	48%	3%	2%	18%
+メダカプロスベビー	キョーリン	育成	46%	7%	3%	13%
+メダカプロス	キョーリン	主食	46%	7%	3%	13%
+メダカプロス産卵繁殖用	キョーリン	産卵	48%	11%	3%	15%
+メダカプロス色揚	キョーリン	機能	46%	7%	3%	13%
+ひかりメダカフレーク	キョーリン	主食	42%	3%	5%	15%
+ひかりベビー&ベビー	キョーリン	育成	48%	3%	2%	18%
+ひかりプランクトン稚魚用フード	キョーリン	育成	48%	3%	2%	18%
+1DAY補給食	キョーリン	補助	38%	5%	3%	12%
+キリミン	テトラ	主食	46%	14%	2%	8%
+キリミンベビー	テトラ	育成	46%	14%	2%	8%
+キリミン繁殖+水キレイ	テトラ	産卵	45%	14%	2%	9%
+キリミン繁殖+カラー	テトラ	産卵	45%	14%	2%	9%
+キリミンカラー	テトラ	機能	46%	11%	2%	7%
+留守番ごはんメダカ用	テトラ	補助	52%	7%	2.5％	10％
+ハイグロウSS	ニチドウ	育成	54%	10%	3%	17%
+ハイグロウS	ニチドウ	育成	54%	10%	3%	17%
+ハイグロウM	ニチドウ	育成	52%	12%	3%	17%
+めだか膳光メダカ用	ニチドウ	主食	53%	10%	4%	18%
+めだか膳繁殖メダカ用	ニチドウ	産卵	53%	10%	4%	18%
+めだか膳極色揚げ用	ニチドウ	機能	53%	10%	4%	18%
+めだか膳粘膜用	ニチドウ	機能	53%	10%	4%	18%
+めだか膳稚魚用	ニチドウ	育成	53％	10％	4%	18％
+メディメダカ針子フード	ニチドウ	育成	60%	10%	6%	15%
+メディメダカ繁殖アップ	ニチドウ	産卵	50%	11%	4%	18%
+特選メダカの餌	スドー	主食	54%	10%	3.3％	17%
+上選メダカの餌	スドー	主食	46%	3.8％	2.7％	16%
+特選メダカの餌あかね	スドー	機能	53%	8%	3%	15%
+特選メダカの餌稚魚用	スドー	育成	49%	11%	3.1％	15%
+メダカの粉餌針子用	スドー	育成	38%	3%	6%	15%
+メダカ針子高タンパク	イトスイ	育成	50%	7%	3%	15%
+コメットメダカのエサ	イトスイ	主食	48%	8%	2.5％	17%
+コメット赤ちゃんのエサ	イトスイ	育成	35%	4%	4%	8%
+赤ちゃんメダカの主食納豆菌	イトスイ	育成	43%	4%	4%	8%
+メダカの主食納豆菌	イトスイ	主食	43%	5%	3%	12%
+稚魚メダカの主食	イトスイ	育成	43%	6%	4%	12%
+針子メダカの主食	イトスイ	育成	43%	6%	4%	12%
+メダカ針子	イトスイ	育成	43%	6%	4%	12%
+メダカ稚魚	イトスイ	育成	43%	6%	4%	12%
+メダカ成魚高タンパク	イトスイ	主食	50%	7%	3%	15%
+針子メダカの主食高タンパク	イトスイ	育成	53%	7%	3%	15%
+産卵繁殖メダカの主食	イトスイ	産卵	50%	7%	3%	15%
+成魚メダカの主食	イトスイ	主食	40%	3%	3%	16%
+幼魚メダカの主食	イトスイ	育成	46%	6%	4%	14%
+究極の餌メダカ用	B-blast	主食	50%	10%	3%	16%
+ENNMA essence	ENNMA	主食	53%	10%	3%	17%
+びんびんclimax	びんびん本舗	主食	54%	10%	3%	17%
+ライズ	日清丸紅	主食	50%	6%	3.5％	18%
+おとひめ	日清丸紅	主食	50%	10%	3%	16%
+あゆ稚魚用	日清丸紅	主食	49%	3%	5%	17%
+ハイジャンプ	林兼産業	主食	46%	5%	1%	18%
+種苗生産用飼料リッチA.B.C	科学飼料研究所	主食	54%	10%	3%	17%
+アンブローズ100/200	フィードワン	主食	53%	8%	3%	15%
+アンブローズ400/600	フィードワン	主食	52%	8%	3%	15%
 
-  <style>
-    body{
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      padding: 20px;
-      margin: 20px;
-    }
 
-    .info-row{
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 10px 0 12px 0;
-    }
-
-    .info-box{
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 8px 10px;
-      background: #fafafa;
-      min-width: 280px;
-      flex: 1 1 320px;
-    }
-
-    .info-box summary{
-      cursor: pointer;
-      font-weight: 600;
-      margin: 2px 0 6px 0;
-    }
-
-    .info-box ul{
-      margin: 6px 0 0 18px;
-      padding: 0;
-    }
-
-    #table-wrap{
-      height: 80vh;
-      overflow: auto;
-      border: 1px solid #ccc;
-      max-width: 950px;
-    }
-
-    #data-table{
-      border-collapse: collapse;
-      table-layout: fixed;
-      width: 100%;
-      font-size: 14px;
-    }
-
-    #data-table th,
-    #data-table td{
-      border: 1px solid #ccc;
-      padding: 6px 8px;
-      text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    #data-table th{
-      background: #f0f0f0;
-      cursor: pointer;
-      position: sticky;
-      top: 0;
-      z-index: 2;
-    }
-
-    #data-table th:hover{
-      background: #e0e0e0;
-    }
-
-    /* 列幅 */
-    #data-table th:nth-child(1),
-    #data-table td:nth-child(1){ width: 230px; }
-
-    #data-table th:nth-child(2),
-    #data-table td:nth-child(2){ width: 105px; }
-
-    #data-table th:nth-child(3),
-    #data-table td:nth-child(3){ width: 55px; }
-
-    #data-table th:nth-child(4),
-    #data-table td:nth-child(4),
-    #data-table th:nth-child(5),
-    #data-table td:nth-child(5),
-    #data-table th:nth-child(6),
-    #data-table td:nth-child(6),
-    #data-table th:nth-child(7),
-    #data-table td:nth-child(7){ width: 55px; }
-
-    #data-table th:nth-child(8),
-    #data-table td:nth-child(8){ width: 150px; }
-
-    /* ===== スマホ対応（←★ここが以前壊れてた原因） ===== */
-    @media (max-width: 768px){
-      #table-wrap{
-        overflow: auto;
-      }
-
-      #data-table th:nth-child(1),
-      #data-table td:nth-child(1){
-        position: sticky;
-        left: 0;
-        background: #fff;
-        z-index: 3;
-      }
-
-      #data-table th{
-        z-index: 4;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<h1>
-  メダカ餌 一覧
-  <span id="sortStatus" style="font-size:12px; margin-left:12px; color:#666;"></span>
-</h1>
-
-<div class="info-row">
-  <details open class="info-box">
-    <summary>この一覧の使い方</summary>
-    <ul>
-      <li>各成分をクリックすると並び替えできます</li>
-      <li>ソート後、餌名またはメーカーをクリックすると初期配置に戻ります</li>
-      <li>※ 数値は目安です。詳細は各公式情報をご確認ください</li>
-    </ul>
-  </details>
-
-  <details class="info-box">
-    <summary>餌の用途分類について</summary>
-    <ul>
-      <li><strong>主食</strong>：日常のローテーションの軸</li>
-      <li><strong>育成</strong>：稚魚〜成長期向け</li>
-      <li><strong>産卵</strong>：繁殖期のコンディション用</li>
-      <li><strong>機能特化</strong>：色揚げ・消化など</li>
-      <li><strong>補助</strong>：留守時など</li>
-    </ul>
-  </details>
-</div>
-
-<div id="table-wrap">
-  <table id="data-table"></table>
-</div>
-
-<script>
-const CSV_URL = "deta.csv";
-
-let ALL_ROWS = [];
-let ORIGINAL_ROWS = null;
-let MAKER_ORDER = new Map();
-let SORT_STATE = { col: -1, step: 0 };
-
-function toNum(v){
-  if (v == null) return NaN;
-  const s = String(v).replace(/[%\s]/g, "");
-  const n = parseFloat(s);
-  return Number.isFinite(n) ? n : NaN;
-}
-
-function setStatus(text){
-  const el = document.getElementById("sortStatus");
-  if (el) el.textContent = text;
-}
-
-function renderTable(rows){
-  const table = document.getElementById("data-table");
-  table.innerHTML = "";
-
-  rows.forEach((row, i)=>{
-    const tr = document.createElement("tr");
-
-    row.forEach((cell, j)=>{
-      const el = document.createElement(i === 0 ? "th" : "td");
-
-      if (j === 0 && i > 0){
-        el.textContent = cell;
-        el.style.color = "#007aff";
-      } else {
-        el.textContent = cell;
-      }
-
-      if (i === 0){
-        el.onclick = ()=>sortTable(j);
-      }
-
-      tr.appendChild(el);
-    });
-
-    table.appendChild(tr);
-  });
-}
-
-function resetToOriginal(){
-  ALL_ROWS = JSON.parse(JSON.stringify(ORIGINAL_ROWS));
-  SORT_STATE = { col: -1, step: 0 };
-  renderTable(ALL_ROWS);
-  setStatus("");
-}
-
-function buildMakerOrder(){
-  MAKER_ORDER.clear();
-  for (let i=1;i<ORIGINAL_ROWS.length;i++){
-    const m = ORIGINAL_ROWS[i][1] ?? "";
-    if (!MAKER_ORDER.has(m)) MAKER_ORDER.set(m, MAKER_ORDER.size);
-  }
-}
-
-function sortTable(col){
-  if (col === 0 || col === 1){
-    resetToOriginal();
-    return;
-  }
-
-  if (SORT_STATE.col !== col){
-    SORT_STATE.col = col;
-    SORT_STATE.step = 0;
-  } else {
-    SORT_STATE.step = (SORT_STATE.step + 1) % 2;
-  }
-
-  const desc = SORT_STATE.step === 0;
-  const header = ALL_ROWS[0];
-  const body = ALL_ROWS.slice(1);
-
-  body.sort((a,b)=>{
-    const na = toNum(a[col]);
-    const nb = toNum(b[col]);
-    if (!Number.isFinite(na)) return 1;
-    if (!Number.isFinite(nb)) return -1;
-    return desc ? nb - na : na - nb;
-  });
-
-  ALL_ROWS = [header, ...body];
-  renderTable(ALL_ROWS);
-  setStatus(`ソート：${header[col]} / ${desc ? "高い順" : "低い順"}`);
-}
-
-fetch(CSV_URL)
-  .then(res=>res.text())
-  .then(text=>{
-    ALL_ROWS = text.trim().split("\n").map(r=>r.split(","));
-    ORIGINAL_ROWS = JSON.parse(JSON.stringify(ALL_ROWS));
-    buildMakerOrder();
-    renderTable(ALL_ROWS);
-  });
-</script>
-
-</body>
-</html>
 
 

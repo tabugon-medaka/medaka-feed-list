@@ -10,7 +10,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                    "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       margin: 16px;
-      text-align: center; /* ★ ページ全体センター */
+      text-align: center; /* ページ全体センター */
     }
 
     h1{
@@ -21,14 +21,13 @@
     /* ===== 説明ブロック中央寄せ ===== */
     .info-wrap{
       display: flex;
-      justify-content: center;   /* ★ 横センター */
+      justify-content: center;
       gap: 12px;
       align-items: stretch;
       margin: 12px auto;
       max-width: 900px;
     }
 
-    /* ===== details box ===== */
     :root{ --infoBoxH: 120px; }
 
     details.info-box{
@@ -38,7 +37,7 @@
       background: #fafafa;
       overflow: auto;
       box-sizing: border-box;
-      text-align: left; /* ★ 中身は読みやすく左 */
+      text-align: left; /* 中身は読みやすく左 */
     }
 
     details.info-box > summary{
@@ -50,6 +49,10 @@
       border-bottom: 1px solid #ddd;
       list-style: none;
       text-align: center;
+    }
+
+    details.info-box > summary::-webkit-details-marker{
+      margin-right: 6px;
     }
 
     .info-body{
@@ -66,8 +69,10 @@
       border: 1px solid #ddd;
       background: #fafafa;
       font-size: 13px;
-      max-width: 420px;
+      max-width: 520px;
       text-align: center;
+      white-space: normal;
+      word-break: break-word;
     }
 
     /* ===== テーブル ===== */
@@ -75,7 +80,7 @@
       border-collapse: collapse;
       width: 100%;
       max-width: 1100px;
-      margin: 0 auto;            /* ★ テーブル中央 */
+      margin: 0 auto;
       font-size: 14px;
     }
 
@@ -83,7 +88,7 @@
       border: 1px solid #ccc;
       padding: 6px 8px;
       white-space: nowrap;
-      text-align: center;        /* ★ 全セルセンター */
+      text-align: center; /* 全セルセンター */
     }
 
     th{
@@ -102,7 +107,7 @@
       background-color: #ffd1e3;
     }
     td.active-col{
-      background-color: #ffe1ee !important;
+      background-color: #ffe1ee !important; /* 縞より優先 */
     }
 
     /* ===== スマホ ===== */
@@ -160,9 +165,316 @@
   <tbody id="table-body"></tbody>
 </table>
 
-<!-- ★ JSはあなたの提示したものを完全保持（省略せずそのまま） -->
 <script>
-/* ここにあなたの既存JS全文をそのまま置く（変更不要） */
+/* =========================
+   重要：CSVの場所
+   =========================
+   - GitHub Pages上の deta.csv を読む前提
+   - キャッシュ事故を避けるため no-store + クエリ付与
+*/
+const CSV_PATH = "https://tabugon-medaka.github.io/medaka-feed-list/deta.csv";
+
+/* ===== 基本ユーティリティ ===== */
+function toNumber(v) {
+  if (v === null || v === undefined) return "";
+  const s = String(v).trim();
+  if (s === "") return "";
+  const n = Number(s);
+  return Number.isNaN(n) ? "" : n;
+}
+function formatPercent(v) {
+  if (v === null || v === undefined || v === "") return "";
+  const n = Number(v);
+  if (Number.isNaN(n)) return "";
+  return n.toString() + "%";
+}
+
+/* ===== CSVパーサ（安全寄り：引用符対応） =====
+   - カンマ区切り
+   - "..." 内のカンマは区切らない
+   - "" は " として扱う
+*/
+function parseCSVLine(line) {
+  const out = [];
+  let cur = "";
+  let inQ = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+
+    if (ch === '"') {
+      if (inQ && line[i + 1] === '"') {
+        cur += '"';
+        i++;
+      } else {
+        inQ = !inQ;
+      }
+      continue;
+    }
+
+    if (ch === "," && !inQ) {
+      out.push(cur.trim());
+      cur = "";
+      continue;
+    }
+
+    cur += ch;
+  }
+
+  out.push(cur.trim());
+  return out;
+}
+
+async function loadCSV(path) {
+  const cacheBuster = `t=${Date.now()}`;
+  const url = path.includes("?") ? `${path}&${cacheBuster}` : `${path}?${cacheBuster}`;
+
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error("CSVが読み込めません: HTTP " + res.status);
+
+  const text = await res.text();
+
+  const lines = text
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .split("\n")
+    .filter(l => l.trim() !== "");
+
+  if (lines.length === 0) throw new Error("CSVが空です");
+
+  const header = parseCSVLine(lines[0]);
+  const need = ["餌名","メーカー","分類","粗蛋白","粗脂肪","粗繊維","粗灰分"];
+
+  // ヘッダ健全性チェック（必須列が無いとクラッシュ要因）
+  for (const k of need) {
+    if (!header.includes(k)) {
+      throw new Error("CSVヘッダに必須列がありません: " + k);
+    }
+  }
+
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseCSVLine(lines[i]);
+
+    // 列数不足は空で埋める（落とさない）
+    const row = {};
+    header.forEach((h, idx) => {
+      row[h] = (cols[idx] ?? "");
+    });
+
+    row["粗蛋白"] = toNumber(row["粗蛋白"]);
+    row["粗脂肪"] = toNumber(row["粗脂肪"]);
+    row["粗繊維"] = toNumber(row["粗繊維"]);
+    row["粗灰分"] = toNumber(row["粗灰分"]);
+
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+/* ===== 描画 ===== */
+function renderTable(rows) {
+  const tbody = document.getElementById("table-body");
+  tbody.innerHTML = "";
+
+  for (const row of rows) {
+    const tr = document.createElement("tr");
+
+    const cells = [
+      row["餌名"], row["メーカー"], row["分類"],
+      formatPercent(row["粗蛋白"]),
+      formatPercent(row["粗脂肪"]),
+      formatPercent(row["粗繊維"]),
+      formatPercent(row["粗灰分"])
+    ];
+
+    for (const v of cells) {
+      const td = document.createElement("td");
+      td.textContent = (v ?? "").toString();
+      tr.appendChild(td);
+    }
+
+    tbody.appendChild(tr);
+  }
+}
+
+/* ===== 分類ソート（3回＋初期） ===== */
+const CATEGORY_CYCLES = [
+  ["主食","産卵","育成","機能","補助"], // 1回目
+  ["産卵","育成","機能","補助","主食"], // 2回目
+  ["育成","機能","補助","主食","産卵"]  // 3回目
+];
+function categoryRank(name, step) {
+  const order = CATEGORY_CYCLES[step - 1];
+  const idx = order.indexOf(String(name ?? ""));
+  return idx === -1 ? 999 : idx;
+}
+
+/* ===== 成分ソート用：分類まとまり（固定） ===== */
+const CATEGORY_ORDER_FOR_GROUP = ["主食","産卵","育成","機能","補助"];
+function categoryRankForGroup(name) {
+  const idx = CATEGORY_ORDER_FOR_GROUP.indexOf(String(name ?? ""));
+  return idx === -1 ? 999 : idx;
+}
+
+/* ===== ソート基盤 ===== */
+let ORIGINAL_ROWS = [];
+let VIEW_ROWS = [];
+let ORIGINAL_INDEX = new Map();
+const SORT_STATE = { key: null, step: 0, type: null };
+
+function updateSortStatus() {
+  const el = document.getElementById("sort-status");
+
+  if (!SORT_STATE.key || SORT_STATE.step === 0) {
+    el.textContent = "現在：初期（未ソート）";
+    return;
+  }
+
+  if (SORT_STATE.type === "cat") {
+    const stepLabel = (SORT_STATE.step === 1) ? "（1回目）"
+                    : (SORT_STATE.step === 2) ? "（2回目）"
+                    : (SORT_STATE.step === 3) ? "（3回目）" : "";
+    el.textContent = "現在：分類 " + stepLabel;
+    return;
+  }
+
+  if (SORT_STATE.type === "num") {
+    if (SORT_STATE.step === 1) el.textContent = `現在：${SORT_STATE.key} / 高い順`;
+    else if (SORT_STATE.step === 2) el.textContent = `現在：${SORT_STATE.key} / 低い順`;
+    else if (SORT_STATE.step === 3) el.textContent = `現在：${SORT_STATE.key} / メーカー別 / 高い順`;
+    else if (SORT_STATE.step === 4) el.textContent = `現在：${SORT_STATE.key} / 分類別 / 高い順`;
+    return;
+  }
+}
+
+/* ===== 列ハイライト ===== */
+function clearColumnHighlight() {
+  document.querySelectorAll("th[data-key]").forEach(th => th.classList.remove("active-sort"));
+  document.querySelectorAll("#table-body td").forEach(td => td.classList.remove("active-col"));
+}
+function updateColumnHighlight() {
+  clearColumnHighlight();
+
+  if (!SORT_STATE.key || SORT_STATE.step === 0) return;
+
+  const th = document.querySelector(`th[data-key="${CSS.escape(SORT_STATE.key)}"]`);
+  if (!th) return;
+
+  th.classList.add("active-sort");
+
+  const colIndex = Array.from(th.parentElement.children).indexOf(th);
+  document.querySelectorAll("#table-body tr").forEach(tr => {
+    const td = tr.children[colIndex];
+    if (td) td.classList.add("active-col");
+  });
+}
+
+function resetToOriginal() {
+  VIEW_ROWS = ORIGINAL_ROWS.slice();
+  SORT_STATE.key = null;
+  SORT_STATE.step = 0;
+  SORT_STATE.type = null;
+  renderTable(VIEW_ROWS);
+  updateSortStatus();
+  updateColumnHighlight();
+}
+
+function cmpNum(a, b, key) {
+  const av = (a[key] === "" ? -Infinity : Number(a[key]));
+  const bv = (b[key] === "" ? -Infinity : Number(b[key]));
+  return av - bv;
+}
+function cmpMaker(a, b) {
+  const av = (a["メーカー"] ?? "").toString();
+  const bv = (b["メーカー"] ?? "").toString();
+  if (av === "" && bv === "") return 0;
+  if (av === "") return 1;
+  if (bv === "") return -1;
+  return av.localeCompare(bv, "ja");
+}
+
+function sortByKey(key, type) {
+  if (type === "reset") {
+    resetToOriginal();
+    return;
+  }
+
+  if (SORT_STATE.key === key) {
+    if (type === "cat") SORT_STATE.step = (SORT_STATE.step + 1) % 4;      // 0→1→2→3→0
+    else if (type === "num") SORT_STATE.step = (SORT_STATE.step + 1) % 5; // 0→1→2→3→4→0
+  } else {
+    SORT_STATE.key = key;
+    SORT_STATE.type = type;
+    SORT_STATE.step = 1;
+  }
+
+  if (SORT_STATE.step === 0) {
+    resetToOriginal();
+    return;
+  }
+
+  const rows = ORIGINAL_ROWS.slice();
+
+  rows.sort((a, b) => {
+    let c = 0;
+
+    if (type === "cat") {
+      c = categoryRank(a["分類"], SORT_STATE.step) - categoryRank(b["分類"], SORT_STATE.step);
+    } else if (type === "num") {
+      if (SORT_STATE.step === 1) {
+        c = -cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 2) {
+        c =  cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 3) {
+        c = cmpMaker(a, b);
+        if (c === 0) c = -cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 4) {
+        c = categoryRankForGroup(a["分類"]) - categoryRankForGroup(b["分類"]);
+        if (c === 0) c = -cmpNum(a, b, key);
+      }
+    }
+
+    if (c === 0) return (ORIGINAL_INDEX.get(a) ?? 0) - (ORIGINAL_INDEX.get(b) ?? 0);
+    return c;
+  });
+
+  VIEW_ROWS = rows;
+  renderTable(VIEW_ROWS);
+  updateSortStatus();
+  updateColumnHighlight();
+}
+
+function bindHeaderSort() {
+  document.querySelectorAll("th[data-key]").forEach(th => {
+    th.addEventListener("click", () => {
+      sortByKey(th.getAttribute("data-key"), th.getAttribute("data-type"));
+    });
+  });
+}
+
+/* ===== 初期化 ===== */
+(async () => {
+  const status = document.getElementById("sort-status");
+  try {
+    ORIGINAL_ROWS = await loadCSV(CSV_PATH);
+
+    ORIGINAL_INDEX = new Map();
+    ORIGINAL_ROWS.forEach((r, i) => ORIGINAL_INDEX.set(r, i));
+
+    VIEW_ROWS = ORIGINAL_ROWS.slice();
+    renderTable(VIEW_ROWS);
+
+    bindHeaderSort();
+    updateSortStatus();
+    updateColumnHighlight();
+
+  } catch (e) {
+    console.error(e);
+    status.textContent = "現在：CSVの読み込みに失敗（" + (e && e.message ? e.message : "不明なエラー") + "）";
+  }
+})();
 </script>
 
 </body>

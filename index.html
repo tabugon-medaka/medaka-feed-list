@@ -53,17 +53,46 @@
       color: #333;
     }
 
-    /* ===== ソート状況表示：中央 ===== */
+    /* ===== ソート状況：左右2枠（左=タイトル / 右=状況） ===== */
     #sort-status{
       margin: 12px auto;
-      padding: 8px 10px;
       border: 1px solid #ddd;
       background: #fafafa;
       font-size: 13px;
       max-width: 520px;
-      text-align: center;
+
+      display: flex;
+      align-items: stretch;      /* 高さを揃える */
+      height: 42px;              /* ★高さ固定（必要ならここだけ調整） */
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* 左：タイトル（文字数に合わせて幅が決まる） */
+    #sort-title{
+      padding: 8px 12px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-right: 1px solid #ddd;  /* ★左右の境界線 */
+      box-sizing: border-box;
+    }
+
+    /* 右：現在のソート状況（枠内センター） */
+    #sort-text{
+      flex: 1 1 auto;
+      padding: 8px 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;   /* ★右枠内センター */
+
       white-space: normal;
       word-break: break-word;
+      text-align: center;
+      box-sizing: border-box;
     }
 
     /* ===== テーブル ===== */
@@ -110,6 +139,9 @@
       .info-box{
         width: 100%;
       }
+      #sort-status{
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -140,7 +172,11 @@
   </div>
 </div>
 
-<div id="sort-status">現在：初期（未ソート）</div>
+<!-- ===== ソート状況（左右2枠） ===== -->
+<div id="sort-status" aria-label="ソート状況">
+  <div id="sort-title">ソート状況</div>
+  <div id="sort-text">初期（未ソート）</div>
+</div>
 
 <table id="data-table">
   <thead>
@@ -311,10 +347,11 @@ let ORIGINAL_INDEX = new Map();
 const SORT_STATE = { key: null, step: 0, type: null };
 
 function updateSortStatus() {
-  const el = document.getElementById("sort-status");
+  const el = document.getElementById("sort-text");
+  if (!el) return;
 
   if (!SORT_STATE.key || SORT_STATE.step === 0) {
-    el.textContent = "現在：初期（未ソート）";
+    el.textContent = "初期（未ソート）";
     return;
   }
 
@@ -322,17 +359,19 @@ function updateSortStatus() {
     const stepLabel = (SORT_STATE.step === 1) ? "（1回目）"
                     : (SORT_STATE.step === 2) ? "（2回目）"
                     : (SORT_STATE.step === 3) ? "（3回目）" : "";
-    el.textContent = "現在：分類 " + stepLabel;
+    el.textContent = "分類 " + stepLabel;
     return;
   }
 
   if (SORT_STATE.type === "num") {
-    if (SORT_STATE.step === 1) el.textContent = `現在：${SORT_STATE.key} / 高い順`;
-    else if (SORT_STATE.step === 2) el.textContent = `現在：${SORT_STATE.key} / 低い順`;
-    else if (SORT_STATE.step === 3) el.textContent = `現在：${SORT_STATE.key} / メーカー別 / 高い順`;
-    else if (SORT_STATE.step === 4) el.textContent = `現在：${SORT_STATE.key} / 分類別 / 高い順`;
+    if (SORT_STATE.step === 1) el.textContent = `${SORT_STATE.key} / 高い順`;
+    else if (SORT_STATE.step === 2) el.textContent = `${SORT_STATE.key} / 低い順`;
+    else if (SORT_STATE.step === 3) el.textContent = `${SORT_STATE.key} / メーカー別 / 高い順`;
+    else if (SORT_STATE.step === 4) el.textContent = `${SORT_STATE.key} / 分類別 / 高い順`;
     return;
   }
+
+  el.textContent = "初期（未ソート）";
 }
 
 /* ===== 列ハイライト ===== */
@@ -442,7 +481,7 @@ function bindHeaderSort() {
 
 /* ===== 初期化 ===== */
 (async () => {
-  const status = document.getElementById("sort-status");
+  const right = document.getElementById("sort-text");
   try {
     ORIGINAL_ROWS = await loadCSV(CSV_PATH);
 
@@ -458,7 +497,9 @@ function bindHeaderSort() {
 
   } catch (e) {
     console.error(e);
-    status.textContent = "現在：CSVの読み込みに失敗（" + (e && e.message ? e.message : "不明なエラー") + "）";
+    if (right) {
+      right.textContent = "CSV読み込み失敗（" + (e && e.message ? e.message : "不明") + "）";
+    }
   }
 })();
 </script>

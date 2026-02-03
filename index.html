@@ -25,12 +25,35 @@
       font-size: 13px;
     }
 
+    /* ===== ② 行の縞模様（CSSのみ）===== */
+    #table-body tr:nth-child(even) td{
+      background: #fafafa; /* うっすら薄グレー */
+    }
+
+    /* ===== ④ 数値列の右寄せ（CSSのみ）===== */
+    /* 4〜7列目（粗蛋白/粗脂肪/粗繊維/粗灰分）を右寄せ */
+    #data-table th:nth-child(4),
+    #data-table th:nth-child(5),
+    #data-table th:nth-child(6),
+    #data-table th:nth-child(7),
+    #data-table td:nth-child(4),
+    #data-table td:nth-child(5),
+    #data-table td:nth-child(6),
+    #data-table td:nth-child(7){
+      text-align: right;
+    }
+
     /* ===== 列ハイライト（ソート列だけピンク） ===== */
     th.active-sort {
       background-color: #ffd1e3;
     }
     td.active-col {
       background-color: #ffe1ee;
+    }
+
+    /* ②の縞模様より、ハイライトを必ず優先 */
+    #table-body td.active-col{
+      background-color: #ffe1ee !important;
     }
 
     /* ===== 説明欄（details）固定サイズ：2枠を完全一致・色は薄グレー ===== */

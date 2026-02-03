@@ -28,29 +28,26 @@
       max-width: 900px;
     }
 
-    :root{ --infoBoxH: 120px; }
-
-    /* ===== 常設ボックス（details廃止） ===== */
+    /* ===== 常設ボックス（スクロール無し） ===== */
     .info-box{
       width: 360px;
-      height: var(--infoBoxH);
       border: 1px solid #ddd;
       background: #fafafa;
-      overflow: auto;       /* 枠内スクロール */
       box-sizing: border-box;
-      text-align: left;     /* 中身は読みやすく左 */
+      padding: 10px 12px;
+      text-align: center;     /* 枠内センター寄せ（継続） */
     }
 
-    .info-head{
-      padding: 10px 12px;
-      font-weight: 700;
-      background: #f2f2f2;
-      border-bottom: 1px solid #ddd;
-      text-align: center;   /* 見出しはセンター */
+    /* タイトル：本文と同サイズ（大きくしない） */
+    .info-title{
+      font-size: 13px;        /* 本文と同じ */
+      font-weight: 700;       /* 太字はOK（必要なら 400 に） */
+      line-height: 1.6;
+      margin: 0;
     }
 
     .info-body{
-      padding: 10px 12px;
+      margin-top: 10px;       /* 1行空け相当（視認性） */
       font-size: 13px;
       line-height: 1.6;
       color: #333;
@@ -121,10 +118,10 @@
 
 <h1>メダカの餌一覧</h1>
 
-<!-- ===== 常設説明（折りたたみ無し） ===== -->
+<!-- ===== 常設説明（折りたたみ無し・枠内スクロール無し） ===== -->
 <div class="info-wrap">
   <div class="info-box">
-    <div class="info-head">使い方</div>
+    <div class="info-title">使い方</div>
     <div class="info-body">
       この表は、列の見出しを押すと項目ごとに並び替えができます。<br>
       ※数値はメーカー発表を参考にしています。公式情報もあわせてご確認ください。
@@ -132,7 +129,7 @@
   </div>
 
   <div class="info-box">
-    <div class="info-head">分類について</div>
+    <div class="info-title">分類について</div>
     <div class="info-body">
       ・主食：日常的に与える餌<br>
       ・産卵：産卵・繁殖向け<br>

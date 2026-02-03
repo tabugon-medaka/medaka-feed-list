@@ -1,250 +1,348 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>メダカの餌 一覧</title>
-
+  <meta charset="UTF-8" />
+  <title>メダカの餌一覧</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body{
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      padding: 20px;
-      margin: 20px;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      margin: 16px;
     }
 
-    /* 説明ブロック：上下に並べる */
-    .info-col{
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 10px 0 12px 0;
-      max-width: 950px;
-    }
+    h1 { margin: 0 0 10px; }
 
-    .info-box{
-      border: 1px solid #ddd;
-      border-radius: 8px;
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    th, td { border: 1px solid #ccc; padding: 6px 8px; white-space: nowrap; text-align: left; }
+    th { background-color: #f2f2f2; cursor: pointer; user-select: none; }
+
+    #sort-status {
+      margin: 10px 0 12px;
       padding: 8px 10px;
+      border: 1px solid #ddd;
       background: #fafafa;
+      font-size: 13px;
     }
 
-    .info-box summary{
+    /* ===== 列ハイライト（ソート列だけピンク） ===== */
+    th.active-sort {
+      background-color: #ffd1e3; /* 見出し：薄ピンク（はっきり） */
+    }
+    td.active-col {
+      background-color: #ffe1ee; /* セル：見出しより少し淡いピンク */
+    }
+
+    /* ===== 説明欄（details）固定サイズ：2枠を完全一致・色は薄グレー ===== */
+    :root{
+      --infoBoxH: 120px;   /* ←枠の高さ（必要ならここだけ調整） */
+    }
+
+    .info-wrap{
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+      margin: 8px 0 10px;
+    }
+
+    /* 2つの枠は常に同じサイズ（開閉に依存しない） */
+    details.info-box{
+      flex: 0 0 auto;
+      width: 360px;                 /* 横並び時の幅（必要なら調整） */
+      height: var(--infoBoxH);      /* ←固定 */
+      border: 1px solid #ddd;
+      background: #fafafa;          /* デフォルト薄グレー */
+      overflow: auto;               /* 文章が長い場合は枠内スクロール */
+      box-sizing: border-box;
+    }
+
+    /* 見出し行（summary） */
+    details.info-box > summary{
       cursor: pointer;
-      font-weight: 600;
-      margin: 2px 0 6px 0;
+      user-select: none;
+      padding: 10px 12px;
+      font-weight: 700;
+      background: #f2f2f2;          /* 見出しも薄グレー */
+      border-bottom: 1px solid #ddd;
+      list-style: none;
     }
 
-    .info-box ul{
-      margin: 6px 0 0 18px;
-      padding: 0;
+    details.info-box > summary::-webkit-details-marker{
+      margin-right: 6px;
     }
 
-    #table-wrap{
-      height: 80vh;
-      overflow: auto;
-      border: 1px solid #ccc;
-      max-width: 950px;
+    /* 中身 */
+    .info-body{
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
     }
 
-    #data-table{
-      border-collapse: collapse;
-      table-layout: fixed;
-      width: 100%;
-      font-size: 14px;
-    }
-
-    #data-table th,
-    #data-table td{
-      border: 1px solid #ccc;
-      padding: 6px 8px;
-      text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    #data-table th{
-      background: #f0f0f0;
-      cursor: pointer;
-      position: sticky;
-      top: 0;
-      z-index: 2;
-    }
-
-    #data-table th:hover{
-      background: #e0e0e0;
-    }
-
-    /* 列幅 */
-    #data-table th:nth-child(1),
-    #data-table td:nth-child(1){ width: 230px; }
-
-    #data-table th:nth-child(2),
-    #data-table td:nth-child(2){ width: 105px; }
-
-    #data-table th:nth-child(3),
-    #data-table td:nth-child(3){ width: 55px; }
-
-    #data-table th:nth-child(4),
-    #data-table td:nth-child(4),
-    #data-table th:nth-child(5),
-    #data-table td:nth-child(5),
-    #data-table th:nth-child(6),
-    #data-table td:nth-child(6),
-    #data-table th:nth-child(7),
-    #data-table td:nth-child(7){ width: 55px; }
-
-    #data-table th:nth-child(8),
-    #data-table td:nth-child(8){ width: 150px; }
-
-    /* スマホ対応 */
-    @media (max-width: 768px){
-      #table-wrap{
-        overflow: auto;
-      }
-
-      #data-table th:nth-child(1),
-      #data-table td:nth-child(1){
-        position: sticky;
-        left: 0;
-        background: #fff;
-        z-index: 3;
-      }
-
-      #data-table th{
-        z-index: 4;
-      }
+    /* 画面が狭い時は縦並び（スマホ想定） */
+    @media (max-width: 820px){
+      .info-wrap{ flex-direction: column; }
+      details.info-box{ width: 100%; }
     }
   </style>
 </head>
-
 <body>
 
-<h1>
-  メダカの餌一覧
-  <span id="sortStatus" style="font-size:12px; margin-left:12px; color:#666;"></span>
-</h1>
+<h1>メダカの餌一覧</h1>
 
-<div class="info-col">
-  <!-- ★最初は折りたたみ：open を付けない -->
+<!-- ===== 説明欄（2枠・固定サイズ） ===== -->
+<div class="info-wrap">
   <details class="info-box">
-    <summary>この一覧の使い方</summary>
-    <ul>
-      <li>各成分をクリックすると並び替えできます</li>
-      <li>ソート後、餌名またはメーカーをクリックすると初期配置に戻ります</li>
-      <li>※ 数値は目安です。詳細は各公式情報をご確認ください</li>
-    </ul>
+    <summary>使い方（開く）</summary>
+    <div class="info-body">
+      この表は、列の見出しを押すと項目ごとに並び替えができます。<br>
+      ※この表の数値は、メーカー発表を参考にしています。「メーカー公式の表示もあわせてご確認ください」
+    </div>
   </details>
 
   <details class="info-box">
-    <summary>餌の用途分類について</summary>
-    <ul>
-      <li><strong>主食</strong>：日常のローテーションの軸</li>
-      <li><strong>育成</strong>：稚魚〜成長期向け</li>
-      <li><strong>産卵</strong>：繁殖期のコンディション用</li>
-      <li><strong>機能特化</strong>：色揚げ・消化など</li>
-      <li><strong>補助</strong>：留守時など</li>
-    </ul>
+    <summary>分類について（開く）</summary>
+    <div class="info-body">
+      ・基本となる餌：日常的に与えることを想定した餌<br>
+      ・産卵：産卵・繁殖を目的として分類されている餌<br>
+      ・育成：針子〜稚魚など、成長段階に合わせて使う餌<br>
+      ・機能：色揚げ・消化・メンテナンスなど、特定の目的に合わせて使う餌<br>
+      ・補助：補助的な用途を想定した餌
+    </div>
   </details>
 </div>
 
-<div id="table-wrap">
-  <table id="data-table"></table>
-</div>
+<div id="sort-status">現在：初期（未ソート）</div>
+
+<table id="data-table">
+  <thead>
+    <tr>
+      <th data-key="餌名" data-type="reset">餌名</th>
+      <th data-key="メーカー" data-type="reset">メーカー</th>
+      <th data-key="分類" data-type="cat">分類</th>
+      <th data-key="粗蛋白" data-type="num">粗蛋白</th>
+      <th data-key="粗脂肪" data-type="num">粗脂肪</th>
+      <th data-key="粗繊維" data-type="num">粗繊維</th>
+      <th data-key="粗灰分" data-type="num">粗灰分</th>
+    </tr>
+  </thead>
+  <tbody id="table-body"></tbody>
+</table>
 
 <script>
-const CSV_URL = "deta.csv";
+const CSV_PATH = "./feed.csv";
 
-let ALL_ROWS = [];
-let ORIGINAL_ROWS = null;
-let SORT_STATE = { col: -1, step: 0 };
-
-function toNum(v){
-  if (v == null) return NaN;
-  const s = String(v).replace(/[%\s]/g, "");
-  const n = parseFloat(s);
-  return Number.isFinite(n) ? n : NaN;
+/* ===== 基本ユーティリティ ===== */
+function toNumber(v) {
+  if (v === null || v === undefined) return "";
+  const s = String(v).trim();
+  if (s === "") return "";
+  const n = Number(s);
+  return Number.isNaN(n) ? "" : n;
+}
+function formatPercent(v) {
+  if (v === null || v === undefined || v === "") return "";
+  const n = Number(v);
+  if (Number.isNaN(n)) return "";
+  return n.toString() + "%";
+}
+function parseCSVLine(line) {
+  return line.split(",").map(x => x.trim());
 }
 
-function setStatus(text){
-  const el = document.getElementById("sortStatus");
-  if (el) el.textContent = text;
+async function loadCSV(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error("CSVが読み込めません: " + res.status);
+  const text = await res.text();
+  const lines = text.replace(/\r\n/g,"\n").replace(/\r/g,"\n")
+                    .split("\n").filter(l => l.trim() !== "");
+  const header = parseCSVLine(lines[0]);
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseCSVLine(lines[i]);
+    const row = {};
+    header.forEach((h, idx) => row[h] = (cols[idx] ?? ""));
+    row["粗蛋白"] = toNumber(row["粗蛋白"]);
+    row["粗脂肪"] = toNumber(row["粗脂肪"]);
+    row["粗繊維"] = toNumber(row["粗繊維"]);
+    row["粗灰分"] = toNumber(row["粗灰分"]);
+    rows.push(row);
+  }
+  return rows;
 }
 
-function renderTable(rows){
-  const table = document.getElementById("data-table");
-  table.innerHTML = "";
-
-  rows.forEach((row, i)=>{
+/* ===== 描画 ===== */
+function renderTable(rows) {
+  const tbody = document.getElementById("table-body");
+  tbody.innerHTML = "";
+  for (const row of rows) {
     const tr = document.createElement("tr");
-
-    row.forEach((cell, j)=>{
-      const el = document.createElement(i === 0 ? "th" : "td");
-
-      if (j === 0 && i > 0){
-        el.textContent = cell;
-        el.style.color = "#007aff";
-      } else {
-        el.textContent = cell;
-      }
-
-      if (i === 0){
-        el.onclick = ()=>sortTable(j);
-      }
-
-      tr.appendChild(el);
-    });
-
-    table.appendChild(tr);
-  });
+    const cells = [
+      row["餌名"], row["メーカー"], row["分類"],
+      formatPercent(row["粗蛋白"]),
+      formatPercent(row["粗脂肪"]),
+      formatPercent(row["粗繊維"]),
+      formatPercent(row["粗灰分"]),
+    ];
+    for (const v of cells) {
+      const td = document.createElement("td");
+      td.textContent = (v ?? "").toString();
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
 }
 
-function resetToOriginal(){
-  ALL_ROWS = JSON.parse(JSON.stringify(ORIGINAL_ROWS));
-  SORT_STATE = { col: -1, step: 0 };
-  renderTable(ALL_ROWS);
-  setStatus("");
+/* ===== 分類ソート（3回＋初期） ===== */
+const CATEGORY_CYCLES = [
+  ["主食","産卵","育成","機能","補助"], // 1回目
+  ["産卵","育成","機能","補助","主食"], // 2回目
+  ["育成","機能","補助","主食","産卵"]  // 3回目
+];
+function categoryRank(name, step) {
+  const order = CATEGORY_CYCLES[step - 1];
+  const idx = order.indexOf(String(name ?? ""));
+  return idx === -1 ? 999 : idx;
 }
 
-function sortTable(col){
-  if (col === 0 || col === 1){
-    resetToOriginal();
+/* ===== 成分ソート用：分類まとまり（固定） ===== */
+const CATEGORY_ORDER_FOR_GROUP = ["主食","産卵","育成","機能","補助"];
+function categoryRankForGroup(name) {
+  const idx = CATEGORY_ORDER_FOR_GROUP.indexOf(String(name ?? ""));
+  return idx === -1 ? 999 : idx;
+}
+
+/* ===== ソート基盤 ===== */
+let ORIGINAL_ROWS = [], VIEW_ROWS = [], ORIGINAL_INDEX = new Map();
+const SORT_STATE = { key: null, step: 0, type: null };
+
+function updateSortStatus() {
+  const el = document.getElementById("sort-status");
+  if (!SORT_STATE.key || SORT_STATE.step === 0) {
+    el.textContent = "現在：初期（未ソート）";
     return;
   }
-
-  if (SORT_STATE.col !== col){
-    SORT_STATE.col = col;
-    SORT_STATE.step = 0;
-  } else {
-    SORT_STATE.step = (SORT_STATE.step + 1) % 2;
+  if (SORT_STATE.type === "cat") {
+    el.textContent = "現在：分類";
+    return;
   }
-
-  const desc = SORT_STATE.step === 0;
-  const header = ALL_ROWS[0];
-  const body = ALL_ROWS.slice(1);
-
-  body.sort((a,b)=>{
-    const na = toNum(a[col]);
-    const nb = toNum(b[col]);
-    if (!Number.isFinite(na)) return 1;
-    if (!Number.isFinite(nb)) return -1;
-    return desc ? nb - na : na - nb;
-  });
-
-  ALL_ROWS = [header, ...body];
-  renderTable(ALL_ROWS);
-  setStatus(`ソート：${header[col]} / ${desc ? "高い順" : "低い順"}`);
+  if (SORT_STATE.type === "num") {
+    if (SORT_STATE.step === 1) el.textContent = `現在：${SORT_STATE.key} / 高い順`;
+    else if (SORT_STATE.step === 2) el.textContent = `現在：${SORT_STATE.key} / 低い順`;
+    else if (SORT_STATE.step === 3) el.textContent = `現在：${SORT_STATE.key} / メーカー別 / 高い順`;
+    else if (SORT_STATE.step === 4) el.textContent = `現在：${SORT_STATE.key} / 分類別 / 高い順`;
+    return;
+  }
 }
 
-fetch(CSV_URL)
-  .then(res=>res.text())
-  .then(text=>{
-    ALL_ROWS = text.trim().split("\n").map(r=>r.split(","));
-    ORIGINAL_ROWS = JSON.parse(JSON.stringify(ALL_ROWS));
-    renderTable(ALL_ROWS);
-  });
-</script>
+/* ===== 列ハイライト ===== */
+function clearColumnHighlight() {
+  document.querySelectorAll("th[data-key]").forEach(th => th.classList.remove("active-sort"));
+  document.querySelectorAll("#table-body td").forEach(td => td.classList.remove("active-col"));
+}
 
+function updateColumnHighlight() {
+  clearColumnHighlight();
+  if (!SORT_STATE.key || SORT_STATE.step === 0) return;
+
+  const th = document.querySelector(`th[data-key="${SORT_STATE.key}"]`);
+  if (!th) return;
+
+  th.classList.add("active-sort");
+  const colIndex = Array.from(th.parentElement.children).indexOf(th);
+
+  const rows = document.querySelectorAll("#table-body tr");
+  rows.forEach(tr => {
+    const td = tr.children[colIndex];
+    if (td) td.classList.add("active-col");
+  });
+}
+
+function resetToOriginal() {
+  VIEW_ROWS = ORIGINAL_ROWS.slice();
+  SORT_STATE.key = null; SORT_STATE.step = 0; SORT_STATE.type = null;
+  renderTable(VIEW_ROWS);
+  updateSortStatus();
+  updateColumnHighlight();
+}
+
+function cmpNum(a, b, key) {
+  const av = (a[key] === "" ? -Infinity : Number(a[key]));
+  const bv = (b[key] === "" ? -Infinity : Number(b[key]));
+  return av - bv;
+}
+function cmpMaker(a, b) {
+  const av = (a["メーカー"] ?? "").toString();
+  const bv = (b["メーカー"] ?? "").toString();
+  if (av === "" && bv === "") return 0;
+  if (av === "") return 1;
+  if (bv === "") return -1;
+  return av.localeCompare(bv, "ja");
+}
+
+function sortByKey(key, type) {
+  if (type === "reset") { resetToOriginal(); return; }
+
+  if (SORT_STATE.key === key) {
+    if (type === "cat") SORT_STATE.step = (SORT_STATE.step + 1) % 4;      // 0→1→2→3→0
+    else if (type === "num") SORT_STATE.step = (SORT_STATE.step + 1) % 5; // 0→1→2→3→4→0
+  } else {
+    SORT_STATE.key = key; SORT_STATE.type = type; SORT_STATE.step = 1;
+  }
+
+  if (SORT_STATE.step === 0) { resetToOriginal(); return; }
+
+  const rows = ORIGINAL_ROWS.slice();
+  rows.sort((a, b) => {
+    let c = 0;
+
+    if (type === "cat") {
+      c = categoryRank(a["分類"], SORT_STATE.step) - categoryRank(b["分類"], SORT_STATE.step);
+    } else if (type === "num") {
+      if (SORT_STATE.step === 1) {
+        c = -cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 2) {
+        c =  cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 3) {
+        c = cmpMaker(a, b);
+        if (c === 0) c = -cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 4) {
+        c = categoryRankForGroup(a["分類"]) - categoryRankForGroup(b["分類"]);
+        if (c === 0) c = -cmpNum(a, b, key);
+      }
+    }
+
+    if (c === 0) return (ORIGINAL_INDEX.get(a) ?? 0) - (ORIGINAL_INDEX.get(b) ?? 0);
+    return c;
+  });
+
+  VIEW_ROWS = rows;
+  renderTable(VIEW_ROWS);
+  updateSortStatus();
+  updateColumnHighlight();
+}
+
+function bindHeaderSort() {
+  document.querySelectorAll("th[data-key]").forEach(th => {
+    th.addEventListener("click", () => {
+      sortByKey(th.getAttribute("data-key"), th.getAttribute("data-type"));
+    });
+  });
+}
+
+/* ===== 初期化 ===== */
+(async () => {
+  ORIGINAL_ROWS = await loadCSV(CSV_PATH);
+  ORIGINAL_ROWS.forEach((r, i) => ORIGINAL_INDEX.set(r, i));
+  VIEW_ROWS = ORIGINAL_ROWS.slice();
+  renderTable(VIEW_ROWS);
+  bindHeaderSort();
+  updateSortStatus();
+  updateColumnHighlight();
+})();
+</script>
 </body>
 </html>
+
 
 

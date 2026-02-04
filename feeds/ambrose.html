@@ -1,37 +1,577 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>アンブローズ｜個別ページ（仮）</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>アンブローズ 400/600｜個別ページ（仮）｜CL-01</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#666666;
+      --line:#dddddd;
+      --soft:#f6f6f6;
+      --soft2:#fafafa;
+      --accent:#0b57d0;
+      --warnbg:#fff7e6;
+      --warnbd:#ffd48a;
+      --radius:10px;
+      --pad:14px;
+      --max:980px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI",
+                  "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      line-height:1.6;
+    }
+
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    header{
+      border-bottom:1px solid var(--line);
+      background:var(--soft2);
+    }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:16px;
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .crumb{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .crumb a{ font-weight:600; }
+
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .chip{
+      display:inline-block;
+      padding:4px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:#333;
+      font-weight:600;
+    }
+
+    h1{
+      margin:12px 0 6px;
+      font-size:26px;
+      line-height:1.25;
+    }
+
+    .sub{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    main{ padding:10px 0 26px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    section{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:var(--pad);
+      text-align:left;
+    }
+
+    section h2{
+      margin:0 0 10px;
+      font-size:18px;
+      line-height:1.25;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .sec-id{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      padding:3px 8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:var(--soft2);
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:8px 12px;
+      margin:0;
+    }
+    .kv dt{
+      color:var(--muted);
+      font-weight:700;
+      font-size:14px;
+    }
+    .kv dd{
+      margin:0;
+      font-size:14px;
+      word-break:break-word;
+    }
+
+    .note{
+      margin:10px 0 0;
+      padding:10px 12px;
+      background:var(--warnbg);
+      border:1px solid var(--warnbd);
+      border-radius:10px;
+      font-size:14px;
+    }
+
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      margin:8px 0 0;
+    }
+
+    .list{
+      margin:8px 0 0;
+      padding-left:18px;
+    }
+    .list li{ margin:4px 0; }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+      font-size:14px;
+      background:#fff;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:8px 10px;
+      vertical-align:middle;
+      word-break:break-word;
+    }
+    th{
+      background:var(--soft);
+      font-weight:800;
+    }
+    td.center, th.center{ text-align:center; }
+    .nowrap{ white-space:nowrap; }
+
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      color:#222;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      background:var(--soft2);
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* Optionalセクションは、データが空ならJSで非表示 */
+    [data-optional="true"][data-has-content="false"]{ display:none; }
+
+    /* スマホ最適化 */
+    @media (max-width:560px){
+      h1{ font-size:22px; }
+      .kv{ grid-template-columns: 1fr; }
+      .kv dt{ margin-top:6px; }
+    }
+  </style>
 </head>
+
 <body>
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="crumb">
+        <a href="../index.html">一覧へ戻る</a>
+        <span>›</span>
+        <span>個別ページ（仮）</span>
+      </div>
 
-<h1>アンブローズ</h1>
+      <div class="badge" aria-label="ページ属性">
+        <span class="chip">CL-01</span>
+        <span class="chip">業販・飼料用</span>
+        <span class="chip">比較なし</span>
+        <span class="chip">評価なし</span>
+        <span class="chip">推測なし</span>
+      </div>
+    </div>
 
-<section>
-  <h2>基礎原材料</h2>
+    <!-- T01: 商品名 -->
+    <h1 id="page-title">アンブローズ 400/600</h1>
+    <p class="sub" id="page-purpose">業販・飼料用餌をメダカ用途で理解する（仮ページ）</p>
+  </div>
+</header>
 
-  <table border="1" cellpadding="6">
-    <thead>
-      <tr>
-        <th>基礎原材料</th>
-        <th>使用</th>
-        <th>配合量</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>魚粉（フィッシュミール系）</td><td>◯</td><td>多</td></tr>
-      <tr><td>オキアミミール</td><td>◯</td><td>多</td></tr>
-      <tr><td>イカミール</td><td>◯</td><td>中</td></tr>
-      <tr><td>動物性油脂（魚油）</td><td>◯</td><td>中</td></tr>
-      <tr><td>穀類</td><td></td><td></td></tr>
-      <tr><td>でん粉類</td><td>◯</td><td>少</td></tr>
-    </tbody>
-  </table>
+<main>
+  <div class="wrap">
+    <div class="grid">
 
-  <p>※ 配合量は公開情報を基にした相対的な区分表示です。</p>
-</section>
+      <!-- T02: 分類情報 -->
+      <section id="T02">
+        <h2>
+          分類情報
+          <span class="sec-id">T02</span>
+        </h2>
+        <dl class="kv">
+          <dt>販種</dt><dd>業販</dd>
+          <dt>餌種</dt><dd>飼料用</dd>
+          <dt>分類</dt><dd>業販・飼料用（CL-01）</dd>
+        </dl>
+      </section>
+
+      <!-- T03: 本来の用途 -->
+      <section id="T03">
+        <h2>
+          本来の用途
+          <span class="sec-id">T03</span>
+        </h2>
+        <div class="mutedbox">
+          <div><strong>本来想定用途・対象魚</strong></div>
+          <div id="intended-use">未入力（パッケージ等の明記待ち）</div>
+        </div>
+        <p class="small">※ 本欄は、パッケージ・公式資料に明記されている場合のみ記載します。</p>
+      </section>
+
+      <!-- T04: メダカ用途での位置づけ -->
+      <section id="T04">
+        <h2>
+          メダカ用途での位置づけ
+          <span class="sec-id">T04</span>
+        </h2>
+        <div class="mutedbox">
+          本製品はメダカ専用ではなく代用用途として使用されている餌です。
+        </div>
+      </section>
+
+      <!-- T05: 形状・物性 -->
+      <section id="T05">
+        <h2>
+          形状・物性
+          <span class="sec-id">T05</span>
+        </h2>
+        <dl class="kv">
+          <dt>形状</dt><dd id="shape">未入力（明記待ち）</dd>
+          <dt>浮沈性</dt><dd id="buoyancy">未入力（明記待ち）</dd>
+          <dt>粒径差</dt><dd id="granule">未入力（規格差の明記待ち）</dd>
+        </dl>
+        <p class="small">※ パッケージに明記されている場合のみ、確定情報として記載します。</p>
+      </section>
+
+      <!-- T06: 原材料の骨格（基礎原材料含む） -->
+      <section id="T06">
+        <h2>
+          原材料の骨格
+          <span class="sec-id">T06</span>
+        </h2>
+
+        <!-- 骨格（主原材料カテゴリのみ：簡潔表示） -->
+        <div class="mutedbox" aria-label="原材料骨格（カテゴリ）">
+          <div><strong>骨格（主原材料カテゴリ）</strong></div>
+          <ul class="list" id="skeleton-list">
+            <li>魚粉（フィッシュミール系）</li>
+            <li>甲殻類ミール（オキアミ）</li>
+            <li>イカミール</li>
+            <li>動物性油脂（魚油）</li>
+            <li>でん粉類（馬鈴しょ）</li>
+          </ul>
+        </div>
+
+        <!-- 基礎原材料（固定名／固定順／◯＋配合量：多中少） -->
+        <div style="margin-top:12px;">
+          <div class="mutedbox">
+            <div><strong>基礎原材料</strong></div>
+            <div class="small">※ 業販・飼料用餌に共通する、構造的な土台原材料の枠です。</div>
+          </div>
+
+          <table aria-label="基礎原材料（固定順）" style="margin-top:10px;">
+            <thead>
+              <tr>
+                <th>基礎原材料</th>
+                <th class="center nowrap">使用</th>
+                <th class="center nowrap">配合量</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>魚粉（フィッシュミール系）</td>
+                <td class="center">◯</td>
+                <td class="center">多</td>
+              </tr>
+              <tr>
+                <td>オキアミミール</td>
+                <td class="center">◯</td>
+                <td class="center">多</td>
+              </tr>
+              <tr>
+                <td>イカミール</td>
+                <td class="center">◯</td>
+                <td class="center">中</td>
+              </tr>
+              <tr>
+                <td>動物性油脂（魚油）</td>
+                <td class="center">◯</td>
+                <td class="center">中</td>
+              </tr>
+              <tr>
+                <td>穀類</td>
+                <td class="center"></td>
+                <td class="center"></td>
+              </tr>
+              <tr>
+                <td>でん粉類</td>
+                <td class="center">◯</td>
+                <td class="center">少</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="small">
+            ※ 配合量（多・中・少）は、公開情報（表記順・区分割合・明記内容）を基にした相対的な区分表示です。
+          </p>
+        </div>
+
+        <!-- 原材料（抽出データ：現状ログで確定している範囲） -->
+        <div style="margin-top:12px;">
+          <div class="mutedbox">
+            <div><strong>原材料（抽出データ）</strong></div>
+            <div class="small">※ パッケージ等から抽出した名称を列挙します（比較・評価は行いません）。</div>
+          </div>
+          <ul class="list" id="ingredients-list">
+            <li>魚粉</li>
+            <li>オキアミミール</li>
+            <li>イカミール</li>
+            <li>コペポーダ粉末</li>
+            <li>馬鈴しょでん粉</li>
+            <li>精製魚油</li>
+            <li>魚介抽出物</li>
+            <li>レシチン</li>
+            <li>リン酸カルシウム</li>
+            <li>飼料用酵母</li>
+            <li>酵母抽出物</li>
+            <li>ベタイン</li>
+            <li>甘草末</li>
+            <li>魚卵粉末</li>
+            <li>マリーゴールド</li>
+            <li>飼料添加物（ビタミン類など）</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- T07: 特有の原材料・成分（任意：強調情報のみ） -->
+      <section id="T07" data-optional="true" data-has-content="false">
+        <h2>
+          特有の原材料・成分
+          <span class="sec-id">T07</span>
+        </h2>
+        <div class="mutedbox" id="unique-box">
+          <!-- 強調表記がある場合のみ、名称だけを掲載 -->
+        </div>
+        <p class="small">※ 強調表記がある場合のみ表示します。名称のみの列挙は行いません。</p>
+      </section>
+
+      <!-- T08: 成分表示（必須：数値明記分のみ） -->
+      <section id="T08">
+        <h2>
+          成分表示
+          <span class="sec-id">T08</span>
+        </h2>
+
+        <table aria-label="成分表示（保証成分値：数値明記分のみ）">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th class="center nowrap">数値</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody id="nutrition-body">
+            <tr>
+              <td>粗蛋白</td>
+              <td class="center"></td>
+              <td>未入力（明記待ち）</td>
+            </tr>
+            <tr>
+              <td>粗脂肪</td>
+              <td class="center"></td>
+              <td>未入力（明記待ち）</td>
+            </tr>
+            <tr>
+              <td>粗繊維</td>
+              <td class="center"></td>
+              <td>未入力（明記待ち）</td>
+            </tr>
+            <tr>
+              <td>粗灰分</td>
+              <td class="center"></td>
+              <td>未入力（明記待ち）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="small">※ 数値が明記されている場合のみ、確定情報として記載します。</p>
+      </section>
+
+      <!-- T09: ミネラル表示（任意：%明記分のみ） -->
+      <section id="T09" data-optional="true" data-has-content="false">
+        <h2>
+          ミネラル表示
+          <span class="sec-id">T09</span>
+        </h2>
+
+        <table aria-label="ミネラル表示（%明記分のみ）">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th class="center nowrap">数値</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody id="mineral-body">
+            <!-- Ca/Pなど % が明記された場合のみ追加 -->
+          </tbody>
+        </table>
+
+        <p class="small">※ %数値が明記されている場合のみ表示します（強化・配合などの文言のみの場合は非表示）。</p>
+      </section>
+
+      <!-- T10: 使用上の前提・注意（任意：明記分のみ） -->
+      <section id="T10" data-optional="true" data-has-content="false">
+        <h2>
+          使用上の前提・注意
+          <span class="sec-id">T10</span>
+        </h2>
+
+        <ul class="list" id="cautions-list">
+          <!-- パッケージ等で明記がある場合のみ追加 -->
+        </ul>
+
+        <p class="small">※ パッケージ等で明記がある場合のみ表示します（注意書きなしの場合は非表示）。</p>
+      </section>
+
+      <!-- T11: 必須注意書き（固定文） -->
+      <section id="T11">
+        <h2>
+          必須注意書き
+          <span class="sec-id">T11</span>
+        </h2>
+        <div class="note">
+          本製品は本来、メダカ専用として設計された飼料ではありません。メダカへの使用は用途外での代用となります。
+        </div>
+      </section>
+
+      <!-- T12: ページ作成者からの一言（固定思想） -->
+      <section id="T12">
+        <h2>
+          ページ作成者からの一言
+          <span class="sec-id">T12</span>
+        </h2>
+        <div class="mutedbox">
+          本ページでは成分の優劣や他製品との比較は行わず、業務用・養殖用飼料をメダカ用途でどう位置づけられているかを整理しています。
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>テンプレ：CL-01（業販・飼料用）｜仮ページ｜比較・評価・推測なし</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    "use strict";
+
+    // ====== CL-01 ルール（参照用・ページ内で完結） ======
+    // comparison: forbidden / evaluation: forbidden / speculation: forbidden
+    // optional sections:
+    //  - T07: 強調表記がある場合のみ（名称のみ）
+    //  - T09: %数値が明記されている場合のみ
+    //  - T10: パッケージ等で明記がある場合のみ
+
+    // ====== Optional セクション自動判定 ======
+    function setOptionalSectionState(sectionId, hasContent){
+      var el = document.getElementById(sectionId);
+      if(!el) return;
+      el.setAttribute("data-optional","true");
+      el.setAttribute("data-has-content", hasContent ? "true" : "false");
+    }
+
+    // T07（特有）: ここに “強調表記されている要素” が入る場合のみ true にする
+    // 現状は未入力（強調要素の確定待ち）
+    setOptionalSectionState("T07", false);
+
+    // T09（ミネラル）: Ca/Pなどが % で明記されている場合のみ true にする
+    // 現状は未入力（%明記待ち）
+    setOptionalSectionState("T09", false);
+
+    // T10（注意）: パッケージ等で注意書きが明記されている場合のみ true にする
+    // 現状は未入力（明記待ち）
+    setOptionalSectionState("T10", false);
+
+    // ====== ここから先は「見た目調整」ではなく「内容確定」のための欄 ======
+    // 追加データが確定したら、下のようにテキストを入れて true にする。
+    //
+    // 例）T09: Ca/Pが確定した場合
+    //  document.getElementById("mineral-body").innerHTML =
+    //    '<tr><td>カルシウム（Ca）</td><td class="center">2.3%</td><td></td></tr>' +
+    //    '<tr><td>リン（P）</td><td class="center">1.5%</td><td></td></tr>';
+    //  setOptionalSectionState("T09", true);
+    //
+    // 例）T10: 注意書きが確定した場合
+    //  document.getElementById("cautions-list").innerHTML =
+    //    '<li>直射日光・高温多湿を避けて保管してください。</li>';
+    //  setOptionalSectionState("T10", true);
+    //
+    // 例）T07: 強調要素が確定した場合（名称のみ）
+    //  document.getElementById("unique-box").textContent = 'タウリン（強調表記）';
+    //  setOptionalSectionState("T07", true);
+
+  })();
+</script>
 
 </body>
 </html>

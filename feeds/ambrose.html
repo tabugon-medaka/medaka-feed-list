@@ -294,17 +294,17 @@
         </div>
       </section>
 
-      <!-- 3) 基礎：基礎原材料（固定順／◯＋配合量：多中少／入ってない場合は空欄） -->
+      <!-- 3) 共通：共通原材料（固定順／◯＋配合量：多中少／入ってない場合は空欄） -->
       <section id="BASE">
         <h2>
-          基礎原材料
-          <span class="sec-id">基礎</span>
+          共通原材料
+          <span class="sec-id">共通</span>
         </h2>
 
-        <table aria-label="基礎原材料（固定順）">
+        <table aria-label="共通原材料（固定順）">
           <thead>
             <tr>
-              <th>基礎原材料</th>
+              <th>共通原材料</th>
               <th class="center nowrap">使用</th>
               <th class="center nowrap">配合量</th>
             </tr>
@@ -324,31 +324,57 @@
         </p>
       </section>
 
-      <!-- 4) T06: 原材料（抽出データ）｜（変更点：2列化） -->
+      <!-- 4) T06: 構成原材料｜（変更点：2列化） -->
       <section id="T06">
         <h2>
-          原材料（抽出データ）
+          構成原材料
           <span class="sec-id">T06</span>
         </h2>
 
-        <table aria-label="原材料一覧（抽出データ）">
+        <table aria-label="構成原材料一覧">
           <thead>
             <tr>
-              <th colspan="2">原材料一覧</th>
+              <th colspan="2">構成原材料一覧</th>
             </tr>
           </thead>
           <tbody id="ingredients-body">
             <!-- 2列表示：左→右へ詰める／奇数は最後を空白 -->
             <tr><td>コペポーダ粉末</td><td>魚介抽出物</td></tr>
-            <tr><td>レシチン</td><td>リン酸カルシウム</td></tr>
             <tr><td>飼料用酵母</td><td>酵母抽出物</td></tr>
-            <tr><td>ベタイン</td><td>甘草末</td></tr>
-            <tr><td>魚卵粉末</td><td>マリーゴールド</td></tr>
-            <tr><td>飼料添加物（ビタミン類など）</td><td>&nbsp;</td></tr>
+            <tr><td>甘草末</td><td>魚卵粉末</td></tr>
+            <tr><td>マリーゴールド</td><td>&nbsp;</td></tr>
           </tbody>
         </table>
 
         <p class="small">※ パッケージ等から抽出した名称を列挙します（比較・評価は行いません）。</p>
+      </section>
+
+      <!-- 5) T08: 構成成分一覧（T06直下） -->
+      <section id="T08">
+        <h2>
+          構成成分一覧
+          <span class="sec-id">T08</span>
+        </h2>
+
+        <table aria-label="構成成分一覧">
+          <thead>
+            <tr>
+              <th>構成成分（アンブローズ 400/600｜確定｜全8種）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>タウリン</td></tr>
+            <tr><td>DHA</td></tr>
+            <tr><td>レシチン</td></tr>
+            <tr><td>リン酸カルシウム</td></tr>
+            <tr><td>ベタイン</td></tr>
+            <tr><td>ビタミンC</td></tr>
+            <tr><td>ビタミンE</td></tr>
+            <tr><td>ビタミン類（飼料添加物由来）</td></tr>
+          </tbody>
+        </table>
+
+        <p class="small">※ パッケージ等で明記されている成分のみ掲載します。</p>
       </section>
 
       <!-- （任意）T09 ミネラル表示：%明記分のみ -->
@@ -382,7 +408,7 @@
         <p class="small">※ パッケージ等で明記がある場合のみ表示します。</p>
       </section>
 
-      <!-- 5) 注意：T04をここに統合（要相談ブロックは単独表示しない） -->
+      <!-- 6) 注意：T04をここに統合（要相談ブロックは単独表示しない） -->
       <section id="NOTICES">
         <h2>
           注意書き
@@ -390,10 +416,11 @@
         </h2>
 
         <div class="mutedbox">
-          <div><strong>基礎原材料・原材料表示について</strong></div>
+          <div><strong>共通原材料・構成原材料・構成成分について</strong></div>
           <ul class="bullets">
-            <li>基礎原材料は、業販・飼料用餌の「構造上の土台」として整理した枠です。</li>
-            <li>原材料一覧（抽出）は、パッケージ等から抽出した名称の掲載です（比較・評価は行いません）。</li>
+            <li>共通原材料は、業販・飼料用餌の「土台」として整理した枠です。</li>
+            <li>構成原材料は、パッケージ等から抽出した名称の掲載です（比較・評価は行いません）。</li>
+            <li>構成成分は、パッケージ等で明記されている成分のみ掲載します。</li>
           </ul>
         </div>
 
@@ -411,7 +438,7 @@
         </div>
       </section>
 
-      <!-- 6) T12: ページ作成者からの一言（固定思想） -->
+      <!-- 7) T12: ページ作成者からの一言（固定思想） -->
       <section id="T12">
         <h2>
           ページ作成者からの一言
@@ -452,3 +479,4 @@
 
 </body>
 </html>
+::contentReference[oaicite:0]{index=0}

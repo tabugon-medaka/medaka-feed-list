@@ -107,9 +107,26 @@
       margin:0 0 10px;
       font-size:18px;
       line-height:1.25;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .sec-id{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      padding:3px 8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:var(--soft2);
     }
 
-    #T07 h2{ font-size:27px; }
+    /* T07見出し：現状の1.5倍 */
+    #T07 h2{
+      font-size:27px;
+    }
 
     .mutedbox{
       padding:10px 12px;
@@ -120,6 +137,7 @@
       color:#222;
     }
 
+    /* T07特徴枠：左右2分割（左67%本文／右33%画像）縦に伸びる前提 */
     .feature{
       display:grid;
       grid-template-columns: 67% 33%;
@@ -129,16 +147,22 @@
       border-radius:10px;
       padding:12px;
     }
-    .feature-text{ font-size:14px; color:#222; }
+    .feature-text{
+      font-size:14px;
+      color:#222;
+    }
     .feature-subtitle{
-      font-size:18px;
+      font-size:18px; /* 各章の見出しと同等 */
       font-weight:800;
       margin:0 0 8px;
+      line-height:1.25;
+      color:#111;
     }
     .feature-image{
       border:1px dashed var(--line);
       border-radius:8px;
       min-height:160px;
+      padding:10px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -151,6 +175,7 @@
       display:grid;
       grid-template-columns: 160px 1fr;
       gap:8px 12px;
+      margin:0;
     }
     .kv dt{
       color:var(--muted);
@@ -160,6 +185,7 @@
     .kv dd{
       margin:0;
       font-size:14px;
+      word-break:break-word;
     }
 
     table{
@@ -167,13 +193,20 @@
       border-collapse:collapse;
       table-layout:fixed;
       font-size:14px;
+      background:#fff;
     }
     th, td{
       border:1px solid var(--line);
       padding:8px 10px;
+      vertical-align:middle;
+      word-break:break-word;
     }
-    th{ background:var(--soft); font-weight:800; }
-    td.center{ text-align:center; }
+    th{
+      background:var(--soft);
+      font-weight:800;
+    }
+    td.center, th.center{ text-align:center; }
+    .nowrap{ white-space:nowrap; }
 
     .note{
       margin:10px 0 0;
@@ -183,12 +216,14 @@
       border-radius:10px;
       font-size:14px;
     }
-
     .small{
       font-size:13px;
       color:var(--muted);
       margin:8px 0 0;
     }
+
+    .bullets{ margin:8px 0 0; padding-left:18px; }
+    .bullets li{ margin:4px 0; }
 
     footer{
       border-top:1px solid var(--line);
@@ -197,10 +232,13 @@
       font-size:12px;
     }
 
+    [data-optional="true"][data-has-content="false"]{ display:none; }
+
     @media (max-width:560px){
       h1{ font-size:22px; }
-      .kv{ grid-template-columns:1fr; }
-      .feature{ grid-template-columns:1fr; }
+      .kv{ grid-template-columns: 1fr; }
+      .kv dt{ margin-top:6px; }
+      .feature{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -214,7 +252,8 @@
         <span>›</span>
         <span>個別ページ</span>
       </div>
-      <div class="badge">
+
+      <div class="badge" aria-label="ページ属性">
         <span class="chip">CL-01</span>
         <span class="chip">業販・飼料用</span>
         <span class="chip">比較なし</span>
@@ -223,7 +262,8 @@
       </div>
     </div>
 
-    <h1>アンブローズ 400/600</h1>
+    <!-- T01: 商品名 -->
+    <h1 id="page-title">アンブローズ 400/600</h1>
     <p class="sub">業販・飼料用餌をメダカ用途で理解する</p>
   </div>
 </header>
@@ -232,29 +272,40 @@
   <div class="wrap">
     <div class="grid">
 
+      <!-- 1) T02(+T03+T05 組み込み): 基本情報 -->
       <section id="T02">
-        <h2>基本情報</h2>
+        <h2>
+          基本情報
+        </h2>
+
         <dl class="kv">
           <dt>販種</dt><dd>業販</dd>
           <dt>餌種</dt><dd>飼料用</dd>
-          <dt>本来の用途</dt><dd>海産稚魚用飼料</dd>
-          <dt>浮沈性</dt><dd>浮遊性</dd>
+
+          <dt>本来の用途</dt><dd id="intended-use">海産稚魚用飼料</dd>
+
+          <dt>浮沈性</dt><dd id="buoyancy">浮遊性</dd>
           <dt>粒径差</dt>
-          <dd>
+          <dd id="granule">
             アンブローズ400/0.42～0.65mm<br />
             アンブローズ600/0.65～1.00mm
           </dd>
         </dl>
+
+        <p class="small">※ 本欄は、パッケージ・公式資料に明記されている場合のみ「確定情報」として埋めます。</p>
       </section>
 
+      <!-- 2) T07: 特有の原材料・成分（主役）｜画像挿入は最後の手順へ -->
       <section id="T07">
-        <h2>アンブローズの特徴</h2>
+        <h2>
+          アンブローズの特徴
+        </h2>
 
         <div class="feature">
           <div class="feature-text">
             <div class="feature-subtitle">コペポーダ配合</div>
-            コペポーダは、動物プランクトン由来の原料で、動物性たんぱく源として用いられる素材です。<br />
-            栄養密度が高い原料として位置づけられています。
+            コペポーダは、動物プランクトン由来の原料で、飼料設計において動物性たんぱく源として用いられる素材です。<br />
+            また、一般的な動物プランクトン系素材の中でも、栄養が「濃い」位置づけの原料として扱われる点が、配合理由の一つと考えられます。
           </div>
           <div class="feature-image">画像挿入予定</div>
         </div>
@@ -262,21 +313,139 @@
         <div class="feature" style="margin-top:12px;">
           <div class="feature-text">
             <div class="feature-subtitle">タウリン配合</div>
-            タウリンは魚類向け飼料で用いられるアミノ酸の一種で、栄養設計全体を支える要素です。
+            タウリンはアミノ酸の一種で、魚類向け飼料の栄養設計において用いられる成分です。<br />
+            特定の機能を強調するというより、全体の栄養設計を支える要素となるでしょう。
           </div>
           <div class="feature-image">画像挿入予定</div>
         </div>
       </section>
 
+      <!-- 3) 共通：共通原材料（固定順／◯＋配合量：多中少／入ってない場合は空欄） -->
+      <section id="BASE">
+        <h2>
+          共通原材料
+        </h2>
+
+        <table aria-label="共通原材料（固定順）">
+          <thead>
+            <tr>
+              <th>共通原材料</th>
+              <th class="center nowrap">使用</th>
+              <th class="center nowrap">配合量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>魚粉（フィッシュミール系）</td><td class="center">◯</td><td class="center">多</td></tr>
+            <tr><td>オキアミミール</td><td class="center">◯</td><td class="center">多</td></tr>
+            <tr><td>イカミール</td><td class="center">◯</td><td class="center">中</td></tr>
+            <tr><td>動物性油脂（魚油）</td><td class="center">◯</td><td class="center">中</td></tr>
+            <tr><td>穀類</td><td class="center"></td><td class="center"></td></tr>
+            <tr><td>でん粉類</td><td class="center">◯</td><td class="center">少</td></tr>
+          </tbody>
+        </table>
+
+        <p class="small">
+          ※ 配合量（多・中・少）は、公開情報（表記順・区分割合・明記内容）を基にした相対的な区分表示です。
+        </p>
+      </section>
+
+      <!-- 4) T06: 構成原材料 -->
+      <section id="T06">
+        <h2>
+          構成原材料
+        </h2>
+
+        <table aria-label="構成原材料一覧">
+          <thead>
+            <tr>
+              <th colspan="2">構成原材料（12種）</th>
+            </tr>
+          </thead>
+          <tbody id="ingredients-body">
+            <tr><td>魚粉</td><td>オキアミミール</td></tr>
+            <tr><td>イカミール</td><td>魚介抽出物</td></tr>
+            <tr><td>コペポーダ粉末</td><td>魚卵粉末</td></tr>
+            <tr><td>動物性油脂（魚油）</td><td>でん粉類</td></tr>
+            <tr><td>飼料用酵母</td><td>酵母抽出物</td></tr>
+            <tr><td>甘草末</td><td>マリーゴールド</td></tr>
+          </tbody>
+        </table>
+
+        <p class="small">
+          ※ パッケージ等から抽出した名称を列挙します（比較・評価は行いません）。<br />
+          <a href="../ingredients/">原材料の解説ページはコチラ</a>
+        </p>
+      </section>
+
+      <!-- 5) T08: 構成成分 -->
+      <section id="T08">
+        <h2>
+          構成成分
+        </h2>
+
+        <table aria-label="構成成分（確定）">
+          <thead>
+            <tr>
+              <th colspan="2">構成成分（8種）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>タウリン</td><td>DHA</td></tr>
+            <tr><td>レシチン</td><td>リン酸カルシウム</td></tr>
+            <tr><td>ベタイン</td><td>ビタミンC</td></tr>
+            <tr><td>ビタミンE</td><td>ビタミン類（飼料添加物由来）</td></tr>
+          </tbody>
+        </table>
+
+        <p class="small">※ パッケージ等で明記されている成分のみ掲載します。</p>
+      </section>
+
+      <!-- T09 ミネラル表示：確定（Ca/P） -->
+      <section id="T09" data-optional="true" data-has-content="true">
+        <h2>
+          ミネラル表示
+        </h2>
+        <table aria-label="ミネラル表示（%明記分のみ）">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th class="center nowrap">数値</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody id="mineral-body">
+            <tr><td>カルシウム</td><td class="center nowrap">2.0%</td><td></td></tr>
+            <tr><td>リン</td><td class="center nowrap">1.4%</td><td></td></tr>
+          </tbody>
+        </table>
+        <p class="small">※ %数値が明記されている場合のみ表示します。</p>
+      </section>
+
+      <!-- 注意：枠は2つ（2番目は削除済み） -->
       <section id="NOTICES">
-        <h2>注意書き</h2>
-        <div class="note">
+        <h2>
+          注意書き
+        </h2>
+
+        <div class="mutedbox">
+          <div><strong>共通原材料・構成原材料・構成成分について</strong></div>
+          <ul class="bullets">
+            <li>共通原材料は、業販・飼料用餌の「土台」として整理した枠です。</li>
+            <li>構成原材料は、パッケージ等から抽出した名称の掲載です（比較・評価は行いません）。</li>
+            <li>構成成分は、パッケージ等で明記されている成分のみ掲載します。</li>
+          </ul>
+        </div>
+
+        <div class="note" style="margin-top:10px;">
           本製品は本来、メダカ専用として設計された飼料ではありません。メダカへの使用は用途外での代用となります。
         </div>
       </section>
 
+      <!-- T12: ページ作成者からの一言（60文字以内固定） -->
       <section id="T12">
-        <h2>ページ作成者からの一言</h2>
+        <h2>
+          ページ作成者からの一言
+        </h2>
         <div class="mutedbox">
           栄養バランスが良く、クセも少ない、成長・繁殖・維持のどの時期でも基本として使いやすそうな餌いう印象。
         </div>
@@ -288,9 +457,24 @@
 
 <footer>
   <div class="wrap">
-    テンプレ：CL-01（業販・飼料用）｜比較・評価・推測なし
+    <div>テンプレ：CL-01（業販・飼料用）｜比較・評価・推測なし</div>
   </div>
 </footer>
+
+<script>
+  (function(){
+    "use strict";
+
+    function setOptionalSectionState(sectionId, hasContent){
+      var el = document.getElementById(sectionId);
+      if(!el) return;
+      el.setAttribute("data-optional","true");
+      el.setAttribute("data-has-content", hasContent ? "true" : "false");
+    }
+
+    setOptionalSectionState("T09", true);
+  })();
+</script>
 
 </body>
 </html>

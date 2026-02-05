@@ -243,22 +243,22 @@
           <dt>販種</dt><dd>業販</dd>
           <dt>餌種</dt><dd>飼料用</dd>
 
-          <!-- 「業販・飼料用（CL-01）」は重複のため削除 -->
-          <!-- <dt>分類</dt><dd>業販・飼料用（CL-01）</dd> -->
+          <!-- T03 を組み込み（確定） -->
+          <dt>本来の用途</dt><dd id="intended-use">海産稚魚用飼料</dd>
 
-          <!-- T03 を組み込み -->
-          <dt>本来の用途</dt><dd id="intended-use">未入力（パッケージ等の明記待ち）</dd>
-
-          <!-- T05 を組み込み -->
-          <dt>形状</dt><dd id="shape">未入力（明記待ち）</dd>
-          <dt>浮沈性</dt><dd id="buoyancy">未入力（明記待ち）</dd>
-          <dt>粒径差</dt><dd id="granule">未入力（規格差の明記待ち）</dd>
+          <!-- T05 を組み込み（形状は不要のため削除） -->
+          <dt>浮沈性</dt><dd id="buoyancy">浮遊性</dd>
+          <dt>粒径差</dt>
+          <dd id="granule">
+            アンブローズ400/0.42～0.65mm<br />
+            アンブローズ600/0.65～1.00mm
+          </dd>
         </dl>
 
         <p class="small">※ 本欄は、パッケージ・公式資料に明記されている場合のみ「確定情報」として埋めます。</p>
       </section>
 
-      <!-- 2) T07: 特有の原材料・成分（主役）｜改修：1特徴=1枠／概念は各特徴内に統合／独立ブロックなし -->
+      <!-- 2) T07: 特有の原材料・成分（主役）｜画像挿入は最後の手順へ -->
       <section id="T07">
         <h2>
           アンブローズの特徴
@@ -272,11 +272,6 @@
             コペポーダは、動物プランクトン由来の原料で、飼料設計において動物性たんぱく源として用いられる素材です。<br />
             また、一般的な動物プランクトン系素材の中でも、栄養が「濃い」位置づけの原料として扱われる点が、配合理由の一つと考えられます。
           </div>
-
-          <!-- 画像挿入（概念図） -->
-          <div style="margin-top:10px; border:1px dashed var(--line); border-radius:10px; padding:10px;">
-            <div style="font-weight:700; color:var(--muted);">［画像：栄養の濃さ（コペポーダ＞ブラインシュリンプ＞タマミジンコ）］</div>
-          </div>
         </div>
 
         <!-- 特徴②：タウリン配合 -->
@@ -285,11 +280,6 @@
           <div>
             タウリンはアミノ酸の一種で、魚類向け飼料の栄養設計において用いられる成分です。<br />
             特定の機能を強調するというより、全体の栄養設計を支える要素となるでしょう。
-          </div>
-
-          <!-- 画像挿入（タウリンの理解補助） -->
-          <div style="margin-top:10px; border:1px dashed var(--line); border-radius:10px; padding:10px;">
-            <div style="font-weight:700; color:var(--muted);">［画像：タウリンを“栄養設計を支える要素”としてイメージ化した挿し絵］</div>
           </div>
         </div>
       </section>
@@ -377,8 +367,8 @@
         <p class="small">※ パッケージ等で明記されている成分のみ掲載します。</p>
       </section>
 
-      <!-- （任意）T09 ミネラル表示：%明記分のみ -->
-      <section id="T09" data-optional="true" data-has-content="false">
+      <!-- T09 ミネラル表示：確定（Ca/P） -->
+      <section id="T09" data-optional="true" data-has-content="true">
         <h2>
           ミネラル表示
           <span class="sec-id">T09</span>
@@ -392,23 +382,16 @@
             </tr>
           </thead>
           <tbody id="mineral-body">
-            <!-- %数値が確定した場合のみ追加 -->
+            <tr><td>カルシウム</td><td class="center nowrap">2.0%</td><td></td></tr>
+            <tr><td>リン</td><td class="center nowrap">1.4%</td><td></td></tr>
           </tbody>
         </table>
         <p class="small">※ %数値が明記されている場合のみ表示します。</p>
       </section>
 
-      <!-- （任意）T10 使用上の前提・注意：明記分のみ -->
-      <section id="T10" data-optional="true" data-has-content="false">
-        <h2>
-          使用上の前提・注意
-          <span class="sec-id">T10</span>
-        </h2>
-        <ul class="bullets" id="cautions-list"></ul>
-        <p class="small">※ パッケージ等で明記がある場合のみ表示します。</p>
-      </section>
+      <!-- T10 使用上の前提・注意：不要（全餌に不要のためページから削除） -->
 
-      <!-- 6) 注意：T04をここに統合（要相談ブロックは単独表示しない） -->
+      <!-- 注意：T04をここに統合（要相談ブロックは単独表示しない） -->
       <section id="NOTICES">
         <h2>
           注意書き
@@ -438,7 +421,7 @@
         </div>
       </section>
 
-      <!-- 7) T12: ページ作成者からの一言（固定思想） -->
+      <!-- T12: ページ作成者からの一言（固定思想） -->
       <section id="T12">
         <h2>
           ページ作成者からの一言
@@ -471,9 +454,8 @@
       el.setAttribute("data-has-content", hasContent ? "true" : "false");
     }
 
-    // 現状：ミネラル%未確定、注意書き未確定
-    setOptionalSectionState("T09", false);
-    setOptionalSectionState("T10", false);
+    // 現状：T09は確定表示、T10は削除済み
+    setOptionalSectionState("T09", true);
   })();
 </script>
 

@@ -4,10 +4,468 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>リッチABC｜個別ページ（仮）｜CL-01</title>
+  <title>リッチB｜個別ページ｜CL-01</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#666666;
+      --line:#dddddd;
+      --soft:#f6f6f6;
+      --soft2:#fafafa;
+      --accent:#0b57d0;
+      --warnbg:#fff7e6;
+      --warnbd:#ffd48a;
+      --radius:10px;
+      --pad:14px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI",
+                  "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      line-height:1.6;
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    header{
+      border-bottom:1px solid var(--line);
+      background:var(--soft2);
+    }
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:16px;
+    }
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .crumb{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .crumb a{ font-weight:600; }
+
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .chip{
+      display:inline-block;
+      padding:4px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:#333;
+      font-weight:600;
+    }
+
+    h1{
+      margin:12px 0 6px;
+      font-size:26px;
+      line-height:1.25;
+    }
+    .sub{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    main{ padding:10px 0 26px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    section{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:var(--pad);
+      text-align:left;
+    }
+    section h2{
+      margin:0 0 10px;
+      font-size:18px;
+      line-height:1.25;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .sec-id{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      padding:3px 8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:var(--soft2);
+    }
+
+    /* T07見出し：現状の1.5倍 */
+    #T07 h2{
+      font-size:27px;
+    }
+
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      color:#222;
+    }
+
+    /* T07特徴枠：左右2分割（左67%本文／右33%画像） */
+    .feature{
+      display:grid;
+      grid-template-columns: 67% 33%;
+      gap:12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:12px;
+    }
+    .feature-text{
+      font-size:14px;
+      color:#222;
+    }
+    .feature-subtitle{
+      font-size:18px;
+      font-weight:800;
+      margin:0 0 8px;
+      line-height:1.25;
+      color:#111;
+    }
+    .feature-image{
+      border:1px dashed var(--line);
+      border-radius:8px;
+      min-height:160px;
+      padding:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:8px 12px;
+      margin:0;
+    }
+    .kv dt{
+      color:var(--muted);
+      font-weight:700;
+      font-size:14px;
+    }
+    .kv dd{
+      margin:0;
+      font-size:14px;
+      word-break:break-word;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+      font-size:14px;
+      background:#fff;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:8px 10px;
+      vertical-align:middle;
+      word-break:break-word;
+    }
+    th{
+      background:var(--soft);
+      font-weight:800;
+    }
+    td.center, th.center{ text-align:center; }
+    .nowrap{ white-space:nowrap; }
+
+    .note{
+      margin:10px 0 0;
+      padding:10px 12px;
+      background:var(--warnbg);
+      border:1px solid var(--warnbd);
+      border-radius:10px;
+      font-size:14px;
+    }
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      margin:8px 0 0;
+    }
+
+    .bullets{ margin:8px 0 0; padding-left:18px; }
+    .bullets li{ margin:4px 0; }
+
+    footer{
+      border-top:1px solid var(--line);
+      background:var(--soft2);
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    [data-optional="true"][data-has-content="false"]{ display:none; }
+
+    @media (max-width:560px){
+      h1{ font-size:22px; }
+      .kv{ grid-template-columns: 1fr; }
+      .kv dt{ margin-top:6px; }
+      .feature{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>リッチABC</h1>
-  <p>CL-01 仮ページ（内容未入力）</p>
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="crumb">
+        <a href="../index.html">一覧へ戻る</a>
+        <span>›</span>
+        <span>個別ページ</span>
+      </div>
+
+      <div class="badge" aria-label="ページ属性">
+        <span class="chip">CL-01</span>
+        <span class="chip">業販・飼料用</span>
+        <span class="chip">比較なし</span>
+        <span class="chip">評価なし</span>
+        <span class="chip">推測なし</span>
+      </div>
+    </div>
+
+    <!-- T01: 商品名 -->
+    <h1 id="page-title">リッチB</h1>
+    <p class="sub">業販・飼料用餌をメダカ用途で理解する</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- 1) T02(+T03+T05 組み込み): 基本情報 -->
+      <section id="T02">
+        <h2>
+          基本情報
+          <span class="sec-id">T02</span>
+        </h2>
+
+        <dl class="kv">
+          <dt>販種</dt><dd>業販</dd>
+          <dt>餌種</dt><dd>飼料用</dd>
+
+          <dt>本来の用途</dt><dd id="intended-use">種苗生産用飼料</dd>
+
+          <dt>形状</dt><dd id="shape">顆粒</dd>
+          <dt>浮沈性</dt><dd id="buoyancy">沈下性</dd>
+          <dt>粒径差</dt>
+          <dd id="granule">
+            リッチB/記載なし
+          </dd>
+        </dl>
+
+        <p class="small">※ 本欄は、パッケージ・公式資料に明記されている場合のみ「確定情報」として埋めます。</p>
+      </section>
+
+      <!-- 2) T07: 特有の原材料・成分（主役） -->
+      <section id="T07">
+        <h2>
+          リッチの特徴
+          <span class="sec-id">T07</span>
+        </h2>
+
+        <div class="feature">
+          <div class="feature-text">
+            <div class="feature-subtitle">動物質性飼料高配合（88%）</div>
+            動物質性飼料の配合割合が高い設計（88%）。
+          </div>
+          <div class="feature-image">画像挿入予定</div>
+        </div>
+      </section>
+
+      <!-- 3) 共通：共通原材料 -->
+      <section id="BASE">
+        <h2>
+          共通原材料
+          <span class="sec-id">共通</span>
+        </h2>
+
+        <table aria-label="共通原材料（固定順）">
+          <thead>
+            <tr>
+              <th>共通原材料</th>
+              <th class="center nowrap">使用</th>
+              <th class="center nowrap">配合量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>魚粉（フィッシュミール系）</td><td class="center">◯</td><td class="center"></td></tr>
+            <tr><td>オキアミミール</td><td class="center">◯</td><td class="center"></td></tr>
+            <tr><td>イカミール</td><td class="center">◯</td><td class="center"></td></tr>
+            <tr><td>動物性油脂（魚油）</td><td class="center">◯</td><td class="center"></td></tr>
+            <tr><td>穀類</td><td class="center">◯</td><td class="center"></td></tr>
+            <tr><td>でん粉類</td><td class="center">◯</td><td class="center"></td></tr>
+          </tbody>
+        </table>
+
+        <p class="small">
+          ※ 配合量（多・中・少）は、公開情報（表記順・区分割合・明記内容）を基にした相対的な区分表示です。
+        </p>
+      </section>
+
+      <!-- 4) T06: 構成原材料 -->
+      <section id="T06">
+        <h2>
+          構成原材料
+          <span class="sec-id">T06</span>
+        </h2>
+
+        <table aria-label="構成原材料一覧">
+          <thead>
+            <tr>
+              <th colspan="2">構成原材料（記載なし）</th>
+            </tr>
+          </thead>
+          <tbody id="ingredients-body">
+            <tr><td>記載なし</td><td>記載なし</td></tr>
+          </tbody>
+        </table>
+
+        <p class="small">
+          ※ パッケージ等から抽出した名称を列挙します（比較・評価は行いません）。<br />
+          <a href="../ingredients/">原材料の解説ページはコチラ</a>
+        </p>
+      </section>
+
+      <!-- 5) T08: 構成成分 -->
+      <section id="T08">
+        <h2>
+          構成成分
+          <span class="sec-id">T08</span>
+        </h2>
+
+        <table aria-label="構成成分（確定）">
+          <thead>
+            <tr>
+              <th colspan="2">構成成分（記載なし）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>記載なし</td><td>記載なし</td></tr>
+          </tbody>
+        </table>
+
+        <p class="small">※ パッケージ等で明記されている成分のみ掲載します。</p>
+      </section>
+
+      <!-- T09 ミネラル表示：必須（記載が無い場合は「記載なし」） -->
+      <section id="T09">
+        <h2>
+          ミネラル表示
+          <span class="sec-id">T09</span>
+        </h2>
+        <table aria-label="ミネラル表示（%明記分のみ）">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th class="center nowrap">数値</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody id="mineral-body">
+            <tr><td>カルシウム</td><td class="center nowrap">記載なし</td><td></td></tr>
+            <tr><td>リン</td><td class="center nowrap">記載なし</td><td></td></tr>
+          </tbody>
+        </table>
+        <p class="small">※ %数値が明記されている場合のみ数値で掲載し、明記が無い場合は「記載なし」とします。</p>
+      </section>
+
+      <!-- （任意）T10 使用上の前提・注意：明記分のみ -->
+      <section id="T10" data-optional="true" data-has-content="false">
+        <h2>
+          使用上の前提・注意
+          <span class="sec-id">T10</span>
+        </h2>
+        <ul class="bullets" id="cautions-list"></ul>
+        <p class="small">※ パッケージ等で明記がある場合のみ表示します。</p>
+      </section>
+
+      <!-- 注意：枠は2つ（1つ目は削除）→ 必須注意書きのみ残す -->
+      <section id="NOTICES">
+        <h2>
+          注意書き
+          <span class="sec-id">注意</span>
+        </h2>
+
+        <div class="note">
+          本製品は本来、メダカ専用として設計された飼料ではありません。メダカへの使用は用途外での代用となります。
+        </div>
+      </section>
+
+      <!-- T12 -->
+      <section id="T12">
+        <h2>
+          ページ作成者からの一言
+          <span class="sec-id">T12</span>
+        </h2>
+        <div class="mutedbox">
+          動物質性飼料を高配合した設計が際立つ。配合内容から、成長期の給餌を主目的とした業販向けの性格がうかがえる。
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>テンプレ：CL-01（業販・飼料用）｜比較・評価・推測なし</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    "use strict";
+
+    function setOptionalSectionState(sectionId, hasContent){
+      var el = document.getElementById(sectionId);
+      if(!el) return;
+      el.setAttribute("data-optional","true");
+      el.setAttribute("data-has-content", hasContent ? "true" : "false");
+    }
+
+    setOptionalSectionState("T10", false);
+  })();
+</script>
+
 </body>
 </html>

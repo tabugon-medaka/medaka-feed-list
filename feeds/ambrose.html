@@ -1,1 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>アンブローズ 400/600｜個別ページ｜CL-01</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#666666;
+      --line:#dddddd;
+      --soft:#f6f6f6;
+      --soft2:#fafafa;
+      --accent:#0b57d0;
+      --warnbg:#fff7e6;
+      --warnbd:#ffd48a;
+      --radius:10px;
+      --pad:14px;
+      --max:980px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI",
+                  "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      line-height:1.6;
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    header{
+      border-bottom:1px solid var(--line);
+      background:var(--soft2);
+    }
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:16px;
+    }
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .crumb{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .crumb a{ font-weight:600; }
+
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .chip{
+      display:inline-block;
+      padding:4px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      color:#333;
+      font-weight:600;
+    }
+
+    h1{
+      margin:12px 0 6px;
+      font-size:26px;
+      line-height:1.25;
+    }
+    .sub{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    main{ padding:10px 0 26px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    section{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:#fff;
+      padding:var(--pad);
+      text-align:left;
+    }
+    section h2{
+      margin:0 0 10px;
+      font-size:18px;
+      line-height:1.25;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .sec-id{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      padding:3px 8px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:var(--soft2);
+    }
+
+    #T07 h2{ font-size:27px; }
+
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      color:#222;
+    }
+
+    .feature{
+      display:grid;
+      grid-template-columns: 67% 33%;
+      gap:12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:12px;
+    }
+    .feature-text{ font-size:14px; color:#222; }
+    .feature-subtitle{
+      font-size:18px;
+      font-weight:800;
+      margin:0 0 8px;
+    }
+    .feature-image{
+      border:1px dashed var(--line);
+      border-radius:8px;
+      min-height:160px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:8px 12px;
+    }
+    .kv dt{
+      color:var(--muted);
+      font-weight:700;
+      font-size:14px;
+    }
+    .kv dd{
+      margin:0;
+      font-size:14px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+      font-size:14px;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:8px 10px;
+    }
+    th{ background:var(--soft); font-weight:800; }
+    td.center{ text-align:center; }
+
+    .note{
+      margin:10px 0 0;
+      padding:10px 12px;
+      background:var(--warnbg);
+      border:1px solid var(--warnbd);
+      border-radius:10px;
+      font-size:14px;
+    }
+
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      margin:8px 0 0;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      background:var(--soft2);
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    @media (max-width:560px){
+      h1{ font-size:22px; }
+      .kv{ grid-template-columns:1fr; }
+      .feature{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="crumb">
+        <a href="../index.html">一覧へ戻る</a>
+        <span>›</span>
+        <span>個別ページ</span>
+      </div>
+      <div class="badge">
+        <span class="chip">CL-01</span>
+        <span class="chip">業販・飼料用</span>
+        <span class="chip">比較なし</span>
+        <span class="chip">評価なし</span>
+        <span class="chip">推測なし</span>
+      </div>
+    </div>
+
+    <h1>アンブローズ 400/600</h1>
+    <p class="sub">業販・飼料用餌をメダカ用途で理解する</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- T02 -->
+      <section id="T02">
+        <h2>基本情報 <span class="sec-id">T02</span></h2>
+        <dl class="kv">
+          <dt>販種</dt><dd>業販</dd>
+          <dt>餌種</dt><dd>飼料用</dd>
+          <dt>本来の用途</dt><dd>海産稚魚用飼料</dd>
+          <dt>浮沈性</dt><dd>浮遊性</dd>
+          <dt>粒径差</dt>
+          <dd>
+            アンブローズ400／0.42～0.65mm<br />
+            アンブローズ600／0.65～1.00mm
+          </dd>
+        </dl>
+      </section>
+
+      <!-- T07 -->
+      <section id="T07">
+        <h2>アンブローズの特徴 <span class="sec-id">T07</span></h2>
+
+        <div class="feature">
+          <div class="feature-text">
+            <div class="feature-subtitle">コペポーダ配合</div>
+            コペポーダは、動物プランクトン由来の原料で、動物性たんぱく源として用いられます。
+            栄養密度が高い原料として位置づけられています。
+          </div>
+          <div class="feature-image">画像挿入予定</div>
+        </div>
+
+        <div class="feature" style="margin-top:12px;">
+          <div class="feature-text">
+            <div class="feature-subtitle">タウリン配合</div>
+            タウリンは魚類向け飼料で用いられるアミノ酸の一種で、栄養設計全体を支える要素です。
+          </div>
+          <div class="feature-image">画像挿入予定</div>
+        </div>
+      </section>
+
+      <!-- 注意 -->
+      <section id="NOTICES">
+        <h2>注意書き <span class="sec-id">注意</span></h2>
+        <div class="note">
+          本製品は本来、メダカ専用として設計された飼料ではありません。
+          メダカへの使用は用途外での代用となります。
+        </div>
+      </section>
+
+      <!-- T12 -->
+      <section id="T12">
+        <h2>ページ作成者からの一言 <span class="sec-id">T12</span></h2>
+        <div class="mutedbox">
+          栄養バランスが良く、クセも少ない、成長・繁殖・維持のどの時期でも基本として使いやすそうな餌いう印象。
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    テンプレ：CL-01（業販・飼料用）｜比較・評価・推測なし
+  </div>
+</footer>
+
+</body>
+</html>
 

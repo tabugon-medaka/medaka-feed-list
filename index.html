@@ -62,8 +62,8 @@
       max-width: 520px;
 
       display: flex;
-      align-items: stretch;
-      height: 42px;              /* 高さ固定 */
+      align-items: stretch;      /* 高さを揃える */
+      height: 42px;              /* ★高さ固定（必要ならここだけ調整） */
       box-sizing: border-box;
       overflow: hidden;
     }
@@ -76,7 +76,7 @@
       align-items: center;
       justify-content: center;
 
-      border-right: 1px solid #ddd;  /* 左右の境界線 */
+      border-right: 1px solid #ddd;  /* ★左右の境界線 */
       box-sizing: border-box;
     }
 
@@ -87,7 +87,7 @@
 
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: center;   /* ★右枠内センター */
 
       white-space: normal;
       word-break: break-word;
@@ -101,29 +101,20 @@
       width: 100%;
       max-width: 1100px;
       margin: 0 auto;
-      font-size: 14px; /* 本文（td）は据え置き */
+      font-size: 14px;
     }
 
     th, td{
       border: 1px solid #ccc;
       padding: 6px 8px;
       white-space: nowrap;
-      text-align: center;
+      text-align: center; /* 全セルセンター */
     }
 
-    /* ★ 表題（th）だけ調整：文字16 / 枠線2 */
     th{
       background-color: #f2f2f2;
       cursor: pointer;
       user-select: none;
-      font-size: 16px;
-      border-width: 2px;
-    }
-
-    /* ★ thを2pxにしたので、見た目統一のため隣接セル境界も破綻しないように */
-    /* （border-collapse: collapse なので実害は少ないが念のため） */
-    thead th{
-      border-color: #bbb;
     }
 
     /* ===== 行の縞模様 ===== */
@@ -136,7 +127,7 @@
       background-color: #ffd1e3;
     }
     td.active-col{
-      background-color: #ffe1ee !important;
+      background-color: #ffe1ee !important; /* 縞より優先 */
     }
 
     /* ===== スマホ ===== */
@@ -219,7 +210,6 @@ function toNumber(v) {
   const n = Number(s);
   return Number.isNaN(n) ? "" : n;
 }
-
 function formatPercent(v) {
   if (v === null || v === undefined || v === "") return "";
   const n = Number(v);
@@ -227,11 +217,7 @@ function formatPercent(v) {
   return n.toString() + "%";
 }
 
-/* ===== CSVパーサ（安全寄り：引用符対応） =====
-   - カンマ区切り
-   - "..." 内のカンマは区切らない
-   - "" は " として扱う
-*/
+/* ===== CSVパーサ（安全寄り：引用符対応） ===== */
 function parseCSVLine(line) {
   const out = [];
   let cur = "";
@@ -283,7 +269,6 @@ async function loadCSV(path) {
   const header = parseCSVLine(lines[0]);
   const need = ["餌名","メーカー","分類","粗蛋白","粗脂肪","粗繊維","粗灰分"];
 
-  // ヘッダ健全性チェック
   for (const k of need) {
     if (!header.includes(k)) {
       throw new Error("CSVヘッダに必須列がありません: " + k);
@@ -310,7 +295,10 @@ async function loadCSV(path) {
   return rows;
 }
 
-/* ===== 描画 ===== */
+/* ===== 描画 =====
+   - ルール：一覧側のリンクは「餌名」に紐づける
+   - CSVに detail_url 列がある場合のみリンク化する（空欄はリンク無し）
+*/
 function renderTable(rows) {
   const tbody = document.getElementById("table-body");
   tbody.innerHTML = "";
@@ -318,8 +306,25 @@ function renderTable(rows) {
   for (const row of rows) {
     const tr = document.createElement("tr");
 
+    const detailUrl = (row["detail_url"] ?? "").toString().trim();
+
+    // 1列目：餌名（リンク対応）
+    const tdName = document.createElement("td");
+    const nameText = (row["餌名"] ?? "").toString();
+
+    if (detailUrl !== "") {
+      const a = document.createElement("a");
+      a.href = detailUrl;
+      a.textContent = nameText;
+      tdName.appendChild(a);
+    } else {
+      tdName.textContent = nameText;
+    }
+    tr.appendChild(tdName);
+
+    // 残り列：従来どおり
     const cells = [
-      row["餌名"], row["メーカー"], row["分類"],
+      row["メーカー"], row["分類"],
       formatPercent(row["粗蛋白"]),
       formatPercent(row["粗脂肪"]),
       formatPercent(row["粗繊維"]),
@@ -338,11 +343,10 @@ function renderTable(rows) {
 
 /* ===== 分類ソート（3回＋初期） ===== */
 const CATEGORY_CYCLES = [
-  ["主食","産卵","育成","機能","補助"], // 1回目
-  ["産卵","育成","機能","補助","主食"], // 2回目
-  ["育成","機能","補助","主食","産卵"]  // 3回目
+  ["主食","産卵","育成","機能","補助"],
+  ["産卵","育成","機能","補助","主食"],
+  ["育成","機能","補助","主食","産卵"]
 ];
-
 function categoryRank(name, step) {
   const order = CATEGORY_CYCLES[step - 1];
   const idx = order.indexOf(String(name ?? ""));
@@ -351,7 +355,6 @@ function categoryRank(name, step) {
 
 /* ===== 成分ソート用：分類まとまり（固定） ===== */
 const CATEGORY_ORDER_FOR_GROUP = ["主食","産卵","育成","機能","補助"];
-
 function categoryRankForGroup(name) {
   const idx = CATEGORY_ORDER_FOR_GROUP.indexOf(String(name ?? ""));
   return idx === -1 ? 999 : idx;
@@ -363,7 +366,6 @@ let VIEW_ROWS = [];
 let ORIGINAL_INDEX = new Map();
 const SORT_STATE = { key: null, step: 0, type: null };
 
-/* ===== ソート状況表示 ===== */
 function updateSortStatus() {
   const el = document.getElementById("sort-text");
   if (!el) return;
@@ -397,7 +399,6 @@ function clearColumnHighlight() {
   document.querySelectorAll("th[data-key]").forEach(th => th.classList.remove("active-sort"));
   document.querySelectorAll("#table-body td").forEach(td => td.classList.remove("active-col"));
 }
-
 function updateColumnHighlight() {
   clearColumnHighlight();
 
@@ -415,25 +416,21 @@ function updateColumnHighlight() {
   });
 }
 
-/* ===== 初期に戻す ===== */
 function resetToOriginal() {
   VIEW_ROWS = ORIGINAL_ROWS.slice();
   SORT_STATE.key = null;
   SORT_STATE.step = 0;
   SORT_STATE.type = null;
-
   renderTable(VIEW_ROWS);
   updateSortStatus();
   updateColumnHighlight();
 }
 
-/* ===== 比較関数 ===== */
 function cmpNum(a, b, key) {
   const av = (a[key] === "" ? -Infinity : Number(a[key]));
   const bv = (b[key] === "" ? -Infinity : Number(b[key]));
   return av - bv;
 }
-
 function cmpMaker(a, b) {
   const av = (a["メーカー"] ?? "").toString();
   const bv = (b["メーカー"] ?? "").toString();
@@ -443,7 +440,6 @@ function cmpMaker(a, b) {
   return av.localeCompare(bv, "ja");
 }
 
-/* ===== ソート本体 ===== */
 function sortByKey(key, type) {
   if (type === "reset") {
     resetToOriginal();
@@ -451,8 +447,8 @@ function sortByKey(key, type) {
   }
 
   if (SORT_STATE.key === key) {
-    if (type === "cat") SORT_STATE.step = (SORT_STATE.step + 1) % 4;      // 0→1→2→3→0
-    else if (type === "num") SORT_STATE.step = (SORT_STATE.step + 1) % 5; // 0→1→2→3→4→0
+    if (type === "cat") SORT_STATE.step = (SORT_STATE.step + 1) % 4;
+    else if (type === "num") SORT_STATE.step = (SORT_STATE.step + 1) % 5;
   } else {
     SORT_STATE.key = key;
     SORT_STATE.type = type;
@@ -495,7 +491,6 @@ function sortByKey(key, type) {
   updateColumnHighlight();
 }
 
-/* ===== ヘッダにクリックを付与 ===== */
 function bindHeaderSort() {
   document.querySelectorAll("th[data-key]").forEach(th => {
     th.addEventListener("click", () => {
@@ -507,7 +502,6 @@ function bindHeaderSort() {
 /* ===== 初期化 ===== */
 (async () => {
   const right = document.getElementById("sort-text");
-
   try {
     ORIGINAL_ROWS = await loadCSV(CSV_PATH);
 

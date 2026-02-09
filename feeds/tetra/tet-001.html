@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>【仮】商品名｜個別ページ（仮）｜CL-02</title>
+  <title>テトラ キリミン｜個別ページ｜CL-02</title>
 
   <style>
     :root{
@@ -14,9 +14,6 @@
       --line:#dddddd;
       --soft:#f6f6f6;
       --soft2:#fafafa;
-      --accent:#0b57d0;
-      --warnbg:#fff7e6;
-      --warnbd:#ffd48a;
       --radius:10px;
       --pad:14px;
       --max:980px;
@@ -30,9 +27,6 @@
                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       line-height:1.6;
     }
-    a{ color:var(--accent); text-decoration:none; }
-    a:hover{ text-decoration:underline; }
-
     header{
       border-bottom:1px solid var(--line);
       background:var(--soft2);
@@ -42,76 +36,29 @@
       margin:0 auto;
       padding:16px;
     }
-    .topbar{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px 14px;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .crumb{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .crumb a{ font-weight:600; }
-
-    .badge{
-      display:inline-flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-      font-size:12px;
-      color:var(--muted);
-    }
-    .chip{
-      display:inline-block;
-      padding:4px 10px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:#fff;
-      color:#333;
-      font-weight:600;
-    }
-
     h1{
       margin:12px 0 6px;
       font-size:26px;
-      line-height:1.25;
     }
     .sub{
       margin:0 0 12px;
       color:var(--muted);
       font-size:14px;
     }
-
     main{ padding:10px 0 26px; }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-    }
-
     section{
       border:1px solid var(--line);
       border-radius:var(--radius);
       background:#fff;
       padding:var(--pad);
-      text-align:left;
+      margin-bottom:14px;
     }
     section h2{
       margin:0 0 10px;
       font-size:18px;
-      line-height:1.25;
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
+      align-items:center;
     }
     .sec-id{
       font-size:12px;
@@ -122,21 +69,10 @@
       border-radius:999px;
       background:var(--soft2);
     }
-
-    .mutedbox{
-      padding:10px 12px;
-      background:var(--soft2);
-      border:1px solid var(--line);
-      border-radius:10px;
-      font-size:14px;
-      color:#222;
-    }
-
     .kv{
       display:grid;
-      grid-template-columns: 160px 1fr;
+      grid-template-columns:160px 1fr;
       gap:8px 12px;
-      margin:0;
     }
     .kv dt{
       color:var(--muted);
@@ -146,52 +82,20 @@
     .kv dd{
       margin:0;
       font-size:14px;
-      word-break:break-word;
     }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      table-layout:fixed;
-      font-size:14px;
-      background:#fff;
-    }
-    th, td{
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
       border:1px solid var(--line);
-      padding:8px 10px;
-      vertical-align:middle;
-      word-break:break-word;
+      border-radius:10px;
+      font-size:14px;
     }
-    th{
-      background:var(--soft);
-      font-weight:800;
-    }
-    td.center, th.center{ text-align:center; }
-    .nowrap{ white-space:nowrap; }
-
-    .small{
-      font-size:13px;
-      color:var(--muted);
-      margin:8px 0 0;
-    }
-
-    .bullets{ margin:8px 0 0; padding-left:18px; }
-    .bullets li{ margin:4px 0; }
-
+    ul{ margin:8px 0 0; padding-left:18px; }
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
       color:var(--muted);
       font-size:12px;
-    }
-
-    /* 任意セクション表示制御 */
-    [data-optional="true"][data-has-content="false"]{ display:none; }
-
-    @media (max-width:560px){
-      h1{ font-size:22px; }
-      .kv{ grid-template-columns: 1fr; }
-      .kv dt{ margin-top:6px; }
     }
   </style>
 </head>
@@ -199,198 +103,113 @@
 <body>
 <header>
   <div class="wrap">
-    <div class="topbar">
-      <div class="crumb">
-        <a href="../index.html">一覧へ戻る</a>
-        <span>›</span>
-        <span>個別ページ（仮）</span>
-      </div>
-
-      <div class="badge" aria-label="ページ属性">
-        <span class="chip">CL-02</span>
-        <span class="chip">市販・メダカ用</span>
-        <span class="chip">比較なし</span>
-        <span class="chip">評価なし</span>
-        <span class="chip">推測なし</span>
-      </div>
-    </div>
-
-    <!-- S01: 商品名 -->
-    <h1 id="page-title">【仮】商品名</h1>
-    <p class="sub">市販メダカ餌のメーカー想定用途を理解する（仮ページ）</p>
+    <!-- S01 商品名 -->
+    <h1>テトラ キリミン</h1>
+    <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
 </header>
 
 <main>
   <div class="wrap">
-    <div class="grid">
 
-      <!-- S02/S03/S04/S05 -->
-      <section id="S02">
-        <h2>
-          基本情報
-          <span class="sec-id">S02</span>
-        </h2>
+    <!-- S02 / S03 / S04 / S05 基本情報 -->
+    <section id="S02">
+      <h2>基本情報 <span class="sec-id">S02</span></h2>
+      <dl class="kv">
+        <dt>販種</dt><dd>市販</dd>
+        <dt>餌種</dt><dd>メダカ用</dd>
+        <dt>分類</dt><dd>市販・メダカ用（CL-02）</dd>
+        <dt>位置づけ</dt><dd>主食用フード</dd>
 
-        <dl class="kv">
-          <dt>販種</dt><dd>市販</dd>
-          <dt>餌種</dt><dd>メダカ用</dd>
-          <dt>分類</dt><dd>市販・メダカ用（CL-02）</dd>
+        <dt>メーカー想定用途</dt>
+        <dd>
+          強さを引き出す 繁殖・成長フード<br>
+          メダカの主食用フード
+        </dd>
 
-          <dt>メーカー想定用途</dt><dd id="intended-use">未入力（パッケージ/公式の用途文）</dd>
-          <dt>対象ステージ</dt><dd id="stage">未入力（針子／稚魚／成魚／繁殖期 等）</dd>
+        <dt>対象ステージ</dt>
+        <dd>
+          成魚／成長期／繁殖期
+        </dd>
 
-          <dt>形状</dt><dd id="shape">未入力（粒形状）</dd>
-          <dt>浮沈性</dt><dd id="buoyancy">未入力</dd>
-          <dt>粒径</dt><dd id="granule">未入力</dd>
-        </dl>
+        <dt>形状</dt><dd>フレークタイプ</dd>
+        <dt>浮沈性</dt><dd>浮上性</dd>
+        <dt>粒径</dt><dd>フレーク（数値表記なし）</dd>
+      </dl>
+    </section>
 
-        <p class="small">※ パッケージ・公式資料に明記されている内容のみを記載します（推測しません）。</p>
-      </section>
+    <!-- T07 特徴（固定2点・メーカー原文） -->
+    <section id="T07">
+      <h2>特徴 <span class="sec-id">T07</span></h2>
+      <ul>
+        <li>
+          魚の腸内に住んでいる善玉菌の栄養源となる成分（酵母由来のオリゴ糖やβ-グルカン）により、善玉菌の増殖を助け、健康維持に役立てます。
+        </li>
+        <li>
+          オメガ3脂肪酸やアミノ酸バランスに優れた良質なタンパク質を豊富に含み、全てのメダカの健康を維持することで丈夫な体を保ちます。
+        </li>
+      </ul>
+    </section>
 
-      <!-- S06（任意）原材料の特徴：強調ありのみ -->
-      <section id="S06" data-optional="true" data-has-content="false">
-        <h2>
-          原材料の特徴（任意）
-          <span class="sec-id">S06</span>
-        </h2>
-        <div class="mutedbox">
-          <ul class="bullets" id="S06-list">
-            <li>未入力（強調されている原材料のみ）</li>
-          </ul>
-          <p class="small">※ 名称のみの列挙しか無い場合は非表示。</p>
-        </div>
-      </section>
+    <!-- T06 原材料 -->
+    <section id="T06">
+      <h2>原材料 <span class="sec-id">T06</span></h2>
+      <ul>
+        <li>フィッシュミール</li>
+        <li>穀類</li>
+        <li>植物性蛋白質</li>
+        <li>酵母</li>
+        <li>油脂</li>
+        <li>野菜類</li>
+        <li>甲殻類</li>
+        <li>ミネラル類</li>
+        <li>ビタミン類</li>
+        <li>クエン酸</li>
+      </ul>
+    </section>
 
-      <!-- S07（任意）特有の成分・要素：高濃度/特筆のみ -->
-      <section id="S07" data-optional="true" data-has-content="false">
-        <h2>
-          特有の成分・要素（任意）
-          <span class="sec-id">S07</span>
-        </h2>
-        <div class="mutedbox">
-          <ul class="bullets" id="S07-list">
-            <li>未入力（高濃度/特筆表現があるもののみ）</li>
-          </ul>
-          <p class="small">※ 微量・一般表記のみなら非表示。</p>
-        </div>
-      </section>
+    <!-- T09 ミネラル表示（名称のみ） -->
+    <section id="T09">
+      <h2>ミネラル表示 <span class="sec-id">T09</span></h2>
+      <div class="mutedbox">
+        ミネラル類（％数値の明記なし）
+      </div>
+    </section>
 
-      <!-- S08（必須）成分表示：保証成分の数値 -->
-      <section id="S08">
-        <h2>
-          成分表示
-          <span class="sec-id">S08</span>
-        </h2>
+    <!-- T08 成分名・要素（名称のみ） -->
+    <section id="T08">
+      <h2>成分名・要素 <span class="sec-id">T08</span></h2>
+      <ul>
+        <li>ビタミン類（％数値の明記なし）</li>
+        <li>クエン酸</li>
+      </ul>
+    </section>
 
-        <table aria-label="成分表示（数値明記分のみ）">
-          <thead>
-            <tr>
-              <th>項目</th>
-              <th class="center nowrap">数値</th>
-              <th>備考</th>
-            </tr>
-          </thead>
-          <tbody id="analysis-body">
-            <tr><td>粗たんぱく質</td><td class="center">未入力</td><td>％（明記分のみ）</td></tr>
-            <tr><td>粗脂肪</td><td class="center">未入力</td><td>％（明記分のみ）</td></tr>
-            <tr><td>粗繊維</td><td class="center">未入力</td><td>％（明記分のみ）</td></tr>
-            <tr><td>粗灰分</td><td class="center">未入力</td><td>％（明記分のみ）</td></tr>
-            <tr><td>水分</td><td class="center">未入力</td><td>％（明記があれば）</td></tr>
-          </tbody>
-        </table>
+    <!-- 注意書き -->
+    <section id="NOTICE">
+      <h2>注意書き</h2>
+      <ul>
+        <li>本ページはメーカーが明記している内容のみを整理しています（比較・評価・推測は行いません）。</li>
+        <li>実際の給餌量・回数・保管方法などは、パッケージおよびメーカー案内に従ってください。</li>
+      </ul>
+    </section>
 
-        <p class="small">※ 保証成分として数値が明記されている項目のみ記載します。</p>
-      </section>
+    <!-- S12 一言 -->
+    <section id="S12">
+      <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
+      <div class="mutedbox">
+        本ページではメーカーが想定する用途と特徴を整理しています。
+      </div>
+    </section>
 
-      <!-- S09（任意）ミネラル表示：%明記分のみ -->
-      <section id="S09" data-optional="true" data-has-content="false">
-        <h2>
-          ミネラル表示（任意）
-          <span class="sec-id">S09</span>
-        </h2>
-        <table aria-label="ミネラル表示（%明記分のみ）">
-          <thead>
-            <tr>
-              <th>項目</th>
-              <th class="center nowrap">数値</th>
-              <th>備考</th>
-            </tr>
-          </thead>
-          <tbody id="mineral-body">
-            <!-- 例：<tr><td>カルシウム</td><td class="center">0.8%</td><td>明記分のみ</td></tr> -->
-          </tbody>
-        </table>
-        <p class="small">※ %数値が明記されている場合のみ表示します。</p>
-      </section>
-
-      <!-- S10（必須）使用方法 -->
-      <section id="S10">
-        <h2>
-          使用方法
-          <span class="sec-id">S10</span>
-        </h2>
-
-        <div class="mutedbox" id="howto">
-          未入力（給餌量・頻度など、メーカー記載をそのまま記載）
-        </div>
-
-        <p class="small">※ メーカーが明記している使用方法のみ記載します（推測しません）。</p>
-      </section>
-
-      <!-- S11（任意）メーカー訴求ポイント：強調ありのみ -->
-      <section id="S11" data-optional="true" data-has-content="false">
-        <h2>
-          メーカー訴求ポイント（任意）
-          <span class="sec-id">S11</span>
-        </h2>
-        <div class="mutedbox">
-          <ul class="bullets" id="S11-list">
-            <li>未入力（公式説明で強調されているポイントのみ）</li>
-          </ul>
-          <p class="small">※ 一般的説明のみなら非表示。</p>
-        </div>
-      </section>
-
-      <!-- S12（必須）固定文 -->
-      <section id="S12">
-        <h2>
-          ページ作成者からの一言
-          <span class="sec-id">S12</span>
-        </h2>
-        <div class="mutedbox">
-          本ページではメーカーが想定する用途と特徴を整理しています。
-        </div>
-      </section>
-
-    </div>
   </div>
 </main>
 
 <footer>
   <div class="wrap">
-    <div>テンプレ：CL-02（市販・メダカ用）｜仮ページ｜比較・評価・推測なし</div>
+    CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
-
-<script>
-  (function(){
-    "use strict";
-
-    function setOptionalSectionState(sectionId, hasContent){
-      var el = document.getElementById(sectionId);
-      if(!el) return;
-      el.setAttribute("data-optional","true");
-      el.setAttribute("data-has-content", hasContent ? "true" : "false");
-    }
-
-    // 任意：条件一致したときだけ true
-    setOptionalSectionState("S06", false);
-    setOptionalSectionState("S07", false);
-    setOptionalSectionState("S09", false);
-    setOptionalSectionState("S11", false);
-  })();
-</script>
 
 </body>
 </html>

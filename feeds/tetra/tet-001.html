@@ -225,76 +225,62 @@
   <div class="wrap">
     <div class="grid">
 
-      <!-- 1) T02: 基本情報（CL-01の表示順を維持しつつCL-02に寄せる） -->
-      <section id="T02">
+      <!-- S02/S03/S04/S05 -->
+      <section id="S02">
         <h2>
           基本情報
-          <span class="sec-id">T02</span>
+          <span class="sec-id">S02</span>
         </h2>
 
         <dl class="kv">
-          <!-- S02: 分類情報（固定） -->
           <dt>販種</dt><dd>市販</dd>
           <dt>餌種</dt><dd>メダカ用</dd>
           <dt>分類</dt><dd>市販・メダカ用（CL-02）</dd>
 
-          <!-- S03: メーカー想定用途 -->
-          <dt>メーカー想定用途</dt><dd id="intended-use">未入力（パッケージ等の明記待ち）</dd>
-
-          <!-- S04: 対象ステージ -->
+          <dt>メーカー想定用途</dt><dd id="intended-use">未入力（パッケージ/公式の用途文）</dd>
           <dt>対象ステージ</dt><dd id="stage">未入力（針子／稚魚／成魚／繁殖期 等）</dd>
 
-          <!-- S05: 形状・物性 -->
-          <dt>形状</dt><dd id="shape">未入力（明記待ち）</dd>
-          <dt>浮沈性</dt><dd id="buoyancy">未入力（明記待ち）</dd>
-          <dt>粒径</dt><dd id="granule">未入力（明記待ち）</dd>
+          <dt>形状</dt><dd id="shape">未入力（粒形状）</dd>
+          <dt>浮沈性</dt><dd id="buoyancy">未入力</dd>
+          <dt>粒径</dt><dd id="granule">未入力</dd>
         </dl>
 
         <p class="small">※ パッケージ・公式資料に明記されている内容のみを記載します（推測しません）。</p>
       </section>
 
-      <!-- 2) T07: （任意）S06/S07/S11 をここにまとめる（表示順は維持） -->
-      <section id="T07" data-optional="true" data-has-content="false">
+      <!-- S06（任意）原材料の特徴：強調ありのみ -->
+      <section id="S06" data-optional="true" data-has-content="false">
         <h2>
-          強調情報（任意）
-          <span class="sec-id">T07</span>
+          原材料の特徴（任意）
+          <span class="sec-id">S06</span>
         </h2>
-
-        <!-- S06: 原材料の特徴（強調ありのみ） -->
-        <div class="mutedbox" id="S06-block" style="margin-bottom:10px;">
-          <div style="font-weight:800; margin:0 0 6px;">原材料の特徴</div>
+        <div class="mutedbox">
           <ul class="bullets" id="S06-list">
-            <li>未入力（強調原材料がある場合のみ記載）</li>
+            <li>未入力（強調されている原材料のみ）</li>
           </ul>
-          <div class="small">※ 名称の列挙しか無い場合は非表示。</div>
+          <p class="small">※ 名称のみの列挙しか無い場合は非表示。</p>
         </div>
-
-        <!-- S07: 特有の成分・要素（高濃度・特筆のみ） -->
-        <div class="mutedbox" id="S07-block" style="margin-bottom:10px;">
-          <div style="font-weight:800; margin:0 0 6px;">特有の成分・要素</div>
-          <ul class="bullets" id="S07-list">
-            <li>未入力（高濃度・特筆表現がある場合のみ記載）</li>
-          </ul>
-          <div class="small">※ 微量・一般表記のみなら非表示。</div>
-        </div>
-
-        <!-- S11: メーカー訴求ポイント（強調ありのみ） -->
-        <div class="mutedbox" id="S11-block">
-          <div style="font-weight:800; margin:0 0 6px;">メーカー訴求ポイント</div>
-          <ul class="bullets" id="S11-list">
-            <li>未入力（公式説明で強調がある場合のみ記載）</li>
-          </ul>
-          <div class="small">※ 一般的説明のみなら非表示。</div>
-        </div>
-
-        <p class="small">※ 上記いずれも「強調あり」の場合のみ表示する運用。</p>
       </section>
 
-      <!-- 3) T08: 成分表示（S08）※CL-01のT08位置を流用 -->
-      <section id="T08">
+      <!-- S07（任意）特有の成分・要素：高濃度/特筆のみ -->
+      <section id="S07" data-optional="true" data-has-content="false">
+        <h2>
+          特有の成分・要素（任意）
+          <span class="sec-id">S07</span>
+        </h2>
+        <div class="mutedbox">
+          <ul class="bullets" id="S07-list">
+            <li>未入力（高濃度/特筆表現があるもののみ）</li>
+          </ul>
+          <p class="small">※ 微量・一般表記のみなら非表示。</p>
+        </div>
+      </section>
+
+      <!-- S08（必須）成分表示：保証成分の数値 -->
+      <section id="S08">
         <h2>
           成分表示
-          <span class="sec-id">T08</span>
+          <span class="sec-id">S08</span>
         </h2>
 
         <table aria-label="成分表示（数値明記分のみ）">
@@ -314,14 +300,14 @@
           </tbody>
         </table>
 
-        <p class="small">※ 数値が明記されている項目のみ記載します。</p>
+        <p class="small">※ 保証成分として数値が明記されている項目のみ記載します。</p>
       </section>
 
-      <!-- 4) （任意）T09 ミネラル表示（S09）：%明記分のみ -->
-      <section id="T09" data-optional="true" data-has-content="false">
+      <!-- S09（任意）ミネラル表示：%明記分のみ -->
+      <section id="S09" data-optional="true" data-has-content="false">
         <h2>
-          ミネラル表示
-          <span class="sec-id">T09</span>
+          ミネラル表示（任意）
+          <span class="sec-id">S09</span>
         </h2>
         <table aria-label="ミネラル表示（%明記分のみ）">
           <thead>
@@ -332,17 +318,17 @@
             </tr>
           </thead>
           <tbody id="mineral-body">
-            <!-- %数値が確定した場合のみ追加 -->
+            <!-- 例：<tr><td>カルシウム</td><td class="center">0.8%</td><td>明記分のみ</td></tr> -->
           </tbody>
         </table>
         <p class="small">※ %数値が明記されている場合のみ表示します。</p>
       </section>
 
-      <!-- 5) T10: 使用方法（S10）※CL-01のT10位置を流用（必須で常時表示） -->
-      <section id="T10">
+      <!-- S10（必須）使用方法 -->
+      <section id="S10">
         <h2>
           使用方法
-          <span class="sec-id">T10</span>
+          <span class="sec-id">S10</span>
         </h2>
 
         <div class="mutedbox" id="howto">
@@ -352,11 +338,25 @@
         <p class="small">※ メーカーが明記している使用方法のみ記載します（推測しません）。</p>
       </section>
 
-      <!-- 6) T12: ページ作成者からの一言（S12 固定文） -->
-      <section id="T12">
+      <!-- S11（任意）メーカー訴求ポイント：強調ありのみ -->
+      <section id="S11" data-optional="true" data-has-content="false">
+        <h2>
+          メーカー訴求ポイント（任意）
+          <span class="sec-id">S11</span>
+        </h2>
+        <div class="mutedbox">
+          <ul class="bullets" id="S11-list">
+            <li>未入力（公式説明で強調されているポイントのみ）</li>
+          </ul>
+          <p class="small">※ 一般的説明のみなら非表示。</p>
+        </div>
+      </section>
+
+      <!-- S12（必須）固定文 -->
+      <section id="S12">
         <h2>
           ページ作成者からの一言
-          <span class="sec-id">T12</span>
+          <span class="sec-id">S12</span>
         </h2>
         <div class="mutedbox">
           本ページではメーカーが想定する用途と特徴を整理しています。
@@ -384,9 +384,11 @@
       el.setAttribute("data-has-content", hasContent ? "true" : "false");
     }
 
-    // 任意：T07（強調情報）／T09（ミネラル）を必要時だけ true にする
-    setOptionalSectionState("T07", false);
-    setOptionalSectionState("T09", false);
+    // 任意：条件一致したときだけ true
+    setOptionalSectionState("S06", false);
+    setOptionalSectionState("S07", false);
+    setOptionalSectionState("S09", false);
+    setOptionalSectionState("S11", false);
   })();
 </script>
 

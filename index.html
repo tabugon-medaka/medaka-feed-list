@@ -143,6 +143,45 @@
         max-width: 100%;
       }
     }
+
+    /* ===== 検索UI（追加） ===== */
+    #search-wrap{
+      margin: 10px auto 14px;
+      max-width: 520px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    #search-input{
+      width: 320px;
+      max-width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    #search-btn, #search-clear{
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    #search-hint{
+      width: 100%;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
   </style>
 </head>
 
@@ -176,6 +215,14 @@
 <div id="sort-status" aria-label="ソート状況">
   <div id="sort-title">ソート状況</div>
   <div id="sort-text">初期（未ソート）</div>
+</div>
+
+<!-- ===== 検索（追加） ===== -->
+<div id="search-wrap" aria-label="検索">
+  <input id="search-input" type="search" placeholder="検索（例：ライズ / GEX / 主食 / 50 など）" />
+  <button id="search-btn" type="button">検索</button>
+  <button id="search-clear" type="button">クリア</button>
+  <div id="search-hint">※ 餌名・メーカー・分類・数値（%なし）を対象に部分一致で絞り込みます。</div>
 </div>
 
 <table id="data-table">
@@ -303,6 +350,16 @@ function renderTable(rows) {
   const tbody = document.getElementById("table-body");
   tbody.innerHTML = "";
 
+  if (!rows || rows.length === 0) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 7;
+    td.textContent = "該当なし";
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+
   for (const row of rows) {
     const tr = document.createElement("tr");
 
@@ -366,6 +423,43 @@ let VIEW_ROWS = [];
 let ORIGINAL_INDEX = new Map();
 const SORT_STATE = { key: null, step: 0, type: null };
 
+/* ===== 検索（追加） ===== */
+const SEARCH_STATE = { q: "" };
+
+function normalizeStr(v) {
+  return (v ?? "").toString().toLowerCase();
+}
+function rowToSearchText(row) {
+  // 餌名 / メーカー / 分類 / 数値（%無し）をまとめて検索対象にする
+  const parts = [
+    row["餌名"], row["メーカー"], row["分類"],
+    row["粗蛋白"], row["粗脂肪"], row["粗繊維"], row["粗灰分"]
+  ];
+  return parts.map(normalizeStr).join(" ");
+}
+function applyFilter(rows) {
+  const q = normalizeStr(SEARCH_STATE.q).trim();
+  if (q === "") return rows;
+
+  // スペース区切りでAND検索
+  const tokens = q.split(/\s+/).filter(Boolean);
+  return rows.filter(r => {
+    const hay = rowToSearchText(r);
+    return tokens.every(t => hay.includes(t));
+  });
+}
+function refreshView() {
+  const filtered = applyFilter(VIEW_ROWS);
+  renderTable(filtered);
+  updateSortStatus();
+  updateColumnHighlight();
+}
+function setSearchQuery(q) {
+  SEARCH_STATE.q = (q ?? "").toString();
+  refreshView();
+}
+
+/* ===== ソート状況 ===== */
 function updateSortStatus() {
   const el = document.getElementById("sort-text");
   if (!el) return;
@@ -421,9 +515,7 @@ function resetToOriginal() {
   SORT_STATE.key = null;
   SORT_STATE.step = 0;
   SORT_STATE.type = null;
-  renderTable(VIEW_ROWS);
-  updateSortStatus();
-  updateColumnHighlight();
+  refreshView();
 }
 
 function cmpNum(a, b, key) {
@@ -486,9 +578,7 @@ function sortByKey(key, type) {
   });
 
   VIEW_ROWS = rows;
-  renderTable(VIEW_ROWS);
-  updateSortStatus();
-  updateColumnHighlight();
+  refreshView();
 }
 
 function bindHeaderSort() {
@@ -497,6 +587,34 @@ function bindHeaderSort() {
       sortByKey(th.getAttribute("data-key"), th.getAttribute("data-type"));
     });
   });
+}
+
+/* ===== 検索バインド（追加） ===== */
+function bindSearch() {
+  const input = document.getElementById("search-input");
+  const btn = document.getElementById("search-btn");
+  const clear = document.getElementById("search-clear");
+
+  if (!input || !btn || !clear) return;
+
+  const run = () => setSearchQuery(input.value);
+
+  // Enterで検索
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") run();
+  });
+
+  // ボタン検索
+  btn.addEventListener("click", run);
+
+  // クリア
+  clear.addEventListener("click", () => {
+    input.value = "";
+    setSearchQuery("");
+  });
+
+  // 入力に追従（必要なければこの2行を消す）
+  input.addEventListener("input", () => setSearchQuery(input.value));
 }
 
 /* ===== 初期化 ===== */
@@ -512,6 +630,7 @@ function bindHeaderSort() {
     renderTable(VIEW_ROWS);
 
     bindHeaderSort();
+    bindSearch();
     updateSortStatus();
     updateColumnHighlight();
 

@@ -27,6 +27,9 @@
                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       line-height:1.6;
     }
+    a{ color:#0b57d0; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
     header{
       border-bottom:1px solid var(--line);
       background:var(--soft2);
@@ -36,8 +39,12 @@
       margin:0 auto;
       padding:16px;
     }
+    .back{
+      font-size:14px;
+      margin-bottom:6px;
+    }
     h1{
-      margin:12px 0 6px;
+      margin:0 0 6px;
       font-size:26px;
     }
     .sub{
@@ -46,6 +53,7 @@
       font-size:14px;
     }
     main{ padding:10px 0 26px; }
+
     section{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -69,6 +77,7 @@
       border-radius:999px;
       background:var(--soft2);
     }
+
     .kv{
       display:grid;
       grid-template-columns:160px 1fr;
@@ -83,6 +92,7 @@
       margin:0;
       font-size:14px;
     }
+
     .mutedbox{
       padding:10px 12px;
       background:var(--soft2);
@@ -90,7 +100,29 @@
       border-radius:10px;
       font-size:14px;
     }
-    ul{ margin:8px 0 0; padding-left:18px; }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+      font-size:14px;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:8px 10px;
+      vertical-align:top;
+      word-break:break-word;
+    }
+    th{
+      background:var(--soft);
+      font-weight:700;
+    }
+
+    ul{
+      margin:8px 0 0;
+      padding-left:18px;
+    }
+
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
@@ -101,8 +133,14 @@
 </head>
 
 <body>
+
 <header>
   <div class="wrap">
+    <!-- 一覧に戻る -->
+    <div class="back">
+      <a href="../index.html">一覧に戻る</a>
+    </div>
+
     <!-- S01 商品名 -->
     <h1>テトラ キリミン</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
@@ -112,14 +150,16 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 / S03 / S04 / S05 基本情報 -->
+    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
+
       <dl class="kv">
-        <dt>販種</dt><dd>市販</dd>
-        <dt>餌種</dt><dd>メダカ用</dd>
-        <dt>分類</dt><dd>市販・メダカ用（CL-02）</dd>
-        <dt>位置づけ</dt><dd>主食用フード</dd>
+        <dt>分類</dt>
+        <dd>市販・メダカ用（CL-02）</dd>
+
+        <dt>位置づけ</dt>
+        <dd>主食用フード</dd>
 
         <dt>メーカー想定用途</dt>
         <dd>
@@ -128,19 +168,25 @@
         </dd>
 
         <dt>対象ステージ</dt>
-        <dd>
-          成魚／成長期／繁殖期
-        </dd>
+        <dd>成魚／成長期／繁殖期</dd>
 
-        <dt>形状</dt><dd>フレークタイプ</dd>
-        <dt>浮沈性</dt><dd>浮上性</dd>
-        <dt>粒径</dt><dd>フレーク（数値表記なし）</dd>
+        <dt>形状</dt>
+        <dd>フレークタイプ</dd>
+
+        <dt>浮沈性</dt>
+        <dd>浮上性</dd>
+
+        <dt>粒径</dt>
+        <dd>フレーク（数値表記なし）</dd>
+
+        <dt>メーカー表記</dt>
+        <dd>健康を維持することで、お腹の中から免疫力を保つ</dd>
       </dl>
     </section>
 
-    <!-- T07 特徴（固定2点・メーカー原文） -->
-    <section id="T07">
-      <h2>特徴 <span class="sec-id">T07</span></h2>
+    <!-- S07 特徴 -->
+    <section id="S07">
+      <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
         <li>
           魚の腸内に住んでいる善玉菌の栄養源となる成分（酵母由来のオリゴ糖やβ-グルカン）により、善玉菌の増殖を助け、健康維持に役立てます。
@@ -151,46 +197,59 @@
       </ul>
     </section>
 
-    <!-- T06 原材料 -->
-    <section id="T06">
-      <h2>原材料 <span class="sec-id">T06</span></h2>
-      <ul>
-        <li>フィッシュミール</li>
-        <li>穀類</li>
-        <li>植物性蛋白質</li>
-        <li>酵母</li>
-        <li>油脂</li>
-        <li>野菜類</li>
-        <li>甲殻類</li>
-        <li>ミネラル類</li>
-        <li>ビタミン類</li>
-        <li>クエン酸</li>
-      </ul>
+    <!-- S06 原材料（表形式・3列） -->
+    <section id="S06">
+      <h2>原材料 <span class="sec-id">S06</span></h2>
+
+      <table>
+        <tbody>
+          <tr>
+            <td>フィッシュミール</td>
+            <td>穀類</td>
+            <td>植物性蛋白質</td>
+          </tr>
+          <tr>
+            <td>酵母</td>
+            <td>油脂</td>
+            <td>野菜類</td>
+          </tr>
+          <tr>
+            <td>甲殻類</td>
+            <td>ミネラル類</td>
+            <td>ビタミン類</td>
+          </tr>
+          <tr>
+            <td>クエン酸</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    <!-- T09 ミネラル表示（名称のみ） -->
-    <section id="T09">
-      <h2>ミネラル表示 <span class="sec-id">T09</span></h2>
+    <!-- S09 ミネラル -->
+    <section id="S09">
+      <h2>ミネラル <span class="sec-id">S09</span></h2>
       <div class="mutedbox">
         ミネラル類（％数値の明記なし）
       </div>
     </section>
 
-    <!-- T08 成分名・要素（名称のみ） -->
-    <section id="T08">
-      <h2>成分名・要素 <span class="sec-id">T08</span></h2>
+    <!-- S08 成分 -->
+    <section id="S08">
+      <h2>成分 <span class="sec-id">S08</span></h2>
       <ul>
         <li>ビタミン類（％数値の明記なし）</li>
         <li>クエン酸</li>
       </ul>
     </section>
 
-    <!-- 注意書き -->
-    <section id="NOTICE">
-      <h2>注意書き</h2>
+    <!-- S10 注意書き -->
+    <section id="S10">
+      <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
         <li>本ページはメーカーが明記している内容のみを整理しています（比較・評価・推測は行いません）。</li>
-        <li>実際の給餌量・回数・保管方法などは、パッケージおよびメーカー案内に従ってください。</li>
+        <li>給餌量・回数・保管方法などは、パッケージおよびメーカー案内に従ってください。</li>
       </ul>
     </section>
 

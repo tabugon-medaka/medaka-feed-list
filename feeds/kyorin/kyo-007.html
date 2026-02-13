@@ -27,9 +27,6 @@
                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       line-height:1.6;
     }
-    a{ color:#0b57d0; text-decoration:none; }
-    a:hover{ text-decoration:underline; }
-
     header{
       border-bottom:1px solid var(--line);
       background:var(--soft2);
@@ -52,8 +49,6 @@
       color:var(--muted);
       font-size:14px;
     }
-    main{ padding:10px 0 26px; }
-
     section{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -77,7 +72,6 @@
       border-radius:999px;
       background:var(--soft2);
     }
-
     .kv{
       display:grid;
       grid-template-columns:160px 1fr;
@@ -91,31 +85,18 @@
     .kv dd{
       margin:0;
       font-size:14px;
-      word-break:break-word;
     }
-
     table{
       width:100%;
       border-collapse:collapse;
       table-layout:fixed;
       font-size:14px;
     }
-    th, td{
+    td{
       border:1px solid var(--line);
       padding:8px 10px;
       vertical-align:top;
-      word-break:break-word;
     }
-    th{
-      background:var(--soft);
-      font-weight:700;
-    }
-
-    ul{
-      margin:8px 0 0;
-      padding-left:18px;
-    }
-
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
@@ -132,8 +113,6 @@
     <div class="back">
       <a href="../../index.html">一覧に戻る</a>
     </div>
-
-    <!-- S01 商品名 -->
     <h1>キョーリン メダカベビー ハイパー育成</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
@@ -145,7 +124,6 @@
     <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
@@ -154,13 +132,13 @@
         <dd>育成</dd>
 
         <dt>対象ステージ</dt>
-        <dd>生まれてから15mmぐらいまで</dd>
+        <dd>稚魚</dd>
 
         <dt>形状</dt>
-        <dd>顆粒</dd>
+        <dd>顆粒（粉末状）</dd>
 
         <dt>浮沈性</dt>
-        <dd>浮遊性（沈みにくい）</dd>
+        <dd>浮上性（沈みにくい）</dd>
 
         <dt>粒径</dt>
         <dd>0.2mm以下</dd>
@@ -173,7 +151,7 @@
       </dl>
     </section>
 
-    <!-- S07 特徴（原文抽出のみ） -->
+    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -184,87 +162,43 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
+    <!-- S06 原材料 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>オキアミミール</td>
-            <td>フィッシュミール</td>
-            <td>卵白粉末</td>
-          </tr>
-          <tr>
-            <td>イカミール</td>
-            <td>ビール酵母</td>
-            <td>魚油</td>
-          </tr>
-          <tr>
-            <td>でんぷん類</td>
-            <td>乳化剤</td>
-            <td>海藻粉末</td>
-          </tr>
-          <tr>
-            <td>グルテンミール</td>
-            <td>大豆ミール</td>
-            <td>酵母エキス</td>
-          </tr>
-          <tr>
-            <td>生菌剤</td>
-            <td>スピルリナ</td>
-            <td>粘結剤（ポリアクリル酸Na）</td>
-          </tr>
-          <tr>
-            <td>ガーリック</td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr><td>オキアミミール</td><td>フィッシュミール</td><td>卵白粉末</td></tr>
+          <tr><td>イカミール</td><td>ビール酵母</td><td>でんぷん類</td></tr>
+          <tr><td>魚油</td><td>乳化剤</td><td>グルテンミール</td></tr>
+          <tr><td>大豆ミール</td><td>海藻粉末</td><td>酵母エキス</td></tr>
+          <tr><td>スピルリナ</td><td>粘結剤（ポリアクリル酸Na）</td><td>ガーリック</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S09 ミネラル（表形式・3列） -->
+    <!-- S09 ミネラル -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>リン</td>
-            <td>カルシウム</td>
-            <td>ケイ素</td>
-          </tr>
-          <tr>
-            <td>鉄</td>
-            <td>マグネシウム</td>
-            <td>亜鉛</td>
-          </tr>
-          <tr>
-            <td>マンガン</td>
-            <td>銅</td>
-            <td>ヨウ素</td>
-          </tr>
+          <tr><td>リン</td><td>カルシウム</td><td>ケイ素</td></tr>
+          <tr><td>鉄</td><td>マグネシウム</td><td>亜鉛</td></tr>
+          <tr><td>マンガン</td><td>銅</td><td>ヨウ素</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S08 成分（表形式・3列） -->
+    <!-- S08 成分 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>アミノ酸（メチオニン）</td>
-            <td>タウリン</td>
-            <td>カロチノイド</td>
-          </tr>
-          <tr>
-            <td>ビタミン類（塩化コリン、E、C、イノシトール、B5、B2、A、B1、B6、B3、葉酸、D3、ビオチン）</td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr><td>アミノ酸（メチオニン）</td><td>タウリン</td><td>カロチノイド</td></tr>
+          <tr><td>塩化コリン</td><td>ビタミンE</td><td>ビタミンC</td></tr>
+          <tr><td>イノシトール</td><td>ビタミンB5</td><td>ビタミンB2</td></tr>
+          <tr><td>ビタミンA</td><td>ビタミンB1</td><td>ビタミンB6</td></tr>
+          <tr><td>ビタミンB3</td><td>葉酸</td><td>ビタミンD3</td></tr>
+          <tr><td>ビオチン</td><td></td><td></td></tr>
         </tbody>
       </table>
     </section>
@@ -281,9 +215,7 @@
     <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
-      <div>
-        本ページではメーカーが明記している内容のみを整理しています。
-      </div>
+      <div>本ページではメーカーが明記している内容のみを整理しています。</div>
     </section>
 
   </div>

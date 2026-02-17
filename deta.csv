@@ -67,9 +67,9 @@
 産卵繁殖メダカの主食,イトスイ,産卵,50,7,3,15,./feeds/itosui/ito-012.html
 成魚メダカの主食,イトスイ,主食,40,3,3,16,./feeds/itosui/ito-013.html
 幼魚メダカの主食,イトスイ,育成,46,6,4,14,./feeds/itosui/ito-014.html
-究極の餌メダカ用,B-blast,主食,50,10,3,16,
-ENNMA essence,ENNMA,主食,53,10,3,17,
-びんびんclimax,びんびん本舗,主食,54,10,3,17,
+究極の餌メダカ用,B-blast,主食,50,10,3,16,./feeds/other/kyukyoku-001.html
+ENNMA essence,ENNMA,主食,53,10,3,17,./feeds/ennma/enn-001.html
+びんびんclimax,びんびん本舗,主食,54,10,3,17,./feeds/binbin/bin-001.html
 ライズ,日清丸紅,主食,50,6,3.5,18,./feeds/RISE.html
 おとひめ,日清丸紅,主食,50,10,3,16,./feeds/OTOHIME.html
 あゆ稚魚用,日清丸紅,主食,49,3,5,17,./feeds/AYU-BABY.html

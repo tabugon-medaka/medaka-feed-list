@@ -229,6 +229,18 @@
         max-height: 3000px; /* 十分大きい値（内容に合わせて開く） */
         opacity: 1;
       }
+
+      /* ===== 追加：餌名（1列目）だけ 折り返し + 12px（スマホのみ） ===== */
+      #data-table{
+        table-layout: fixed;
+        width: 100%;
+      }
+      #data-table th:nth-child(1),
+      #data-table td:nth-child(1){
+        white-space: normal;
+        word-break: break-word;
+        font-size: 12px;
+      }
     }
   </style>
 </head>

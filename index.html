@@ -242,6 +242,14 @@
         font-size: 12px;
       }
     }
+
+    /* ===== 追加：餌名セルだけタップ可能（PC/スマホ共通） ===== */
+    #data-table td.name-tap{
+      cursor: pointer;
+    }
+    #data-table td.name-tap:active{
+      opacity: 0.85;
+    }
   </style>
 </head>
 
@@ -454,8 +462,7 @@ async function loadCSV(path) {
 }
 
 /* ===== 描画 =====
-   - ルール：一覧側のリンクは「餌名」に紐づける
-   - CSVに detail_url 列がある場合のみリンク化する（空欄はリンク無し）
+   - 餌名セルだけタップで detail_url に遷移（リンク表示はしない）
 */
 function renderTable(rows) {
   const tbody = document.getElementById("table-body");
@@ -476,18 +483,18 @@ function renderTable(rows) {
 
     const detailUrl = (row["detail_url"] ?? "").toString().trim();
 
-    // 1列目：餌名（リンク対応）
+    // 1列目：餌名（セルだけタップ対応）
     const tdName = document.createElement("td");
     const nameText = (row["餌名"] ?? "").toString();
+    tdName.textContent = nameText;
 
     if (detailUrl !== "") {
-      const a = document.createElement("a");
-      a.href = detailUrl;
-      a.textContent = nameText;
-      tdName.appendChild(a);
-    } else {
-      tdName.textContent = nameText;
+      tdName.classList.add("name-tap");
+      tdName.addEventListener("click", () => {
+        location.href = detailUrl;
+      });
     }
+
     tr.appendChild(tdName);
 
     // 残り列：従来どおり
@@ -646,7 +653,7 @@ function resetToOriginal() {
 
 function cmpNum(a, b, key) {
   const av = (a[key] === "" ? -Infinity : Number(a[key]));
-  const bv = (b[key] === "" ? -Infinity : Number(b[key]));
+  const bv = (b[key] === "" ? -Infinity : Number(a[key]));
   return av - bv;
 }
 function cmpMaker(a, b) {

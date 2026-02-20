@@ -58,7 +58,7 @@
   <button id="guide-toggle-btn" type="button" aria-expanded="false">成分・原材料ガイド</button>
 </div>
 <div id="guide-collapsible">
-  <a href="https://tabugon-medaka.github.io/medaka-feed-guide/index.html" target="_blank">
+  <a href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-components.html" target="_blank">
     成分・原材料ガイドへ移動
   </a>
 </div>
@@ -67,13 +67,15 @@
 const GUIDE_BTN = document.getElementById("guide-toggle-btn");
 const GUIDE_COLLAPSE = document.getElementById("guide-collapsible");
 
-GUIDE_COLLAPSE.style.display = "none"; // 初期は非表示
+// 初期は非表示
+GUIDE_COLLAPSE.style.display = "none";
 
 GUIDE_BTN.addEventListener("click", ()=>{
   const expanded = GUIDE_BTN.getAttribute("aria-expanded") === "true";
   GUIDE_BTN.setAttribute("aria-expanded", !expanded);
   GUIDE_COLLAPSE.style.display = expanded ? "none" : "block";
 });
+</script>
   
 </script>
     /* ===== ソート状況：左右2枠（左=タイトル / 右=状況） ===== */

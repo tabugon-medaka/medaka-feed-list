@@ -53,22 +53,27 @@
       color: #333;
     }
 
-    /* ===== 成分・原材料ガイド：区画タップで遷移（ソート状況と同幅） ===== */
-    #guide-link-wrap{
+    /* ===== ガイドリンク共通枠（3つ共通） ===== */
+    .guide-link-wrap{
       margin: 8px auto 10px;
       max-width: 520px;
     }
-    #guide-link{
+
+    .guide-link{
       display: block;
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid #ddd;
-      background: #fafafa;
+      border: 1px solid #f2b6cf;
+      background: #ffe6f1;
       border-radius: 8px;
       text-align: center;
       text-decoration: none;
-      color: inherit;
+      color: #000;
       box-sizing: border-box;
+    }
+
+    .guide-link:active{
+      opacity: 0.85;
     }
 
     /* ===== ソート状況：左右2枠（左=タイトル / 右=状況） ===== */
@@ -160,7 +165,7 @@
       #sort-status{
         max-width: 100%;
       }
-      #guide-link-wrap{
+      .guide-link-wrap{
         max-width: 100%;
       }
     }
@@ -315,9 +320,20 @@
   </div>
 </div>
 
-<!-- 成分・原材料ガイド（区画タップで遷移） -->
-<div id="guide-link-wrap">
-  <a id="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-components.html">
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/how-to-use/">
+    このページの使い方
+  </a>
+</div>
+
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-categories/">
+    各餌の分類ガイド
+  </a>
+</div>
+
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-components.html">
     成分・原材料ガイド
   </a>
 </div>

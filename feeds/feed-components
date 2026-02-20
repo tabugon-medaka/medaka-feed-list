@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>メダカ 餌 原材料・成分ガイド</title>
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  margin: 16px;
+  line-height: 1.6;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+h2 {
+  margin-top: 24px;
+  font-size: 18px;
+}
+ul {
+  padding-left: 20px;
+}
+li {
+  margin-bottom: 8px;
+}
+.sub-item {
+  margin-left: 16px;
+  list-style-type: disc;
+}
+</style>
+</head>
+<body>
+
+<h1>原材料・成分ガイド</h1>
+
+<h2>主要成分</h2>
+<ul>
+  <li><strong>タンパク質</strong>
+    <ul class="sub-item">
+      <li>筋肉・内臓・ヒレなど体組織の構成に必要</li>
+      <li>産卵期の成長・繁殖にも関わる</li>
+      <li>高いと成長効率・体格形成・繁殖力が高く出やすい</li>
+      <li>低いと負担は軽減されるが、補助的に他の餌で補う必要がある</li>
+    </ul>
+  </li>
+  <li><strong>脂肪</strong>
+    <ul class="sub-item">
+      <li>エネルギー源として重要</li>
+      <li>細胞膜やホルモンの構成にも関わる</li>
+      <li>高いと活動エネルギーや代謝効率が高く出やすく、成長期や繁殖期の活動力を支える</li>
+      <li>低いと負荷は少ないが、活動力や成長サポートは控えめ</li>
+    </ul>
+  </li>
+  <li><strong>粗繊維</strong>
+    <ul class="sub-item">
+      <li>消化されにくい成分の総称</li>
+      <li>腸内で物理的なかさを作り、消化効率や通過に影響</li>
+      <li>数値が高いと通過はやや速く、低いとやや穏やか</li>
+    </ul>
+  </li>
+  <li><strong>灰分</strong>
+    <ul class="sub-item">
+      <li>魚体に残る無機質の総称（カルシウム・リン・その他ミネラル）</li>
+      <li>骨格や殻の形成を助け、体の健康・構造維持に関わる</li>
+      <li>数値が高いと体内無機質が豊富になり、骨や殻の成長を支える</li>
+      <li>数値が低いと補給は控えめになり、長期的な骨格・殻の成長に注意が必要</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>共通原材料（基礎原材料）</h2>
+<ul>
+  <li><strong>魚粉（フィッシュミール系）</strong>：魚を乾燥・粉砕した高タンパク源。成長効率や体格形成を支え、消化されやすい。</li>
+  <li><strong>オキアミミール</strong>：高タンパクで消化性良好。食欲を刺激し、色揚げや成長促進に寄与。</li>
+  <li><strong>イカミール</strong>：タンパク質・アミノ酸が豊富で筋肉形成をサポート。旨味成分で食いつき向上。</li>
+  <li><strong>動物性油脂（魚油）</strong>：高エネルギー源で活動力や成長を支え、脂溶性ビタミン吸収を助ける。</li>
+  <li><strong>穀類</strong>：炭水化物源でエネルギー供給に重要。粒状の餌の安定性を向上。</li>
+  <li><strong>でん粉類</strong>：炭水化物として消化・吸収され、結着・成形性で餌の形状を安定。</li>
+</ul>
+
+<h2>高頻度で使われる原材料</h2>
+<ul>
+  <li><strong>魚油（精製魚油）</strong>：高エネルギー源、脂溶性ビタミン吸収補助、成長促進。</li>
+  <li><strong>ビタミン類（飼料添加物）</strong>：栄養補助、健康維持や発育支援。</li>
+  <li><strong>ミネラル類（リン酸カルシウムなど）</strong>：骨格形成、健康維持に寄与。</li>
+</ul>
+
+</body>
+</html>

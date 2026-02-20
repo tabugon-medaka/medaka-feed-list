@@ -6,7 +6,831 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+    body{<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>メダカの餌データベース</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
     body{
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+      margin: 16px;
+      text-align: center; /* ページ全体センター */
+    }
+
+    h1{
+      margin: 0 0 10px;
+      text-align: center;
+    }
+
+    /* ===== 説明ブロック中央寄せ ===== */
+    .info-wrap{
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: stretch;
+      margin: 12px auto;
+      max-width: 900px;
+    }
+
+    /* ===== 常設ボックス（スクロール無し） ===== */
+    .info-box{
+      width: 360px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      text-align: center;     /* 枠内センター寄せ（継続） */
+    }
+
+    /* タイトル：本文と同サイズ（大きくしない） */
+    .info-title{
+      font-size: 13px;        /* 本文と同じ */
+      font-weight: 700;       /* 太字はOK（必要なら 400 に） */
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .info-body{
+      margin-top: 10px;       /* 1行空け相当（視認性） */
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* ===== ガイドリンク共通枠（3つ共通） ===== */
+    .guide-link-wrap{
+      margin: 8px auto 10px;
+      max-width: 520px;
+    }
+
+    .guide-link{
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #f2b6cf;
+      background: #ffe6f1;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      color: #000;
+      box-sizing: border-box;
+    }
+
+    .guide-link:active{
+      opacity: 0.85;
+    }
+
+    /* ===== ソート状況：左右2枠（左=タイトル / 右=状況） ===== */
+    #sort-status{
+      margin: 12px auto;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      font-size: 13px;
+      max-width: 520px;
+
+      display: flex;
+      align-items: stretch;      /* 高さを揃える */
+      height: 42px;              /* ★高さ固定（必要ならここだけ調整） */
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* 左：タイトル（文字数に合わせて幅が決まる） */
+    #sort-title{
+      padding: 8px 12px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-right: 1px solid #ddd;  /* ★左右の境界線 */
+      box-sizing: border-box;
+    }
+
+    /* 右：現在のソート状況（枠内センター） */
+    #sort-text{
+      flex: 1 1 auto;
+      padding: 8px 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;   /* ★右枠内センター */
+
+      white-space: normal;
+      word-break: break-word;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    /* ===== テーブル ===== */
+    table{
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: 14px;
+    }
+
+    th, td{
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      white-space: nowrap;
+      text-align: center; /* 全セルセンター */
+    }
+
+    th{
+      background-color: #f2f2f2;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* ===== 行の縞模様 ===== */
+    #table-body tr:nth-child(even) td{
+      background: #fafafa;
+    }
+
+    /* ===== 列ハイライト ===== */
+    th.active-sort{
+      background-color: #ffd1e3;
+    }
+    td.active-col{
+      background-color: #ffe1ee !important; /* 縞より優先 */
+    }
+
+    /* ===== スマホ ===== */
+    @media (max-width: 820px){
+      .info-wrap{
+        flex-direction: column;
+        align-items: center;
+      }
+      .info-box{
+        width: 100%;
+      }
+      #sort-status{
+        max-width: 100%;
+      }
+      .guide-link-wrap{
+        max-width: 100%;
+      }
+    }
+
+    /* ===== 検索UI（追加） ===== */
+    #search-wrap{
+      margin: 10px auto 14px;
+      max-width: 520px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    #search-input{
+      width: 320px;
+      max-width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    #search-btn, #search-clear{
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    #search-hint{
+      width: 100%;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* ===== スマホだけ：一覧表 折りたたみ（アニメーション付き） ===== */
+    #table-toggle-wrap{
+      display:none;
+      max-width: 520px;
+      margin: 0 auto 10px;
+    }
+    #table-toggle-btn{
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    #result-count{
+      margin: 8px auto 10px;
+      max-width: 520px;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* 折りたたみ本体（PCでは通常表示） */
+    #table-collapsible{
+      max-width: 1100px;
+      margin: 0 auto;
+
+      overflow-x: auto;                /* 横スクロール開放 */
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* スマホだけアニメーション有効化 */
+    @media (max-width: 820px){
+      #table-toggle-wrap{
+        display:block;
+      }
+      #table-collapsible{
+        overflow-x: auto;              /* 横スクロールは常にOK */
+        overflow-y: hidden;            /* 閉じた時のはみ出し防止 */
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 260ms ease, opacity 260ms ease;
+        will-change: max-height, opacity;
+      }
+      #table-collapsible.open{
+        max-height: 3000px;            /* 十分大きい値（内容に合わせて開く） */
+        opacity: 1;
+        overflow-y: visible;           /* 開いたら縦は通常 */
+      }
+    }
+
+    /* ===== 追加：餌名セルだけタップ可能（PC/スマホ共通） ===== */
+    #data-table td.name-tap{
+      cursor: pointer;
+    }
+    #data-table td.name-tap:active{
+      opacity: 0.85;
+    }
+
+    /* ===== 追加：一覧表（テーブル内）を12pxに統一 + はみ出し防止 ===== */
+    #data-table{
+      width: max-content;  /* 内容幅で伸びる */
+      min-width: 100%;
+      font-size: 12px;
+    }
+    #data-table th,
+    #data-table td{
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ===== 追加：餌名セル（1列目）を薄いグレーで交互に色付け ===== */
+    #table-body tr:nth-child(odd) td:nth-child(1){
+      background: #f2f2f2 !important;
+    }
+    #table-body tr:nth-child(even) td:nth-child(1){
+      background: #e9e9e9 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>メダカの餌データベース</h1>
+<div style="margin-bottom:20px; font-size:14px;">
+  分類・成分・原材料を整理した比較ガイド
+</div>
+
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/how-to-use/">
+    このページの使い方
+  </a>
+</div>
+
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-categories/">
+    各餌の分類ガイド
+  </a>
+</div>
+
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-components.html">
+    成分・原材料ガイド
+  </a>
+</div>
+
+<!-- ===== 検索（追加） ===== -->
+<div id="search-wrap" aria-label="検索">
+  <input id="search-input" type="search" placeholder="検索（例：ライズ / GEX / 主食 / 50 など）" />
+  <button id="search-btn" type="button">検索</button>
+  <button id="search-clear" type="button">クリア</button>
+  <div id="search-hint">※ 餌名・メーカー・分類・数値（%なし）を対象に部分一致で絞り込みます。</div>
+</div>
+
+<!-- ===== ソート状況（左右2枠） ===== -->
+<div id="sort-status" aria-label="ソート状況">
+  <div id="sort-title">ソート状況</div>
+  <div id="sort-text">初期（未ソート）</div>
+</div>
+
+<!-- ===== スマホだけ：一覧の表示切替 ===== -->
+<div id="table-toggle-wrap">
+  <button id="table-toggle-btn" type="button" aria-expanded="false">一覧表を表示</button>
+</div>
+<div id="result-count"></div>
+
+<!-- ===== 一覧表（スマホは折りたたみ対象） ===== -->
+<div id="table-collapsible" aria-label="一覧表">
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th data-key="餌名" data-type="reset">餌名</th>
+        <th data-key="メーカー" data-type="reset">メーカー</th>
+        <th data-key="分類" data-type="cat">分類</th>
+        <th data-key="粗蛋白" data-type="num">粗蛋白</th>
+        <th data-key="粗脂肪" data-type="num">粗脂肪</th>
+        <th data-key="粗繊維" data-type="num">粗繊維</th>
+        <th data-key="粗灰分" data-type="num">粗灰分</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+</div>
+
+<script>
+/* =========================
+   重要：CSVの場所
+   =========================
+   - GitHub Pages上の deta.csv を読む前提
+   - キャッシュ事故を避けるため no-store + クエリ付与
+*/
+const CSV_PATH = "https://tabugon-medaka.github.io/medaka-feed-list/deta.csv";
+
+/* ===== スマホ折りたたみ制御 ===== */
+const MOBILE_MQ = window.matchMedia("(max-width: 820px)");
+const TABLE_WRAP = document.getElementById("table-collapsible");
+const TOGGLE_BTN = document.getElementById("table-toggle-btn");
+let isOpen = false;
+
+function setTableOpen(open){
+  isOpen = !!open;
+  if (MOBILE_MQ.matches){
+    if (isOpen) TABLE_WRAP.classList.add("open");
+    else TABLE_WRAP.classList.remove("open");
+    if (TOGGLE_BTN){
+      TOGGLE_BTN.setAttribute("aria-expanded", String(isOpen));
+      TOGGLE_BTN.textContent = isOpen ? "一覧表を非表示" : "一覧表を表示";
+    }
+  } else {
+    TABLE_WRAP.classList.remove("open");
+    if (TOGGLE_BTN){
+      TOGGLE_BTN.setAttribute("aria-expanded", "true");
+      TOGGLE_BTN.textContent = "一覧表を表示";
+    }
+  }
+}
+
+function ensureOpenOnMobileIfNeeded(){
+  if (!MOBILE_MQ.matches) return;
+  const q = (SEARCH_STATE.q ?? "").toString().trim();
+  if (q !== "" && !isOpen) setTableOpen(true);
+}
+
+if (TOGGLE_BTN){
+  TOGGLE_BTN.addEventListener("click", () => setTableOpen(!isOpen));
+}
+
+MOBILE_MQ.addEventListener?.("change", () => {
+  if (MOBILE_MQ.matches){
+    setTableOpen(false);
+  } else {
+    setTableOpen(true);
+  }
+});
+
+/* ===== 基本ユーティリティ ===== */
+function toNumber(v) {
+  if (v === null || v === undefined) return "";
+  const s = String(v).trim();
+  if (s === "") return "";
+  const n = Number(s);
+  return Number.isNaN(n) ? "" : n;
+}
+function formatPercent(v) {
+  if (v === null || v === undefined || v === "") return "";
+  const n = Number(v);
+  if (Number.isNaN(n)) return "";
+  return n.toString() + "%";
+}
+
+/* ===== CSVパーサ（安全寄り：引用符対応） ===== */
+function parseCSVLine(line) {
+  const out = [];
+  let cur = "";
+  let inQ = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+
+    if (ch === '"') {
+      if (inQ && line[i + 1] === '"') {
+        cur += '"';
+        i++;
+      } else {
+        inQ = !inQ;
+      }
+      continue;
+    }
+
+    if (ch === "," && !inQ) {
+      out.push(cur.trim());
+      cur = "";
+      continue;
+    }
+
+    cur += ch;
+  }
+
+  out.push(cur.trim());
+  return out;
+}
+
+async function loadCSV(path) {
+  const cacheBuster = `t=${Date.now()}`;
+  const url = path.includes("?") ? `${path}&${cacheBuster}` : `${path}?${cacheBuster}`;
+
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error("CSVが読み込めません: HTTP " + res.status);
+
+  const text = await res.text();
+
+  const lines = text
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .split("\n")
+    .filter(l => l.trim() !== "");
+
+  if (lines.length === 0) throw new Error("CSVが空です");
+
+  const header = parseCSVLine(lines[0]);
+  const need = ["餌名","メーカー","分類","粗蛋白","粗脂肪","粗繊維","粗灰分"];
+
+  for (const k of need) {
+    if (!header.includes(k)) {
+      throw new Error("CSVヘッダに必須列がありません: " + k);
+    }
+  }
+
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseCSVLine(lines[i]);
+
+    const row = {};
+    header.forEach((h, idx) => {
+      row[h] = (cols[idx] ?? "");
+    });
+
+    row["粗蛋白"] = toNumber(row["粗蛋白"]);
+    row["粗脂肪"] = toNumber(row["粗脂肪"]);
+    row["粗繊維"] = toNumber(row["粗繊維"]);
+    row["粗灰分"] = toNumber(row["粗灰分"]);
+
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+/* ===== 描画 =====
+   - 餌名セルだけタップで detail_url に遷移（リンク表示はしない）
+*/
+function renderTable(rows) {
+  const tbody = document.getElementById("table-body");
+  tbody.innerHTML = "";
+
+  if (!rows || rows.length === 0) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.colSpan = 7;
+    td.textContent = "該当なし";
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+    return;
+  }
+
+  for (const row of rows) {
+    const tr = document.createElement("tr");
+
+    const detailUrl = (row["detail_url"] ?? "").toString().trim();
+
+    // 1列目：餌名（セルだけタップ対応）
+    const tdName = document.createElement("td");
+    const nameText = (row["餌名"] ?? "").toString();
+    tdName.textContent = nameText;
+
+    if (detailUrl !== "") {
+      tdName.classList.add("name-tap");
+      tdName.addEventListener("click", () => {
+        location.href = detailUrl;
+      });
+    }
+
+    tr.appendChild(tdName);
+
+    // 残り列：従来どおり
+    const cells = [
+      row["メーカー"], row["分類"],
+      formatPercent(row["粗蛋白"]),
+      formatPercent(row["粗脂肪"]),
+      formatPercent(row["粗繊維"]),
+      formatPercent(row["粗灰分"])
+    ];
+
+    for (const v of cells) {
+      const td = document.createElement("td");
+      td.textContent = (v ?? "").toString();
+      tr.appendChild(td);
+    }
+
+    tbody.appendChild(tr);
+  }
+}
+
+/* ===== 分類ソート（3回＋初期） ===== */
+const CATEGORY_CYCLES = [
+  ["主食","産卵","育成","機能","補助"],
+  ["産卵","育成","機能","補助","主食"],
+  ["育成","機能","補助","主食","産卵"]
+];
+function categoryRank(name, step) {
+  const order = CATEGORY_CYCLES[step - 1];
+  const idx = order.indexOf(String(name ?? ""));
+  return idx === -1 ? 999 : idx;
+}
+
+/* ===== 成分ソート用：分類まとまり（固定） ===== */
+const CATEGORY_ORDER_FOR_GROUP = ["主食","産卵","育成","機能","補助"];
+function categoryRankForGroup(name) {
+  const idx = CATEGORY_ORDER_FOR_GROUP.indexOf(String(name ?? ""));
+  return idx === -1 ? 999 : idx;
+}
+
+/* ===== ソート基盤 ===== */
+let ORIGINAL_ROWS = [];
+let VIEW_ROWS = [];
+let ORIGINAL_INDEX = new Map();
+const SORT_STATE = { key: null, step: 0, type: null };
+
+/* ===== 検索（追加） ===== */
+const SEARCH_STATE = { q: "" };
+
+function normalizeStr(v) {
+  return (v ?? "").toString().toLowerCase();
+}
+function rowToSearchText(row) {
+  // 餌名 / メーカー / 分類 / 数値（%無し）をまとめて検索対象にする
+  const parts = [
+    row["餌名"], row["メーカー"], row["分類"],
+    row["粗蛋白"], row["粗脂肪"], row["粗繊維"], row["粗灰分"]
+  ];
+  return parts.map(normalizeStr).join(" ");
+}
+function applyFilter(rows) {
+  const q = normalizeStr(SEARCH_STATE.q).trim();
+  if (q === "") return rows;
+
+  // スペース区切りでAND検索
+  const tokens = q.split(/\s+/).filter(Boolean);
+  return rows.filter(r => {
+    const hay = rowToSearchText(r);
+    return tokens.every(t => hay.includes(t));
+  });
+}
+
+function updateResultCount(filteredCount, totalCount){
+  const el = document.getElementById("result-count");
+  if (!el) return;
+  const q = (SEARCH_STATE.q ?? "").toString().trim();
+  if (q === "") {
+    el.textContent = `全 ${totalCount} 件（未検索）`;
+  } else {
+    el.textContent = `検索結果：${filteredCount} / ${totalCount} 件`;
+  }
+}
+
+function refreshView() {
+  const filtered = applyFilter(VIEW_ROWS);
+  renderTable(filtered);
+  updateSortStatus();
+  updateColumnHighlight();
+  updateResultCount(filtered.length, ORIGINAL_ROWS.length);
+  ensureOpenOnMobileIfNeeded();
+}
+
+function setSearchQuery(q) {
+  SEARCH_STATE.q = (q ?? "").toString();
+  refreshView();
+}
+
+/* ===== ソート状況 ===== */
+function updateSortStatus() {
+  const el = document.getElementById("sort-text");
+  if (!el) return;
+
+  if (!SORT_STATE.key || SORT_STATE.step === 0) {
+    el.textContent = "初期（未ソート）";
+    return;
+  }
+
+  if (SORT_STATE.type === "cat") {
+    const stepLabel = (SORT_STATE.step === 1) ? "（1回目）"
+                    : (SORT_STATE.step === 2) ? "（2回目）"
+                    : (SORT_STATE.step === 3) ? "（3回目）" : "";
+    el.textContent = "分類 " + stepLabel;
+    return;
+  }
+
+  if (SORT_STATE.type === "num") {
+    if (SORT_STATE.step === 1) el.textContent = `${SORT_STATE.key} / 高い順`;
+    else if (SORT_STATE.step === 2) el.textContent = `${SORT_STATE.key} / 低い順`;
+    else if (SORT_STATE.step === 3) el.textContent = `${SORT_STATE.key} / メーカー別 / 高い順`;
+    else if (SORT_STATE.step === 4) el.textContent = `${SORT_STATE.key} / 分類別 / 高い順`;
+    return;
+  }
+
+  el.textContent = "初期（未ソート）";
+}
+
+/* ===== 列ハイライト ===== */
+function clearColumnHighlight() {
+  document.querySelectorAll("th[data-key]").forEach(th => th.classList.remove("active-sort"));
+  document.querySelectorAll("#table-body td").forEach(td => td.classList.remove("active-col"));
+}
+function updateColumnHighlight() {
+  clearColumnHighlight();
+
+  if (!SORT_STATE.key || SORT_STATE.step === 0) return;
+
+  const th = document.querySelector(`th[data-key="${CSS.escape(SORT_STATE.key)}"]`);
+  if (!th) return;
+
+  th.classList.add("active-sort");
+
+  const colIndex = Array.from(th.parentElement.children).indexOf(th);
+  document.querySelectorAll("#table-body tr").forEach(tr => {
+    const td = tr.children[colIndex];
+    if (td) td.classList.add("active-col");
+  });
+}
+
+function resetToOriginal() {
+  VIEW_ROWS = ORIGINAL_ROWS.slice();
+  SORT_STATE.key = null;
+  SORT_STATE.step = 0;
+  SORT_STATE.type = null;
+  refreshView();
+}
+
+function cmpNum(a, b, key) {
+  const av = (a[key] === "" ? -Infinity : Number(a[key]));
+  const bv = (b[key] === "" ? -Infinity : Number(b[key]));
+  return av - bv;
+}
+function cmpMaker(a, b) {
+  const av = (a["メーカー"] ?? "").toString();
+  const bv = (b["メーカー"] ?? "").toString();
+  if (av === "" && bv === "") return 0;
+  if (av === "") return 1;
+  if (bv === "") return -1;
+  return av.localeCompare(bv, "ja");
+}
+
+function sortByKey(key, type) {
+  if (type === "reset") {
+    resetToOriginal();
+    return;
+  }
+
+  if (SORT_STATE.key === key) {
+    if (type === "cat") SORT_STATE.step = (SORT_STATE.step + 1) % 4;
+    else if (type === "num") SORT_STATE.step = (SORT_STATE.step + 1) % 5;
+  } else {
+    SORT_STATE.key = key;
+    SORT_STATE.type = type;
+    SORT_STATE.step = 1;
+  }
+
+  if (SORT_STATE.step === 0) {
+    resetToOriginal();
+    return;
+  }
+
+  const rows = ORIGINAL_ROWS.slice();
+
+  rows.sort((a, b) => {
+    let c = 0;
+
+    if (type === "cat") {
+      c = categoryRank(a["分類"], SORT_STATE.step) - categoryRank(b["分類"], SORT_STATE.step);
+    } else if (type === "num") {
+      if (SORT_STATE.step === 1) {
+        c = -cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 2) {
+        c =  cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 3) {
+        c = cmpMaker(a, b);
+        if (c === 0) c = -cmpNum(a, b, key);
+      } else if (SORT_STATE.step === 4) {
+        c = categoryRankForGroup(a["分類"]) - categoryRankForGroup(b["分類"]);
+        if (c === 0) c = -cmpNum(a, b, key);
+      }
+    }
+
+    if (c === 0) return (ORIGINAL_INDEX.get(a) ?? 0) - (ORIGINAL_INDEX.get(b) ?? 0);
+    return c;
+  });
+
+  VIEW_ROWS = rows;
+  refreshView();
+}
+
+function bindHeaderSort() {
+  document.querySelectorAll("th[data-key]").forEach(th => {
+    th.addEventListener("click", () => {
+      sortByKey(th.getAttribute("data-key"), th.getAttribute("data-type"));
+    });
+  });
+}
+
+/* ===== 検索バインド（追加） ===== */
+function bindSearch() {
+  const input = document.getElementById("search-input");
+  const btn = document.getElementById("search-btn");
+  const clear = document.getElementById("search-clear");
+
+  if (!input || !btn || !clear) return;
+
+  const run = () => setSearchQuery(input.value);
+
+  // Enterで検索
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") run();
+  });
+
+  // ボタン検索
+  btn.addEventListener("click", run);
+
+  // クリア
+  clear.addEventListener("click", () => {
+    input.value = "";
+    setSearchQuery("");
+  });
+
+  // 入力に追従（必要なければこの2行を消す）
+  input.addEventListener("input", () => setSearchQuery(input.value));
+}
+
+/* ===== 初期化 ===== */
+(async () => {
+  const right = document.getElementById("sort-text");
+  try {
+    ORIGINAL_ROWS = await loadCSV(CSV_PATH);
+
+    ORIGINAL_INDEX = new Map();
+    ORIGINAL_ROWS.forEach((r, i) => ORIGINAL_INDEX.set(r, i));
+
+    VIEW_ROWS = ORIGINAL_ROWS.slice();
+    renderTable(VIEW_ROWS);
+
+    bindHeaderSort();
+    bindSearch();
+    updateSortStatus();
+    updateColumnHighlight();
+    updateResultCount(ORIGINAL_ROWS.length, ORIGINAL_ROWS.length);
+
+    // 初期：スマホは折りたたみ、PCは表示
+    if (MOBILE_MQ.matches) setTableOpen(false);
+    else setTableOpen(true);
+
+  } catch (e) {
+    console.error(e);
+    if (right) {
+      right.textContent = "CSV読み込み失敗（" + (e && e.message ? e.message : "不明") + "）";
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                    "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       margin: 16px;

@@ -53,30 +53,6 @@
       color: #333;
     }
 
-<!-- 成分・原材料ガイド 折りたたみリンク -->
-<div id="guide-toggle-wrap">
-  <button id="guide-toggle-btn" type="button" aria-expanded="false">成分・原材料ガイド</button>
-</div>
-<div id="guide-collapsible">
-  <a href="https://tabugon-medaka.github.io/medaka-feed-guide/index.html" target="_blank">
-    成分・原材料ガイドへ移動
-  </a>
-</div>
-
-<script>
-const GUIDE_BTN = document.getElementById("guide-toggle-btn");
-const GUIDE_COLLAPSE = document.getElementById("guide-collapsible");
-
-// 初期は非表示
-GUIDE_COLLAPSE.style.display = "none";
-
-GUIDE_BTN.addEventListener("click", ()=>{
-  const expanded = GUIDE_BTN.getAttribute("aria-expanded") === "true";
-  GUIDE_BTN.setAttribute("aria-expanded", !expanded);
-  GUIDE_COLLAPSE.style.display = expanded ? "none" : "block";
-});
-</script>
-    
     /* ===== ソート状況：左右2枠（左=タイトル / 右=状況） ===== */
     #sort-status{
       margin: 12px auto;
@@ -317,6 +293,33 @@ GUIDE_BTN.addEventListener("click", ()=>{
     </div>
   </div>
 </div>
+
+<!-- 成分・原材料ガイド 折りたたみリンク（ソート状況の上） -->
+<div id="guide-toggle-wrap">
+  <button id="guide-toggle-btn" type="button" aria-expanded="false">成分・原材料ガイド</button>
+</div>
+<div id="guide-collapsible">
+  <a href="https://tabugon-medaka.github.io/medaka-feed-guide/index.html" target="_blank">
+    成分・原材料ガイドへ移動
+  </a>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const GUIDE_BTN = document.getElementById("guide-toggle-btn");
+  const GUIDE_COLLAPSE = document.getElementById("guide-collapsible");
+  if (!GUIDE_BTN || !GUIDE_COLLAPSE) return;
+
+  // 初期は非表示
+  GUIDE_COLLAPSE.style.display = "none";
+
+  GUIDE_BTN.addEventListener("click", ()=>{
+    const expanded = GUIDE_BTN.getAttribute("aria-expanded") === "true";
+    GUIDE_BTN.setAttribute("aria-expanded", String(!expanded));
+    GUIDE_COLLAPSE.style.display = expanded ? "none" : "block";
+  });
+});
+</script>
 
 <!-- ===== ソート状況（左右2枠） ===== -->
 <div id="sort-status" aria-label="ソート状況">
@@ -692,7 +695,7 @@ function resetToOriginal() {
 
 function cmpNum(a, b, key) {
   const av = (a[key] === "" ? -Infinity : Number(a[key]));
-  const bv = (b[key] === "" ? -Infinity : Number(a[key]));
+  const bv = (b[key] === "" ? -Infinity : Number(b[key])); /* ★修正：b[key] */
   return av - bv;
 }
 function cmpMaker(a, b) {

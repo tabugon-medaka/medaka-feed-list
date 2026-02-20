@@ -53,6 +53,29 @@
       color: #333;
     }
 
+    /* ===== ガイドリンク共通枠（3つ共通） ===== */
+    .guide-link-wrap{
+      margin: 8px auto 10px;
+      max-width: 520px;
+    }
+
+    .guide-link{
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #f2b6cf;
+      background: #ffe6f1;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      color: #000;
+      box-sizing: border-box;
+    }
+
+    .guide-link:active{
+      opacity: 0.85;
+    }
+
     /* ===== ソート状況：左右2枠（左=タイトル / 右=状況） ===== */
     #sort-status{
       margin: 12px auto;
@@ -140,6 +163,9 @@
         width: 100%;
       }
       #sort-status{
+        max-width: 100%;
+      }
+      .guide-link-wrap{
         max-width: 100%;
       }
     }
@@ -273,54 +299,23 @@
 <h1>メダカの餌データベース</h1>
 <div>分類・成分・原材料を整理した比較ガイド</div>
 
-<!-- ===== 常設説明（折りたたみ無し・枠内スクロール無し） ===== -->
-<div class="info-wrap">
-  <div class="info-box">
-    <div class="info-title">使い方</div>
-    <div class="info-body">
-      この表は、列の見出しを押すと項目ごとに並び替えができます。<br>
-      ※数値はメーカー発表を参考にしています。公式情報もあわせてご確認ください。
-    </div>
-  </div>
-
-  <div class="info-box">
-    <div class="info-title">分類について</div>
-    <div class="info-body">
-      ・主食：日常的に与える餌<br>
-      ・産卵：産卵・繁殖向け<br>
-      ・育成：針子〜稚魚向け<br>
-      ・機能：色揚げ・消化・調整<br>
-      ・補助：補助的用途
-    </div>
-  </div>
-</div>
-
-<!-- 成分・原材料ガイド 折りたたみリンク（ソート状況の上） -->
-<div id="guide-toggle-wrap">
-  <button id="guide-toggle-btn" type="button" aria-expanded="false">成分・原材料ガイド</button>
-</div>
-<div id="guide-collapsible">
-  <a href="https://tabugon-medaka.github.io/medaka-feed-guide/index.html" target="_blank">
-    成分・原材料ガイドへ移動
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/how-to-use/">
+    このページの使い方
   </a>
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const GUIDE_BTN = document.getElementById("guide-toggle-btn");
-  const GUIDE_COLLAPSE = document.getElementById("guide-collapsible");
-  if (!GUIDE_BTN || !GUIDE_COLLAPSE) return;
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-categories/">
+    各餌の分類ガイド
+  </a>
+</div>
 
-  // 初期は非表示
-  GUIDE_COLLAPSE.style.display = "none";
-
-  GUIDE_BTN.addEventListener("click", ()=>{
-    const expanded = GUIDE_BTN.getAttribute("aria-expanded") === "true";
-    GUIDE_BTN.setAttribute("aria-expanded", String(!expanded));
-    GUIDE_COLLAPSE.style.display = expanded ? "none" : "block";
-  });
-});
-</script>
+<div class="guide-link-wrap">
+  <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/feed-components.html">
+    成分・原材料ガイド
+  </a>
+</div>
 
 <!-- ===== 検索（追加） ===== -->
 <div id="search-wrap" aria-label="検索">
@@ -696,7 +691,7 @@ function resetToOriginal() {
 
 function cmpNum(a, b, key) {
   const av = (a[key] === "" ? -Infinity : Number(a[key]));
-  const bv = (b[key] === "" ? -Infinity : Number(b[key])); /* ★修正：b[key] */
+  const bv = (b[key] === "" ? -Infinity : Number(b[key]));
   return av - bv;
 }
 function cmpMaker(a, b) {
@@ -813,7 +808,7 @@ function bindSearch() {
 
     // 初期：スマホは折りたたみ、PCは表示
     if (MOBILE_MQ.matches) setTableOpen(false);
-    else setTableOpen(true);
+    else setTableOpen(true)
 
   } catch (e) {
     console.error(e);

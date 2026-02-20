@@ -298,28 +298,6 @@
 
 <h1>メダカの餌一覧</h1>
 
-<!-- ===== 常設説明（折りたたみ無し・枠内スクロール無し） ===== -->
-<div class="info-wrap">
-  <div class="info-box">
-    <div class="info-title">使い方</div>
-    <div class="info-body">
-      この表は、列の見出しを押すと項目ごとに並び替えができます。<br>
-      ※数値はメーカー発表を参考にしています。公式情報もあわせてご確認ください。
-    </div>
-  </div>
-
-  <div class="info-box">
-    <div class="info-title">分類について</div>
-    <div class="info-body">
-      ・主食：日常的に与える餌<br>
-      ・産卵：産卵・繁殖向け<br>
-      ・育成：針子〜稚魚向け<br>
-      ・機能：色揚げ・消化・調整<br>
-      ・補助：補助的用途
-    </div>
-  </div>
-</div>
-
 <div class="guide-link-wrap">
   <a class="guide-link" href="https://tabugon-medaka.github.io/medaka-feed-list/feeds/how-to-use/">
     このページの使い方
@@ -829,7 +807,7 @@ function bindSearch() {
 
     // 初期：スマホは折りたたみ、PCは表示
     if (MOBILE_MQ.matches) setTableOpen(false);
-    else setTableOpen(true);
+    else setTableOpen(true)
 
   } catch (e) {
     console.error(e);

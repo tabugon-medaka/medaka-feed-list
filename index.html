@@ -174,8 +174,8 @@
     #search-wrap{
       margin: 10px auto 14px;
       max-width: 520px;
-      border: 1px solid #ddd;
-      background: #fafafa;
+      border: 1px solid #8fc9f6;
+      background: #e9f6ff; /* ★薄い水色 */
       box-sizing: border-box;
       padding: 10px 12px;
       display: flex;
@@ -188,14 +188,14 @@
       width: 320px;
       max-width: 100%;
       padding: 8px 10px;
-      border: 1px solid #ccc;
+      border: 1px solid #9fbad0;
       border-radius: 6px;
       font-size: 14px;
       box-sizing: border-box;
     }
     #search-btn, #search-clear{
       padding: 8px 12px;
-      border: 1px solid #ccc;
+      border: 1px solid #9fbad0;
       background: #fff;
       border-radius: 6px;
       font-size: 14px;
@@ -203,6 +203,46 @@
       user-select: none;
     }
     #search-hint{
+      width: 100%;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* ===== 絞り込み（追加） ===== */
+    #filter-wrap{
+      margin: 10px auto 14px;
+      max-width: 520px;
+      border: 1px solid #8fc9f6;
+      background: #e9f6ff; /* ★薄い水色 */
+      box-sizing: border-box;
+      padding: 10px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    #filter-maker, #filter-cat{
+      width: 220px;
+      max-width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #9fbad0;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+      background: #fff;
+    }
+    #filter-reset{
+      padding: 8px 12px;
+      border: 1px solid #9fbad0;
+      background: #fff;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+    #filter-hint{
       width: 100%;
       font-size: 12px;
       color: #666;
@@ -317,6 +357,18 @@
   </a>
 </div>
 
+<!-- ===== 絞り込み（追加） ===== -->
+<div id="filter-wrap" aria-label="絞り込み">
+  <select id="filter-maker" aria-label="メーカーで絞り込み">
+    <option value="">メーカー（全て）</option>
+  </select>
+  <select id="filter-cat" aria-label="分類で絞り込み">
+    <option value="">分類（全て）</option>
+  </select>
+  <button id="filter-reset" type="button">絞り込みリセット</button>
+  <div id="filter-hint">※ メーカー・分類を選ぶと対象だけ表示されます（検索とも併用できます）。</div>
+</div>
+
 <!-- ===== 検索（追加） ===== -->
 <div id="search-wrap" aria-label="検索">
   <input id="search-input" type="search" placeholder="検索（例：ライズ / GEX / 主食 / 50 など）" />
@@ -391,7 +443,9 @@ function setTableOpen(open){
 function ensureOpenOnMobileIfNeeded(){
   if (!MOBILE_MQ.matches) return;
   const q = (SEARCH_STATE.q ?? "").toString().trim();
-  if (q !== "" && !isOpen) setTableOpen(true);
+  const fm = (FILTER_STATE.maker ?? "").toString().trim();
+  const fc = (FILTER_STATE.cat ?? "").toString().trim();
+  if ((q !== "" || fm !== "" || fc !== "") && !isOpen) setTableOpen(true);
 }
 
 if (TOGGLE_BTN){
@@ -582,6 +636,9 @@ const SORT_STATE = { key: null, step: 0, type: null };
 /* ===== 検索（追加） ===== */
 const SEARCH_STATE = { q: "" };
 
+/* ===== 絞り込み（追加） ===== */
+const FILTER_STATE = { maker: "", cat: "" };
+
 function normalizeStr(v) {
   return (v ?? "").toString().toLowerCase();
 }
@@ -595,11 +652,16 @@ function rowToSearchText(row) {
 }
 function applyFilter(rows) {
   const q = normalizeStr(SEARCH_STATE.q).trim();
-  if (q === "") return rows;
+  const tokens = (q === "") ? [] : q.split(/\s+/).filter(Boolean);
 
-  // スペース区切りでAND検索
-  const tokens = q.split(/\s+/).filter(Boolean);
+  const maker = (FILTER_STATE.maker ?? "").toString().trim();
+  const cat = (FILTER_STATE.cat ?? "").toString().trim();
+
   return rows.filter(r => {
+    if (maker !== "" && String(r["メーカー"] ?? "") !== maker) return false;
+    if (cat !== "" && String(r["分類"] ?? "") !== cat) return false;
+
+    if (tokens.length === 0) return true;
     const hay = rowToSearchText(r);
     return tokens.every(t => hay.includes(t));
   });
@@ -608,11 +670,15 @@ function applyFilter(rows) {
 function updateResultCount(filteredCount, totalCount){
   const el = document.getElementById("result-count");
   if (!el) return;
+
   const q = (SEARCH_STATE.q ?? "").toString().trim();
-  if (q === "") {
+  const fm = (FILTER_STATE.maker ?? "").toString().trim();
+  const fc = (FILTER_STATE.cat ?? "").toString().trim();
+
+  if (q === "" && fm === "" && fc === "") {
     el.textContent = `全 ${totalCount} 件（未検索）`;
   } else {
-    el.textContent = `検索結果：${filteredCount} / ${totalCount} 件`;
+    el.textContent = `表示：${filteredCount} / ${totalCount} 件`;
   }
 }
 
@@ -627,6 +693,12 @@ function refreshView() {
 
 function setSearchQuery(q) {
   SEARCH_STATE.q = (q ?? "").toString();
+  refreshView();
+}
+
+function setFilterState(maker, cat){
+  FILTER_STATE.maker = (maker ?? "").toString();
+  FILTER_STATE.cat = (cat ?? "").toString();
   refreshView();
 }
 
@@ -788,6 +860,64 @@ function bindSearch() {
   input.addEventListener("input", () => setSearchQuery(input.value));
 }
 
+/* ===== 絞り込みバインド（追加） ===== */
+function uniqSorted(arr){
+  const set = new Set();
+  for (const v of arr) {
+    const s = (v ?? "").toString().trim();
+    if (s !== "") set.add(s);
+  }
+  return Array.from(set).sort((a,b)=>a.localeCompare(b,"ja"));
+}
+function fillSelectOptions(selectEl, values, firstLabel){
+  if (!selectEl) return;
+  const cur = selectEl.value;
+  selectEl.innerHTML = "";
+  const opt0 = document.createElement("option");
+  opt0.value = "";
+  opt0.textContent = firstLabel;
+  selectEl.appendChild(opt0);
+
+  for (const v of values) {
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v;
+    selectEl.appendChild(opt);
+  }
+  selectEl.value = cur;
+}
+function bindFilters(){
+  const makerSel = document.getElementById("filter-maker");
+  const catSel = document.getElementById("filter-cat");
+  const resetBtn = document.getElementById("filter-reset");
+
+  if (makerSel){
+    makerSel.addEventListener("change", () => {
+      setFilterState(makerSel.value, (catSel ? catSel.value : ""));
+    });
+  }
+  if (catSel){
+    catSel.addEventListener("change", () => {
+      setFilterState((makerSel ? makerSel.value : ""), catSel.value);
+    });
+  }
+  if (resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if (makerSel) makerSel.value = "";
+      if (catSel) catSel.value = "";
+      setFilterState("", "");
+    });
+  }
+}
+function initFilterOptions(rows){
+  const makerSel = document.getElementById("filter-maker");
+  const catSel = document.getElementById("filter-cat");
+  const makers = uniqSorted(rows.map(r => r["メーカー"]));
+  const cats = uniqSorted(rows.map(r => r["分類"]));
+  fillSelectOptions(makerSel, makers, "メーカー（全て）");
+  fillSelectOptions(catSel, cats, "分類（全て）");
+}
+
 /* ===== 初期化 ===== */
 (async () => {
   const right = document.getElementById("sort-text");
@@ -802,13 +932,16 @@ function bindSearch() {
 
     bindHeaderSort();
     bindSearch();
+    bindFilters();
+    initFilterOptions(ORIGINAL_ROWS);
+
     updateSortStatus();
     updateColumnHighlight();
     updateResultCount(ORIGINAL_ROWS.length, ORIGINAL_ROWS.length);
 
     // 初期：スマホは折りたたみ、PCは表示
     if (MOBILE_MQ.matches) setTableOpen(false);
-    else setTableOpen(true)
+    else setTableOpen(true);
 
   } catch (e) {
     console.error(e);

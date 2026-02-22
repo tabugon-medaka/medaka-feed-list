@@ -323,6 +323,7 @@
       font-size: 16px !important;
       border-width: 2px !important;
       background: #f2f2f2;
+      box-sizing: border-box;
     }
 
     /* ===== 餌名セル（1列目）を交互に色付け ===== */
@@ -365,6 +366,7 @@
       background-color: #f2f2f2;
       user-select: none;
       font-size: 16px !important;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -440,6 +442,7 @@
     <tbody id="table-body"></tbody>
   </table>
 </div>
+
 <script>
 /* =========================
    重要：CSVの場所
@@ -789,6 +792,9 @@ function buildStickyHead(){
   cloneTable.appendChild(cloneThead);
   inner.appendChild(cloneTable);
 
+  cloneTable.style.tableLayout = "fixed";
+  cloneTable.style.width = table.getBoundingClientRect().width + "px";
+
   TABLE_WRAP.addEventListener("scroll", () => {
     inner.scrollLeft = TABLE_WRAP.scrollLeft;
   }, { passive: true });
@@ -818,6 +824,12 @@ function syncStickyHeadWidths(){
     cloneTh[i].style.width = w + "px";
     cloneTh[i].style.minWidth = w + "px";
     cloneTh[i].style.maxWidth = w + "px";
+  }
+
+  const cloneTableEl = inner.querySelector("table");
+  if (cloneTableEl) {
+    cloneTableEl.style.tableLayout = "fixed";
+    cloneTableEl.style.width = table.getBoundingClientRect().width + "px";
   }
 
   const origRect = TABLE_WRAP.getBoundingClientRect();

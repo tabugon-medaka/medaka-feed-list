@@ -140,6 +140,7 @@
       margin-bottom:10px;
       font-size:14px;
       background:#fff;
+      word-break:break-word;
     }
     .ai-box strong{
       display:block;
@@ -151,6 +152,11 @@
       border-radius:var(--radius);
       padding:14px;
       background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
     }
     .ai-note{
       margin-top:10px;
@@ -176,24 +182,32 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 -->
+    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
+
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
+
         <dt>位置づけ</dt>
         <dd>主食</dd>
+
         <dt>メーカー想定用途</dt>
         <dd>丈夫なメダカを育てる</dd>
+
         <dt>対象ステージ</dt>
         <dd>稚魚〜成魚</dd>
+
         <dt>形状</dt>
         <dd>高浮上性 ミニフレーク</dd>
+
         <dt>浮沈性</dt>
         <dd>高浮上性</dd>
+
         <dt>粒径</dt>
         <dd>小粒（数値表記なし）</dd>
+
         <dt>メーカー表記</dt>
         <dd>
           昆虫原料　良質なアミノ酸バランス<br>
@@ -207,7 +221,7 @@
       </dl>
     </section>
 
-    <!-- S07 -->
+    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -216,9 +230,10 @@
       </ul>
     </section>
 
-    <!-- S06 -->
+    <!-- S06 原材料（表形式・3列） -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
+
       <table>
         <tbody>
           <tr>
@@ -235,7 +250,7 @@
       </table>
     </section>
 
-    <!-- S09 -->
+    <!-- S09 ミネラル -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
       <div class="mutedbox">
@@ -243,7 +258,7 @@
       </div>
     </section>
 
-    <!-- S08 -->
+    <!-- S08 成分 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
       <ul>
@@ -297,7 +312,7 @@
 
     </section>
 
-    <!-- S10 -->
+    <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -306,7 +321,7 @@
       </ul>
     </section>
 
-    <!-- S12 -->
+    <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
       <div class="mutedbox">
@@ -326,38 +341,51 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const radarValues = [7.8,4.6,6.9,8.8,6.0];
+
 new Chart(document.getElementById('radarChart'), {
-  type:'radar',
-  data:{
-    labels:["Axis1","Axis2","Axis3","Axis4","Axis5"],
-    datasets:[{
-      data:radarValues,
-      fill:false,
-      borderColor:"#111",
-      borderWidth:3,
-      pointRadius:4
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
     }]
   },
-  options:{
-    plugins:{legend:{display:false},tooltip:{enabled:false}},
-    scales:{
-      r:{
-        min:0,
-        max:10,
-        angleLines:{color:"#111"},
-        grid:{color:"#111"},
-        ticks:{
-          backdropColor:"rgba(255,200,220,0.25)",
-          color:"#111",
-          font:{size:14}
-        },
-        pointLabels:{
-          color:"#111",
-          font:{size:14}
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
         }
       }
     }
-  }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
 });
 </script>
 

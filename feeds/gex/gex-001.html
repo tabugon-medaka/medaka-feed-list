@@ -131,6 +131,41 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== 5軸AI総合評価（追記） ===== */
+    .ai-eval-block p{
+      margin:0 0 10px;
+      font-size:14px;
+      word-break:break-word;
+    }
+    .ai-eval-block p:last-child{
+      margin-bottom:0;
+    }
+    .ai-eval-block hr{
+      border:none;
+      border-top:1px solid var(--line);
+      margin:14px 0;
+    }
+    .ai-radar-wrap{
+      margin-top:12px;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .ai-radar{
+      width:100%;
+      max-width:520px;
+      margin:0 auto;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin:12px 0 0;
+      color:var(--muted);
+      font-size:12px;
+    }
   </style>
 </head>
 
@@ -241,6 +276,46 @@
       </ul>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-eval-block">
+        <p><strong>主食強度（7.8）</strong><br>
+          高タンパク基調で成長促進を強く意識した設計。主食として十分な推進力を持つがやや攻め寄り。
+        </p>
+
+        <p><strong>安心設計（4.6）</strong><br>
+          栄養密度は高めで安心型というより成長優先型。給餌量管理を前提とした扱いが望ましい設計。
+        </p>
+
+        <p><strong>栄養バランス（6.9）</strong><br>
+          基準主食よりタンパク寄りで万能型ではない。明確な成長方向性を持つ主食構成。
+        </p>
+
+        <p><strong>分類適合度（8.8）</strong><br>
+          昆虫原料明記と菌訴求があり、素材意図が明確。差別化と機能補強の両面が見える。
+        </p>
+
+        <p><strong>差別化指数（6.0）</strong><br>
+          昆虫原料と菌表記は一定の希少性を持つが、突出した独自性までは届かない。
+        </p>
+
+        <hr>
+
+        <p><strong>総評</strong><br>
+          成長推進型の主食設計で素材意図は明確。万能型ではないが方向性がはっきりしており、目的給餌向きの構成。
+        </p>
+
+        <div class="ai-radar-wrap">
+          <div class="ai-radar">
+            <canvas id="radarChart"></canvas>
+          </div>
+          <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+        </div>
+      </div>
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -266,6 +341,45 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const el = document.getElementById('radarChart');
+const ctx = el.getContext('2d');
+
+new Chart(ctx, {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: [7.8, 4.6, 6.9, 8.8, 6.0],
+      fill: false,
+      borderWidth: 3,
+      pointRadius: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        ticks: {
+          stepSize: 2,
+          font: { size: 12 }
+        },
+        pointLabels: {
+          font: { size: 12 }
+        }
+      }
+    }
+  }
+});
+</script>
 
 </body>
 </html>

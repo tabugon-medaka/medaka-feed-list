@@ -94,6 +94,15 @@
       word-break:break-word;
     }
 
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      word-break:break-word;
+    }
+
     table{
       width:100%;
       border-collapse:collapse;
@@ -122,6 +131,38 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
@@ -130,11 +171,11 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
     <h1>キョーリン メダカの舞 ブリード</h1>
-    <p class="sub">市販メダカ餌のメーカー明記内容を整理した個別ページ（CL-02）</p>
+    <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
 </header>
 
@@ -152,8 +193,11 @@
         <dt>位置づけ</dt>
         <dd>産卵</dd>
 
+        <dt>メーカー想定用途</dt>
+        <dd>メダカの繁殖を楽しむ愛好家に向けて開発</dd>
+
         <dt>対象ステージ</dt>
-        <dd>産卵・繁殖用</dd>
+        <dd>親魚</dd>
 
         <dt>形状</dt>
         <dd>顆粒</dd>
@@ -162,13 +206,14 @@
         <dd>拡散高浮上　沈みにくい</dd>
 
         <dt>粒径</dt>
-        <dd>0.38〜0.6mm</dd>
+        <dd>（数値表記なし）</dd>
 
         <dt>メーカー表記</dt>
         <dd>
-          産卵数・孵化率に差がつく<br>
-          生きた“ひかり菌”入り<br>
-          産卵・繁殖用
+          産卵数を追求<br>
+          ふ化率を追及<br>
+          分散性と浮上力<br>
+          生きた善玉菌「ひかり菌」配合
         </dd>
       </dl>
     </section>
@@ -222,35 +267,33 @@
       </table>
     </section>
 
-    <!-- S09 ミネラル（表形式・3列） -->
+    <!-- S09 ミネラル -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
-
       <table>
         <tbody>
           <tr>
-            <td>リン</td>
-            <td>カルシウム</td>
-            <td>ケイ素</td>
+            <td>リン（P）</td>
+            <td>カルシウム（Ca）</td>
+            <td>ケイ素（Si）</td>
           </tr>
           <tr>
-            <td>鉄</td>
-            <td>マグネシウム</td>
-            <td>亜鉛</td>
+            <td>鉄（Fe）</td>
+            <td>マグネシウム（Mg）</td>
+            <td>亜鉛（Zn）</td>
           </tr>
           <tr>
-            <td>マンガン</td>
-            <td>銅</td>
-            <td>ヨウ素</td>
+            <td>マンガン（Mn）</td>
+            <td>銅（Cu）</td>
+            <td>ヨウ素（I）</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S08 成分（表形式・3列） -->
+    <!-- S08 成分 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -275,16 +318,57 @@
           </tr>
           <tr>
             <td>ビタミンB3</td>
+            <td>ビタミンK</td>
             <td>葉酸</td>
-            <td>ビタミンD3</td>
           </tr>
           <tr>
+            <td>ビタミンD3</td>
             <td>ビオチン</td>
-            <td></td>
             <td></td>
           </tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（6.4）</strong>
+        たんぱく質50％以上の表示があり、栄養密度は高めです。日常給餌でも成立しますが、目的を持って使う前提の設計です。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（5.1）</strong>
+        脂質11％以上の表示があり、栄養は濃い部類です。給餌量と回数の調整が前提になります。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（6.0）</strong>
+        産卵・繁殖の訴求に合わせて高カロリー寄りの設計です。偏りは強すぎませんが、方向性は明確です。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（7.2）</strong>
+        「産卵数」「ふ化率」を目的として、脂質系の訴求も含めた設計になっており、産卵カテゴリと整合します。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（6.6）</strong>
+        マリーゴールド抽出物、カロチノイド、タウリン、ひかり菌などの要素が並び、特徴の粒立ちがあります。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        産卵・繁殖を目的に、栄養密度と嗜好性を高めた設計です。給餌量の管理を前提に、狙いを持って使いやすい内容です。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
     </section>
 
     <!-- S10 注意書き -->
@@ -296,22 +380,66 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
-    <section id="S12">
-      <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
-      <div>
-        本ページではメーカーが明記している内容のみを整理しています。
-      </div>
-    </section>
-
   </div>
 </main>
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [6.4,5.1,6.0,7.2,6.6];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

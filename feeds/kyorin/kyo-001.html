@@ -122,6 +122,38 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価（採点モード） ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
@@ -287,6 +319,46 @@
       </table>
     </section>
 
+    <!-- AI評価（採点モード） -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（8.6）</strong>
+        初期の伸びを狙う設計が中心です。動物性素材が厚く、育成枠でも上位の出力帯に入ります。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（7.2）</strong>
+        生菌剤と酵母系を含み、消化面の意図が見えます。一方で栄養寄りのため、給餌量管理は前提です。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（8.4）</strong>
+        動物性原料に加え、スピルリナやタウリン、アミノ酸系まで揃えた構成です。育成用途として密度が高いです。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（8.1）</strong>
+        ベビー用途の説明と配合の方向が一致しています。初期段階で差を作る位置づけとして噛み合っています。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（8.3）</strong>
+        生菌剤、スピルリナ、タウリンの組み合わせが核です。一般的な稚魚餌より特徴が多い側です。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        初期育成で伸びを狙う目的型です。構成要素が多く、稚魚期の押し上げに寄せた設計として完成度が高いです。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -313,6 +385,57 @@
     <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [8.6,7.2,8.4,8.1,8.3];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

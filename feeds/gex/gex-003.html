@@ -130,7 +130,6 @@
       margin-bottom:10px;
       font-size:14px;
       background:#fff;
-      word-break:break-word;
     }
     .ai-box strong{
       display:block;
@@ -171,7 +170,7 @@
 <main>
   <div class="wrap">
 
-    <!-- 既存セクションは変更なし -->
+    <!-- S02〜S08は元のまま -->
 
     <!-- S09 表形式 -->
     <section id="S09">
@@ -201,35 +200,12 @@
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
-      <div class="ai-box">
-        <strong>Axis1（7.0）</strong>
-        粗蛋白50％で繁殖期の栄養需要を満たす推進力。高栄養寄りで体力維持と産卵期の立ち上げを支える設計。
-      </div>
-
-      <div class="ai-box">
-        <strong>Axis2（5.0）</strong>
-        高栄養寄りで安心重視型ではありません。給餌量を絞り、水質を見ながら使う前提の繁殖期向け設計です。
-      </div>
-
-      <div class="ai-box">
-        <strong>Axis3（5.2）</strong>
-        標準配合より繁殖・体力維持側へ寄せた構成。常用万能ではなく、繁殖期に目的を持って投入するタイプです。
-      </div>
-
-      <div class="ai-box">
-        <strong>Axis4（6.0）</strong>
-        昆虫原料を主軸に高度不飽和脂肪酸やリン脂質を訴求。産卵サポートの意図が明確で分類適合は高めです。
-      </div>
-
-      <div class="ai-box">
-        <strong>Axis5（6.5）</strong>
-        産卵特化設計と高度脂質訴求が明確。成長用との差別もはっきりしており、中上位水準の差別化。
-      </div>
-
-      <div class="ai-box">
-        <strong>総評</strong>
-        繁殖期の体力維持と産卵を支える高栄養の目的型。常用万能ではないため給餌量管理が前提。昆虫原料と脂質訴求で素材意図は明確です。
-      </div>
+      <div class="ai-box"><strong>Axis1（7.0）</strong>粗蛋白50％で繁殖期の栄養需要を満たす推進力。高栄養寄りで体力維持と産卵期の立ち上げを支える設計。</div>
+      <div class="ai-box"><strong>Axis2（5.0）</strong>高栄養寄りで安心重視型ではありません。給餌量を絞り、水質を見ながら使う前提の繁殖期向け設計です。</div>
+      <div class="ai-box"><strong>Axis3（5.2）</strong>標準配合より繁殖・体力維持側へ寄せた構成。常用万能ではなく、繁殖期に目的を持って投入するタイプです。</div>
+      <div class="ai-box"><strong>Axis4（6.0）</strong>昆虫原料を主軸に高度不飽和脂肪酸やリン脂質を訴求。産卵サポートの意図が明確で分類適合は高めです。</div>
+      <div class="ai-box"><strong>Axis5（6.5）</strong>産卵特化設計と高度脂質訴求が明確。成長用との差別もはっきりしており、中上位水準の差別化。</div>
+      <div class="ai-box"><strong>総評</strong>繁殖期の体力維持と産卵を支える高栄養の目的型。常用万能ではないため給餌量管理が前提。昆虫原料と脂質訴求で素材意図は明確です。</div>
 
       <div class="ai-radar-wrap">
         <canvas id="radarChart"></canvas>
@@ -264,7 +240,10 @@ new Chart(document.getElementById('radarChart'), {
     }]
   },
   options: {
-    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
     scales: {
       r: {
         min: 0,
@@ -272,10 +251,26 @@ new Chart(document.getElementById('radarChart'), {
         backgroundColor: "rgba(255,200,220,0.25)",
         grid: { color: "#dddddd" },
         angleLines: { color: "#dddddd" },
-        pointLabels: { color: "#111111", font: { size: 14 } }
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
       }
     }
-  }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
 });
 </script>
 

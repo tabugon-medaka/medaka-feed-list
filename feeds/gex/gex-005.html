@@ -94,6 +94,15 @@
       word-break:break-word;
     }
 
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      word-break:break-word;
+    }
+
     table{
       width:100%;
       border-collapse:collapse;
@@ -122,6 +131,38 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
@@ -129,12 +170,10 @@
 
 <header>
   <div class="wrap">
-    <!-- 一覧に戻る -->
     <div class="back">
       <a href="../../index.html">一覧に戻る</a>
     </div>
 
-    <!-- S01 商品名 -->
     <h1>GEX プロバイオフードクリア</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
@@ -143,7 +182,6 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
 
@@ -174,7 +212,6 @@
       </dl>
     </section>
 
-    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -189,7 +226,6 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
 
@@ -209,7 +245,6 @@
       </table>
     </section>
 
-    <!-- S09 ミネラル（表形式・3列） -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
 
@@ -234,7 +269,6 @@
       </table>
     </section>
 
-    <!-- S08 成分（表形式・3列） -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
 
@@ -254,7 +288,46 @@
       </table>
     </section>
 
-    <!-- S10 注意書き -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（6.0）</strong>
+        主食として回しやすい栄養帯。成魚の維持を支えつつ、伸ばす狙いより安定運用向き。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（7.4）</strong>
+        汚れ分解の訴求が中心で、飼育環境のクリアさを保ちやすい内容。管理面の負担を減らす方向。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（5.8）</strong>
+        魚粉・穀類・油脂の基本線に植物性たんぱく質を合わせた構成。機能側が前に出るため万能寄りではない。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（6.5）</strong>
+        主食表記に加え、菌配合で水質サポートを前面化。主食カテゴリ内の機能特化として整合する。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（7.8）</strong>
+        乳酸菌・酵母菌・納豆菌にバチルス菌を重ねた点が核。清潔訴求がはっきりし、同系との差が出る。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        主食ベースに、汚れ分解と腸内サポートを組み込んだクリア志向モデル。環境維持を優先したい水槽で使い分けやすい。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
+    </section>
+
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -263,10 +336,9 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
-      <div>
+      <div class="mutedbox">
         本ページではメーカーが明記している内容のみを整理しています。
       </div>
     </section>
@@ -279,6 +351,57 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [6.0,7.4,5.8,6.5,7.8];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

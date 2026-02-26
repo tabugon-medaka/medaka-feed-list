@@ -122,6 +122,39 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価（採点モード／テンプレ準拠） ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+    canvas{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+      max-width:520px;
+      margin:0 auto;
+    }
+    .ai-note{
+      margin:12px 0 0;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+    }
   </style>
 </head>
 
@@ -246,6 +279,46 @@
       </table>
     </section>
 
+    <!-- AI評価（採点モード） -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（7.4）</strong>
+        成魚の体力維持に加え、繁殖期の押し上げを意識した栄養帯。伸ばす局面に寄せた主食性能。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（6.8）</strong>
+        ビタミンEと必須ミネラルを軸に、善玉菌構成で腸内環境と水質の双方へ配慮した内容。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（6.6）</strong>
+        魚粉系中心に植物性素材を組み合わせた設計。繁殖寄りだが維持域も視野に入る。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（7.2）</strong>
+        繁殖サポート成分強化と産卵率向上の訴求が明確で、繁殖・成長用カテゴリとの整合性は高い。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（7.9）</strong>
+        繁殖支援を前面に出した設計と善玉菌三種の明示が核。目的特化型として個性は強い。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        繁殖局面での押し上げを狙い、栄養強化と菌設計を組み合わせた目的型モデル。成長支援と産卵サポートを同時に狙う運用に適する。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -268,9 +341,50 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="../../index.html">一覧に戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const el = document.getElementById('radarChart');
+const ctx = el.getContext('2d');
+
+new Chart(ctx, {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: [7.4, 6.8, 6.6, 7.2, 7.9],
+      fill: false,
+      borderWidth: 3,
+      pointRadius: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        ticks: {
+          display: true,
+          stepSize: 2,
+          font: { size: 12 }
+        },
+        pointLabels: {
+          font: { size: 12 }
+        }
+      }
+    }
+  }
+});
+</script>
 
 </body>
 </html>

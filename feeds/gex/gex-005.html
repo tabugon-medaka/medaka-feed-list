@@ -184,7 +184,6 @@
 
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
@@ -228,7 +227,6 @@
 
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -247,7 +245,6 @@
 
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -271,7 +268,6 @@
 
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -325,7 +321,6 @@
         <canvas id="radarChart"></canvas>
         <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
       </div>
-
     </section>
 
     <section id="S10">
@@ -348,7 +343,8 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="../../index.html">一覧に戻る</a>
   </div>
 </footer>
 
@@ -377,7 +373,6 @@ new Chart(document.getElementById('radarChart'), {
       r: {
         min: 0,
         max: 10,
-        backgroundColor: "rgba(255,200,220,0.25)",
         grid: { color: "#dddddd" },
         angleLines: { color: "#dddddd" },
         pointLabels: {
@@ -386,20 +381,7 @@ new Chart(document.getElementById('radarChart'), {
         }
       }
     }
-  },
-  plugins: [{
-    id: 'valueLabels',
-    afterDatasetsDraw(chart){
-      const ctx = chart.ctx;
-      ctx.save();
-      ctx.fillStyle = "#111111";
-      ctx.font = "14px sans-serif";
-      chart.getDatasetMeta(0).data.forEach((point, i) => {
-        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
-      });
-      ctx.restore();
-    }
-  }]
+  }
 });
 </script>
 

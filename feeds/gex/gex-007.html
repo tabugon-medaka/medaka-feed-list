@@ -122,6 +122,47 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価（採点モード） ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:12px;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .ai-radar-title{
+      margin:0 0 8px;
+      font-weight:700;
+      text-align:center;
+    }
+    .ai-radar{
+      width:100%;
+      max-width:520px;
+      margin:0 auto;
+    }
+    canvas{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin:12px 0 0;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+    }
   </style>
 </head>
 
@@ -130,7 +171,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
     <h1>GEX メダカ元気 産卵・育成用フード</h1>
@@ -247,6 +288,49 @@
       </table>
     </section>
 
+    <!-- AI評価（採点モード） -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（5.4）</strong>
+        維持を主軸にした出力帯です。伸ばす用途は弱く、普段使い寄りの立ち位置です。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（6.6）</strong>
+        ピュアクリア製法の訴求が中心です。水の見た目を崩しにくい方向性が明確です。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（5.5）</strong>
+        素材を広く組み合わせた構成です。突出は少なく、平均寄りに収めた配合です。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（6.1）</strong>
+        産卵・育成の表記に対して、実運用は育成側に寄ります。役割の位置づけは妥当です。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（5.2）</strong>
+        特色は水質配慮に集約されます。材料面での珍しさは弱く、個性は控えめです。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        押し上げより安定を優先した育成タイプです。水を崩さず回したい場面で使い分けやすい一方、尖りは小さめです。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <p class="ai-radar-title">5軸AI総合評価</p>
+        <div class="ai-radar">
+          <canvas id="radarChart"></canvas>
+        </div>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -269,9 +353,52 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const el = document.getElementById('radarChart');
+const ctx = el.getContext('2d');
+
+new Chart(ctx, {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: [5.4, 6.6, 5.5, 6.1, 5.2],
+      fill: false,
+      borderWidth: 3,
+      pointRadius: 3,
+      borderColor: "#4da6ff"
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        ticks: {
+          display: true,
+          stepSize: 2,
+          font: { size: 12 }
+        },
+        pointLabels: {
+          font: { size: 12 }
+        }
+      }
+    }
+  }
+});
+</script>
 
 </body>
 </html>

@@ -277,22 +277,6 @@
       </table>
     </section>
 
-    <!-- AI -->
-    <section id="AI">
-      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
-
-      <div class="ai-box"><strong>Axis1（7.0）</strong></div>
-      <div class="ai-box"><strong>Axis2（5.0）</strong></div>
-      <div class="ai-box"><strong>Axis3（5.2）</strong></div>
-      <div class="ai-box"><strong>Axis4（6.0）</strong></div>
-      <div class="ai-box"><strong>Axis5（6.5）</strong></div>
-
-      <div class="ai-radar-wrap">
-        <canvas id="radarChart"></canvas>
-        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
-      </div>
-    </section>
-
   </div>
 </main>
 
@@ -302,42 +286,6 @@
     <a href="../../index.html">一覧に戻る</a>
   </div>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-const radarValues = [7.0,5.0,5.2,6.0,6.5];
-
-new Chart(document.getElementById('radarChart'), {
-  type: 'radar',
-  data: {
-    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
-    datasets: [{
-      data: radarValues,
-      borderColor: "#4da6ff",
-      borderWidth: 3,
-      pointRadius: 4,
-      fill: false
-    }]
-  },
-  options: {
-    plugins: { legend: { display: false }, tooltip: { enabled: false } },
-    scales: { r: { min: 0, max: 10 } }
-  },
-  plugins: [{
-    id: 'valueLabels',
-    afterDatasetsDraw(chart){
-      const ctx = chart.ctx;
-      ctx.save();
-      ctx.fillStyle = "#111111";
-      ctx.font = "14px sans-serif";
-      chart.getDatasetMeta(0).data.forEach((point, i) => {
-        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
-      });
-      ctx.restore();
-    }
-  }]
-});
-</script>
 
 </body>
 </html>

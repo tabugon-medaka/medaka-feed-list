@@ -132,6 +132,7 @@
       font-size:12px;
     }
 
+    /* ===== AI評価 ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -169,10 +170,12 @@
 
 <header>
   <div class="wrap">
+    <!-- 一覧に戻る -->
     <div class="back">
       <a href="../../index.html">一覧に戻る</a>
     </div>
 
+    <!-- S01 商品名 -->
     <h1>GEX 彩姫 成長用</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
@@ -184,21 +187,29 @@
     <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
+
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
+
         <dt>位置づけ</dt>
         <dd>育成</dd>
+
         <dt>メーカー想定用途</dt>
         <dd>成長用</dd>
+
         <dt>対象ステージ</dt>
         <dd>稚魚〜若魚</dd>
+
         <dt>形状</dt>
         <dd>超ソフト顆粒</dd>
+
         <dt>浮沈性</dt>
         <dd>ほとんど沈む</dd>
+
         <dt>粒径</dt>
         <dd>0.2〜0.4mm</dd>
+
         <dt>メーカー表記</dt>
         <dd>
           精選昆虫原料＋養殖飼料技術<br>
@@ -207,7 +218,7 @@
       </dl>
     </section>
 
-    <!-- S07 -->
+    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -216,9 +227,10 @@
       </ul>
     </section>
 
-    <!-- S06 -->
+    <!-- S06 原材料（表形式・3列） -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
+
       <table>
         <tbody>
           <tr>
@@ -235,7 +247,7 @@
       </table>
     </section>
 
-    <!-- S09 -->
+    <!-- S09 ミネラル -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
       <div class="mutedbox">
@@ -243,9 +255,10 @@
       </div>
     </section>
 
-    <!-- S08 -->
+    <!-- S08 成分（表形式・3列｜原材料と同ルール） -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
+
       <table>
         <tbody>
           <tr>
@@ -267,7 +280,7 @@
       </table>
     </section>
 
-    <!-- AI評価 -->
+    <!-- 評価 -->
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
@@ -296,9 +309,31 @@
         昆虫原料主軸に成長33％UPと三菌訴求が加わる構成。複数の明確な特徴を持ち、差別化は中上位水準。
       </div>
 
+      <div class="ai-box">
+        <strong>総評</strong>
+        成長を強く意識した育成特化型。扱いやすさよりも推進力を重視する方向けの設計。
+      </div>
+
       <div class="ai-radar-wrap">
         <canvas id="radarChart"></canvas>
         <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+    </section>
+
+    <!-- S10 注意書き -->
+    <section id="S10">
+      <h2>注意書き <span class="sec-id">S10</span></h2>
+      <ul>
+        <li>本ページはメーカーが明記している内容のみを整理しています（比較・評価・推測は行いません）。</li>
+        <li>給餌量・回数・保管方法などは、パッケージおよびメーカー案内に従ってください。</li>
+      </ul>
+    </section>
+
+    <!-- S12 一言 -->
+    <section id="S12">
+      <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
+      <div class="mutedbox">
+        本ページではメーカーが想定する用途と特徴を整理しています。
       </div>
     </section>
 
@@ -336,6 +371,7 @@ new Chart(document.getElementById('radarChart'), {
       r: {
         min: 0,
         max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
         grid: { color: "#dddddd" },
         angleLines: { color: "#dddddd" },
         pointLabels: {

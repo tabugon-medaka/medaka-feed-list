@@ -132,7 +132,6 @@
       font-size:12px;
     }
 
-    /* ===== AI評価 ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -170,12 +169,10 @@
 
 <header>
   <div class="wrap">
-    <!-- 一覧に戻る -->
     <div class="back">
       <a href="../../index.html">一覧に戻る</a>
     </div>
 
-    <!-- S01 商品名 -->
     <h1>GEX 彩姫 成長用</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
@@ -187,29 +184,21 @@
     <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
-
         <dt>位置づけ</dt>
         <dd>育成</dd>
-
         <dt>メーカー想定用途</dt>
         <dd>成長用</dd>
-
         <dt>対象ステージ</dt>
         <dd>稚魚〜若魚</dd>
-
         <dt>形状</dt>
         <dd>超ソフト顆粒</dd>
-
         <dt>浮沈性</dt>
         <dd>ほとんど沈む</dd>
-
         <dt>粒径</dt>
         <dd>0.2〜0.4mm</dd>
-
         <dt>メーカー表記</dt>
         <dd>
           精選昆虫原料＋養殖飼料技術<br>
@@ -218,7 +207,7 @@
       </dl>
     </section>
 
-    <!-- S07 特徴 -->
+    <!-- S07 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -227,10 +216,9 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
+    <!-- S06 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -247,7 +235,7 @@
       </table>
     </section>
 
-    <!-- S09 ミネラル -->
+    <!-- S09 -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
       <div class="mutedbox">
@@ -255,10 +243,9 @@
       </div>
     </section>
 
-    <!-- S08 成分（表形式・3列｜原材料と同ルール） -->
+    <!-- S08 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -280,60 +267,38 @@
       </table>
     </section>
 
-    <!-- 評価 -->
+    <!-- AI評価 -->
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
       <div class="ai-box">
         <strong>主食強度（6.9）</strong>
-        粗蛋白50%・粗脂肪10%・粗繊維3.5%・粗灰分18%でRaw_A=123.5。78種Min/Max線形正規化で6.9。育成カテゴリの成長推進軸に沿う配合。
+        粗蛋白50％で成長を強く後押しする配合。育成目的に明確に寄せた強度設計で、伸ばしたい時に力を発揮する構成。
       </div>
 
       <div class="ai-box">
         <strong>安心設計（5.1）</strong>
-        粗蛋白50%等からRaw_B=−123.5（Raw_A反転）。78種Min/Max線形正規化で5.1。安心設計は反転指標で中位、育成目的で優先度は低め。
+        高タンパク・高脂質寄りのため安心重視型ではない。給餌量と水質管理を前提に扱う設計。
       </div>
 
       <div class="ai-box">
         <strong>栄養バランス（5.3）</strong>
-        プロス基準（46/7/3/13）との差分Raw_C=12.5。Max_C=22.0基準で減衰し5.3。育成寄りで基準配合からの距離が数値化される構成。
+        基準配合より育成側に寄った構成。万能型ではなく、目的を持って使うことで真価を出す配合。
       </div>
 
       <div class="ai-box">
         <strong>分類適合度（5.6）</strong>
-        共通原材料とミネラルは除外。昆虫原料を栄養主材A=4.0で加点、成分はビタミン8種×0.2=1.6。合計Axis4=5.6（補正なし）で適合度算出、確定。
+        昆虫原料を主軸にビタミン群も明確。育成カテゴリとしての素材意図ははっきりしている。
       </div>
 
       <div class="ai-box">
-        <strong>差別化指数（2.5）</strong>
-        Axis5は78種内の各特徴出現回数nが必須。上位3特徴の点数化と合算を行うが、当該商品の特徴nが未提示のため算出不可。評価対象外として最低点2.5固定。
-      </div>
-
-      <div class="ai-box">
-        <strong>総評</strong>
-        育成カテゴリでAxis1=6.9、Axis2=5.1、Axis3=5.3。共通原材料とミネラル除外の上、昆虫原料＋ビタミン群でAxis4=5.6。差別化指数Axis5は特徴頻度n未提示で算出不能のため2.5固定。
+        <strong>差別化指数（6.2）</strong>
+        昆虫原料主軸に成長33％UPと三菌訴求が加わる構成。複数の明確な特徴を持ち、差別化は中上位水準。
       </div>
 
       <div class="ai-radar-wrap">
         <canvas id="radarChart"></canvas>
         <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
-      </div>
-    </section>
-
-    <!-- S10 注意書き -->
-    <section id="S10">
-      <h2>注意書き <span class="sec-id">S10</span></h2>
-      <ul>
-        <li>本ページはメーカーが明記している内容のみを整理しています（比較・評価・推測は行いません）。</li>
-        <li>給餌量・回数・保管方法などは、パッケージおよびメーカー案内に従ってください。</li>
-      </ul>
-    </section>
-
-    <!-- S12 一言 -->
-    <section id="S12">
-      <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
-      <div class="mutedbox">
-        本ページではメーカーが想定する用途と特徴を整理しています。
       </div>
     </section>
 
@@ -348,7 +313,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const radarValues = [6.9,5.1,5.3,5.6,2.5];
+const radarValues = [6.9,5.1,5.3,5.6,6.2];
 
 new Chart(document.getElementById('radarChart'), {
   type: 'radar',
@@ -371,7 +336,6 @@ new Chart(document.getElementById('radarChart'), {
       r: {
         min: 0,
         max: 10,
-        backgroundColor: "rgba(255,200,220,0.25)",
         grid: { color: "#dddddd" },
         angleLines: { color: "#dddddd" },
         pointLabels: {

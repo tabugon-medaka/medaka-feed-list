@@ -94,6 +94,15 @@
       word-break:break-word;
     }
 
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      word-break:break-word;
+    }
+
     table{
       width:100%;
       border-collapse:collapse;
@@ -121,6 +130,38 @@
       background:var(--soft2);
       color:var(--muted);
       font-size:12px;
+    }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
     }
   </style>
 </head>
@@ -153,9 +194,6 @@
 
         <dt>位置づけ</dt>
         <dd>主食</dd>
-
-        <dt>メーカー想定用途</dt>
-        <dd>成魚用</dd>
 
         <dt>対象ステージ</dt>
         <dd>成魚（体長2.5cm以上）</dd>
@@ -276,6 +314,47 @@
       </table>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（7.2）</strong>
+        主食としての推進力を備え、毎日の運用でも使いやすい。高栄養寄りの設計と嗜好性が土台。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（6.2）</strong>
+        体表の粘液増強成分とラクトフェリンを明示。コンディション維持に寄せた配合で、扱いは安定寄り。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（6.5）</strong>
+        動物性原料に加え、ビタミン群とミネラルが揃う構成。偏りは小さく、継続投入向き。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（6.8）</strong>
+        体表保護成分の強化訴求と精選昆虫原料配合が中心。主食カテゴリの意図は読み取りやすい。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（6.6）</strong>
+        粘液増強成分とラクトフェリン、昆虫ミールの組み合わせが個性。一般的な主食との差は出しやすい。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        健康と美しさの訴求を軸に、昆虫原料とラクトフェリンを組み込んだ主食寄りの高栄養モデル。日常運用で体表ケアを狙う用途に合う。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -301,6 +380,57 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [7.2,6.2,6.5,6.8,6.6];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

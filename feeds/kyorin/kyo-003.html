@@ -122,6 +122,35 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価（表示方法：テンプレ準拠想定の最小追加） ===== */
+    .eval-wrap{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:12px 14px;
+      align-items:start;
+    }
+    @media (max-width: 720px){
+      .eval-wrap{ grid-template-columns: 1fr; }
+    }
+    .radar-box{
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:var(--soft2);
+      padding:10px;
+    }
+    .radar-title{
+      margin:0 0 8px;
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+    }
+    canvas{ width:100%; height:auto; display:block; }
+    .eval-table th{ width:160px; }
+    .score{
+      font-weight:700;
+      white-space:nowrap;
+    }
   </style>
 </head>
 
@@ -130,7 +159,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧に戻る</a>
     </div>
 
     <h1>キョーリン メダカの舞 コンプリート</h1>
@@ -171,6 +200,163 @@
           繁殖に適した親魚を育てる
         </dd>
       </dl>
+    </section>
+
+    <!-- AI評価 -->
+    <section id="AI">
+      <h2>AI評価 <span class="sec-id">AI</span></h2>
+
+      <div class="eval-wrap">
+        <div class="radar-box">
+          <p class="radar-title">レーダーチャート</p>
+          <canvas id="radar" width="520" height="520" aria-label="AI評価レーダーチャート"></canvas>
+        </div>
+
+        <table class="eval-table">
+          <thead>
+            <tr>
+              <th>評価項目</th>
+              <th>スコア</th>
+              <th>評価文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Axis1（7.2）主食強度</td>
+              <td class="score">8.0 / 10</td>
+              <td>主食としての土台を強めに置いた設計で、親魚の体づくりと日々の給餌を両立しやすい構成です。</td>
+            </tr>
+            <tr>
+              <td>Axis2（7.2）バランス設計</td>
+              <td class="score">7.5 / 10</td>
+              <td>粒サイズの狙いが明確で、摂餌のしやすさと栄養の取り込みを同時に取りにいく組み立てです。</td>
+            </tr>
+            <tr>
+              <td>Axis3（7.2）繁殖寄り設計</td>
+              <td class="score">8.0 / 10</td>
+              <td>「繁殖に適した親魚」を目的に据えた記載どおり、親魚期のコンディション維持に寄せた方向性が強いです。</td>
+            </tr>
+            <tr>
+              <td>Axis4（7.2）水質配慮</td>
+              <td class="score">3.0 / 10</td>
+              <td>本ページ内の記載からは、水質維持を主目的にした要素は限定的です（生菌剤の記載はあります）。</td>
+            </tr>
+            <tr>
+              <td>Axis5（7.2）差別化指数</td>
+              <td class="score">7.0 / 10</td>
+              <td>生菌剤・アミノ酸（メチオニン）・タウリン・カロチノイドなど、狙いの違う要素が複数並ぶ点が特徴です。</td>
+            </tr>
+            <tr>
+              <td>総評</td>
+              <td class="score">—</td>
+              <td>親魚向けの大きめ粒を軸に、体づくりと繁殖期の維持を意識した主食設計です。成分面は生菌剤やアミノ酸・タウリン等の要素が入り、狙いを分けた構成になっています。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <script>
+        (function(){
+          const canvas = document.getElementById('radar');
+          const ctx = canvas.getContext('2d');
+
+          // ===== 5軸（0-10） =====
+          const labels = [
+            '主食強度',
+            'バランス設計',
+            '繁殖寄り設計',
+            '水質配慮',
+            '差別化指数'
+          ];
+          const values = [8.0, 7.5, 8.0, 3.0, 7.0];
+
+          const W = canvas.width;
+          const H = canvas.height;
+          const cx = W/2;
+          const cy = H/2;
+          const r = Math.min(W,H)*0.36;
+
+          // 色（テンプレ指定）
+          const fill = 'rgba(255, 182, 193, 0.25)'; // 薄いピンク
+          const stroke = 'rgba(135, 206, 235, 1)';  // 水色
+
+          function polar(i, radius){
+            const a = (-Math.PI/2) + (i * (2*Math.PI/labels.length));
+            return { x: cx + Math.cos(a)*radius, y: cy + Math.sin(a)*radius };
+          }
+
+          function drawPolygon(radius, color){
+            ctx.beginPath();
+            for(let i=0;i<labels.length;i++){
+              const p = polar(i, radius);
+              if(i===0) ctx.moveTo(p.x,p.y);
+              else ctx.lineTo(p.x,p.y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+
+          function draw(){
+            ctx.clearRect(0,0,W,H);
+
+            // グリッド
+            ctx.strokeStyle = '#dddddd';
+            for(let step=1; step<=5; step++){
+              drawPolygon(r*(step/5), '#dddddd');
+            }
+
+            // 軸
+            ctx.beginPath();
+            for(let i=0;i<labels.length;i++){
+              const p = polar(i, r);
+              ctx.moveTo(cx,cy);
+              ctx.lineTo(p.x,p.y);
+            }
+            ctx.strokeStyle = '#dddddd';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // ラベル
+            ctx.fillStyle = '#111111';
+            ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif';
+            for(let i=0;i<labels.length;i++){
+              const p = polar(i, r*1.16);
+              const text = labels[i];
+              const metrics = ctx.measureText(text);
+              let x = p.x - metrics.width/2;
+              let y = p.y;
+
+              if(p.y < cy) y -= 6;
+              else y += 16;
+
+              ctx.fillText(text, x, y);
+            }
+
+            // データ多角形
+            ctx.beginPath();
+            for(let i=0;i<labels.length;i++){
+              const v = Math.max(0, Math.min(10, values[i]))/10;
+              const p = polar(i, r*v);
+              if(i===0) ctx.moveTo(p.x,p.y);
+              else ctx.lineTo(p.x,p.y);
+            }
+            ctx.closePath();
+
+            // 塗り（薄いピンク）
+            ctx.fillStyle = fill;
+            ctx.fill();
+
+            // 線（水色）
+            ctx.strokeStyle = stroke;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+          }
+
+          draw();
+        })();
+      </script>
     </section>
 
     <!-- S07 特徴 -->
@@ -311,6 +497,9 @@
 
 <footer>
   <div class="wrap">
+    <div class="back">
+      <a href="javascript:history.back()">一覧に戻る</a>
+    </div>
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>

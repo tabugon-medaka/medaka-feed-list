@@ -123,7 +123,7 @@
       font-size:12px;
     }
 
-    /* ===== AI評価（採点モード／テンプレ準拠） ===== */
+    /* ===== AI評価（テンプレhtmlをそのまま反映） ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -139,21 +139,20 @@
     }
     .ai-radar-wrap{
       margin-top:16px;
-      border-top:1px solid var(--line);
-      padding-top:14px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
     }
-    canvas{
+    #radarChart{
       width:100% !important;
       height:auto !important;
       display:block;
-      max-width:520px;
-      margin:0 auto;
     }
     .ai-note{
-      margin:12px 0 0;
-      color:var(--muted);
+      margin-top:10px;
       font-size:12px;
-      text-align:center;
+      color:var(--muted);
     }
   </style>
 </head>
@@ -162,12 +161,10 @@
 
 <header>
   <div class="wrap">
-    <!-- 一覧に戻る -->
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
-    <!-- S01 商品名 -->
     <h1>GEX 繁殖・成長用プロバイオフード</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
@@ -176,7 +173,6 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
 
@@ -211,23 +207,19 @@
       </dl>
     </section>
 
-    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
         <li>【繁殖サポート成分強化配合】</li>
         <li>抗酸化作用のあるビタミンE、必須ミネラルである亜鉛・カリウムを強化配合し、丈夫な卵を産む親魚の健康維持をサポートし、産卵率の向上を目指します。</li>
-
         <li>【3つの善玉菌配合】</li>
         <li>乳酸菌、酵母菌、納豆菌の3種類の善玉菌を配合しています。</li>
         <li>乳酸菌と酵母菌が健康な腸内環境を保ち、納豆菌がフンや食べ残しを分解することで、水の汚れやニオイを抑える効果があります。</li>
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -244,10 +236,8 @@
       </table>
     </section>
 
-    <!-- S09 ミネラル（表形式・3列） -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -259,10 +249,8 @@
       </table>
     </section>
 
-    <!-- S08 成分（表形式・3列） -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -279,7 +267,6 @@
       </table>
     </section>
 
-    <!-- AI評価（採点モード） -->
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
@@ -317,9 +304,9 @@
         <canvas id="radarChart"></canvas>
         <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
       </div>
+
     </section>
 
-    <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -328,7 +315,6 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
       <div>
@@ -342,47 +328,58 @@
 <footer>
   <div class="wrap">
     CL-02（市販・メダカ用）個別ページ<br><br>
-    <a href="../../index.html">一覧に戻る</a>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const el = document.getElementById('radarChart');
-const ctx = el.getContext('2d');
+const radarValues = [7.4,6.8,6.6,7.2,7.9];
 
-new Chart(ctx, {
+new Chart(document.getElementById('radarChart'), {
   type: 'radar',
   data: {
     labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
     datasets: [{
-      data: [7.4, 6.8, 6.6, 7.2, 7.9],
-      fill: false,
+      data: radarValues,
+      borderColor: "#4da6ff",
       borderWidth: 3,
-      pointRadius: 3
+      pointRadius: 4,
+      fill: false
     }]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: true,
     plugins: {
-      legend: { display: false }
+      legend: { display: false },
+      tooltip: { enabled: false }
     },
     scales: {
       r: {
         min: 0,
         max: 10,
-        ticks: {
-          display: true,
-          stepSize: 2,
-          font: { size: 12 }
-        },
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
         pointLabels: {
-          font: { size: 12 }
+          color: "#111111",
+          font: { size: 14 }
         }
       }
     }
-  }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
 });
 </script>
 

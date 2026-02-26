@@ -94,15 +94,6 @@
       word-break:break-word;
     }
 
-    .mutedbox{
-      padding:10px 12px;
-      background:var(--soft2);
-      border:1px solid var(--line);
-      border-radius:10px;
-      font-size:14px;
-      word-break:break-word;
-    }
-
     table{
       width:100%;
       border-collapse:collapse;
@@ -132,7 +123,7 @@
       font-size:12px;
     }
 
-    /* ===== AI評価 ===== */
+    /* ===== AI評価（テンプレ準拠） ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -148,20 +139,21 @@
     }
     .ai-radar-wrap{
       margin-top:16px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:14px;
-      background:#fff;
+      border-top:1px solid var(--line);
+      padding-top:14px;
     }
-    #radarChart{
+    canvas{
       width:100% !important;
       height:auto !important;
       display:block;
+      max-width:520px;
+      margin:0 auto;
     }
     .ai-note{
-      margin-top:10px;
-      font-size:12px;
+      margin:12px 0 0;
       color:var(--muted);
+      font-size:12px;
+      text-align:center;
     }
   </style>
 </head>
@@ -173,7 +165,6 @@
     <div class="back">
       <a href="../../index.html">一覧に戻る</a>
     </div>
-
     <h1>GEX プロバイオフードクリア</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
   </div>
@@ -182,6 +173,7 @@
 <main>
   <div class="wrap">
 
+    <!-- S02 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
       <dl class="kv">
@@ -211,6 +203,7 @@
       </dl>
     </section>
 
+    <!-- S07 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -225,6 +218,7 @@
       </ul>
     </section>
 
+    <!-- S06 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
       <table>
@@ -243,6 +237,7 @@
       </table>
     </section>
 
+    <!-- S09 -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
       <table>
@@ -266,6 +261,7 @@
       </table>
     </section>
 
+    <!-- S08 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
       <table>
@@ -284,37 +280,38 @@
       </table>
     </section>
 
+    <!-- AI評価（採点モード） -->
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
       <div class="ai-box">
         <strong>主食強度（6.0）</strong>
-        主食として回しやすい栄養帯。成魚の維持を支えつつ、伸ばす狙いより安定運用向き。
+        主食として回しやすい栄養帯。維持を軸にした設計で、強化型より安定運用寄り。
       </div>
 
       <div class="ai-box">
         <strong>安心設計（7.4）</strong>
-        汚れ分解の訴求が中心で、飼育環境のクリアさを保ちやすい内容。管理面の負担を減らす方向。
+        善玉菌と汚れ分解訴求が中心。水質維持への寄与が明確で管理面の負担を軽減しやすい。
       </div>
 
       <div class="ai-box">
         <strong>栄養バランス（5.8）</strong>
-        魚粉・穀類・油脂の基本線に植物性たんぱく質を合わせた構成。機能側が前に出るため万能寄りではない。
+        動物性原料と植物性素材を組み合わせた基本構成。機能性が前面に出るため万能寄りではない。
       </div>
 
       <div class="ai-box">
         <strong>分類適合度（6.5）</strong>
-        主食表記に加え、菌配合で水質サポートを前面化。主食カテゴリ内の機能特化として整合する。
+        主食表記と菌設計が一致。水汚れ抑制を軸とした主食カテゴリ内の機能特化型。
       </div>
 
       <div class="ai-box">
         <strong>差別化指数（7.8）</strong>
-        乳酸菌・酵母菌・納豆菌にバチルス菌を重ねた点が核。清潔訴求がはっきりし、同系との差が出る。
+        乳酸菌・酵母菌・納豆菌にバチルス菌を重ねた構成が核。清潔志向の個性は明確。
       </div>
 
       <div class="ai-box">
         <strong>総評</strong>
-        主食ベースに、汚れ分解と腸内サポートを組み込んだクリア志向モデル。環境維持を優先したい水槽で使い分けやすい。
+        主食運用を前提に、水質安定と腸内サポートを狙うモデル。環境管理を重視する水槽で使い分けやすい。
       </div>
 
       <div class="ai-radar-wrap">
@@ -323,6 +320,7 @@
       </div>
     </section>
 
+    <!-- S10 -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -331,9 +329,10 @@
       </ul>
     </section>
 
+    <!-- S12 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
-      <div class="mutedbox">
+      <div>
         本ページではメーカーが明記している内容のみを整理しています。
       </div>
     </section>
@@ -350,34 +349,37 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const radarValues = [6.0,7.4,5.8,6.5,7.8];
+const el = document.getElementById('radarChart');
+const ctx = el.getContext('2d');
 
-new Chart(document.getElementById('radarChart'), {
+new Chart(ctx, {
   type: 'radar',
   data: {
     labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
     datasets: [{
-      data: radarValues,
-      borderColor: "#4da6ff",
+      data: [6.0,7.4,5.8,6.5,7.8],
+      fill: false,
       borderWidth: 3,
-      pointRadius: 4,
-      fill: false
+      pointRadius: 3
     }]
   },
   options: {
+    responsive: true,
+    maintainAspectRatio: true,
     plugins: {
-      legend: { display: false },
-      tooltip: { enabled: false }
+      legend: { display: false }
     },
     scales: {
       r: {
         min: 0,
         max: 10,
-        grid: { color: "#dddddd" },
-        angleLines: { color: "#dddddd" },
+        ticks: {
+          display: true,
+          stepSize: 2,
+          font: { size: 12 }
+        },
         pointLabels: {
-          color: "#111111",
-          font: { size: 14 }
+          font: { size: 12 }
         }
       }
     }

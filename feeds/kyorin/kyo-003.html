@@ -94,6 +94,15 @@
       word-break:break-word;
     }
 
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      word-break:break-word;
+    }
+
     table{
       width:100%;
       border-collapse:collapse;
@@ -123,33 +132,36 @@
       font-size:12px;
     }
 
-    /* ===== AI評価（表示方法：テンプレ準拠想定の最小追加） ===== */
-    .eval-wrap{
-      display:grid;
-      grid-template-columns: 320px 1fr;
-      gap:12px 14px;
-      align-items:start;
-    }
-    @media (max-width: 720px){
-      .eval-wrap{ grid-template-columns: 1fr; }
-    }
-    .radar-box{
+    /* ===== AI評価 ===== */
+    .ai-box{
       border:1px solid var(--line);
-      border-radius:10px;
-      background:var(--soft2);
-      padding:10px;
-    }
-    .radar-title{
-      margin:0 0 8px;
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
       font-size:14px;
-      color:var(--muted);
-      font-weight:700;
+      background:#fff;
+      word-break:break-word;
     }
-    canvas{ width:100%; height:auto; display:block; }
-    .eval-table th{ width:160px; }
-    .score{
-      font-weight:700;
-      white-space:nowrap;
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
     }
   </style>
 </head>
@@ -159,7 +171,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="javascript:history.back()">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
     <h1>キョーリン メダカの舞 コンプリート</h1>
@@ -200,163 +212,6 @@
           繁殖に適した親魚を育てる
         </dd>
       </dl>
-    </section>
-
-    <!-- AI評価 -->
-    <section id="AI">
-      <h2>AI評価 <span class="sec-id">AI</span></h2>
-
-      <div class="eval-wrap">
-        <div class="radar-box">
-          <p class="radar-title">レーダーチャート</p>
-          <canvas id="radar" width="520" height="520" aria-label="AI評価レーダーチャート"></canvas>
-        </div>
-
-        <table class="eval-table">
-          <thead>
-            <tr>
-              <th>評価項目</th>
-              <th>スコア</th>
-              <th>評価文</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Axis1（7.2）主食強度</td>
-              <td class="score">8.0 / 10</td>
-              <td>主食としての土台を強めに置いた設計で、親魚の体づくりと日々の給餌を両立しやすい構成です。</td>
-            </tr>
-            <tr>
-              <td>Axis2（7.2）バランス設計</td>
-              <td class="score">7.5 / 10</td>
-              <td>粒サイズの狙いが明確で、摂餌のしやすさと栄養の取り込みを同時に取りにいく組み立てです。</td>
-            </tr>
-            <tr>
-              <td>Axis3（7.2）繁殖寄り設計</td>
-              <td class="score">8.0 / 10</td>
-              <td>「繁殖に適した親魚」を目的に据えた記載どおり、親魚期のコンディション維持に寄せた方向性が強いです。</td>
-            </tr>
-            <tr>
-              <td>Axis4（7.2）水質配慮</td>
-              <td class="score">3.0 / 10</td>
-              <td>本ページ内の記載からは、水質維持を主目的にした要素は限定的です（生菌剤の記載はあります）。</td>
-            </tr>
-            <tr>
-              <td>Axis5（7.2）差別化指数</td>
-              <td class="score">7.0 / 10</td>
-              <td>生菌剤・アミノ酸（メチオニン）・タウリン・カロチノイドなど、狙いの違う要素が複数並ぶ点が特徴です。</td>
-            </tr>
-            <tr>
-              <td>総評</td>
-              <td class="score">—</td>
-              <td>親魚向けの大きめ粒を軸に、体づくりと繁殖期の維持を意識した主食設計です。成分面は生菌剤やアミノ酸・タウリン等の要素が入り、狙いを分けた構成になっています。</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <script>
-        (function(){
-          const canvas = document.getElementById('radar');
-          const ctx = canvas.getContext('2d');
-
-          // ===== 5軸（0-10） =====
-          const labels = [
-            '主食強度',
-            'バランス設計',
-            '繁殖寄り設計',
-            '水質配慮',
-            '差別化指数'
-          ];
-          const values = [8.0, 7.5, 8.0, 3.0, 7.0];
-
-          const W = canvas.width;
-          const H = canvas.height;
-          const cx = W/2;
-          const cy = H/2;
-          const r = Math.min(W,H)*0.36;
-
-          // 色（テンプレ指定）
-          const fill = 'rgba(255, 182, 193, 0.25)'; // 薄いピンク
-          const stroke = 'rgba(135, 206, 235, 1)';  // 水色
-
-          function polar(i, radius){
-            const a = (-Math.PI/2) + (i * (2*Math.PI/labels.length));
-            return { x: cx + Math.cos(a)*radius, y: cy + Math.sin(a)*radius };
-          }
-
-          function drawPolygon(radius, color){
-            ctx.beginPath();
-            for(let i=0;i<labels.length;i++){
-              const p = polar(i, radius);
-              if(i===0) ctx.moveTo(p.x,p.y);
-              else ctx.lineTo(p.x,p.y);
-            }
-            ctx.closePath();
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-
-          function draw(){
-            ctx.clearRect(0,0,W,H);
-
-            // グリッド
-            ctx.strokeStyle = '#dddddd';
-            for(let step=1; step<=5; step++){
-              drawPolygon(r*(step/5), '#dddddd');
-            }
-
-            // 軸
-            ctx.beginPath();
-            for(let i=0;i<labels.length;i++){
-              const p = polar(i, r);
-              ctx.moveTo(cx,cy);
-              ctx.lineTo(p.x,p.y);
-            }
-            ctx.strokeStyle = '#dddddd';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-
-            // ラベル
-            ctx.fillStyle = '#111111';
-            ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif';
-            for(let i=0;i<labels.length;i++){
-              const p = polar(i, r*1.16);
-              const text = labels[i];
-              const metrics = ctx.measureText(text);
-              let x = p.x - metrics.width/2;
-              let y = p.y;
-
-              if(p.y < cy) y -= 6;
-              else y += 16;
-
-              ctx.fillText(text, x, y);
-            }
-
-            // データ多角形
-            ctx.beginPath();
-            for(let i=0;i<labels.length;i++){
-              const v = Math.max(0, Math.min(10, values[i]))/10;
-              const p = polar(i, r*v);
-              if(i===0) ctx.moveTo(p.x,p.y);
-              else ctx.lineTo(p.x,p.y);
-            }
-            ctx.closePath();
-
-            // 塗り（薄いピンク）
-            ctx.fillStyle = fill;
-            ctx.fill();
-
-            // 線（水色）
-            ctx.strokeStyle = stroke;
-            ctx.lineWidth = 3;
-            ctx.stroke();
-          }
-
-          draw();
-        })();
-      </script>
     </section>
 
     <!-- S07 特徴 -->
@@ -475,6 +330,47 @@
       </table>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（8.7）</strong>
+        親魚向けの給餌を想定し、体づくりを主目的に置いた主食設計です。日々の継続投入に向く軸が立っています。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（7.8）</strong>
+        高浮上で様子を見ながら与えやすく、過給餌の抑制に寄与します。狙いが明確で運用しやすい構成です。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（8.8）</strong>
+        タウリンやメチオニン、ビタミン群とミネラル群まで広く含みます。偏りを作りにくい組み立てです。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（8.6）</strong>
+        「繁殖に適した親魚」を育てる目的と、粒サイズの設計が一致しています。主食カテゴリの役割に沿います。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（8.4）</strong>
+        生菌剤に加え、機能成分群を複数併記している点が特徴です。親魚向けの意図が読み取りやすい内容です。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        若魚から親魚までを視野に入れ、体型づくりと繁殖期の維持を狙った主食型です。機能成分の併記により方向性がはっきりしています。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -497,12 +393,61 @@
 
 <footer>
   <div class="wrap">
-    <div class="back">
-      <a href="javascript:history.back()">一覧に戻る</a>
-    </div>
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [8.7,7.8,8.8,8.6,8.4];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

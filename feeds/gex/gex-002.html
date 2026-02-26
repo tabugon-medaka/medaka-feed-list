@@ -131,6 +131,38 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
@@ -248,6 +280,46 @@
       </table>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（6.9）</strong>
+        粗蛋白50%・粗脂肪10%・粗繊維3.5%・粗灰分18%でRaw_A=123.5。78種Min/Max線形正規化で6.9。育成カテゴリの成長推進軸に沿う配合。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（5.1）</strong>
+        粗蛋白50%等からRaw_B=−123.5（Raw_A反転）。78種Min/Max線形正規化で5.1。安心設計は反転指標で中位、育成目的で優先度は低め。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（5.3）</strong>
+        プロス基準（46/7/3/13）との差分Raw_C=12.5。Max_C=22.0基準で減衰し5.3。育成寄りで基準配合からの距離が数値化される構成。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（5.6）</strong>
+        共通原材料とミネラルは除外。昆虫原料を栄養主材A=4.0で加点、成分はビタミン8種×0.2=1.6。合計Axis4=5.6（補正なし）で適合度算出、確定。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（2.5）</strong>
+        Axis5は78種内の各特徴出現回数nが必須。上位3特徴の点数化と合算を行うが、当該商品の特徴nが未提示のため算出不可。評価対象外として最低点2.5固定。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        育成カテゴリでAxis1=6.9、Axis2=5.1、Axis3=5.3。共通原材料とミネラル除外の上、昆虫原料＋ビタミン群でAxis4=5.6。差別化指数Axis5は特徴頻度n未提示で算出不能のため2.5固定。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -273,6 +345,57 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [6.9,5.1,5.3,5.6,2.5];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

@@ -94,6 +94,15 @@
       word-break:break-word;
     }
 
+    .mutedbox{
+      padding:10px 12px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:14px;
+      word-break:break-word;
+    }
+
     table{
       width:100%;
       border-collapse:collapse;
@@ -122,6 +131,38 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
@@ -130,7 +171,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
     <h1>キョーリン メダカの舞 メンテナンス</h1>
@@ -284,6 +325,47 @@
       </table>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（3.2）</strong>
+        体調がすぐれない時にも与えられる設計のため、日常の主食としての押しの強さは控えめ。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（7.4）</strong>
+        「蛋白値を抑え」「内臓に負担をかけない」訴求が明確で、調整用途として扱いやすい方向。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（5.0）</strong>
+        小麦胚芽高配合や各種素材の組み合わせは見えるが、目的が明確なぶん全方位型ではない。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（7.2）</strong>
+        良消化・負担低減の主張が中心で、機能カテゴリ（消化系）として筋が通っている。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（5.8）</strong>
+        小麦胚芽高配合と「生きた“ひかり菌”入り」の組み合わせが、内容の個性として残る。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        低水温期や病後など、給餌の条件が難しい場面を想定した良消化タイプ。目的を絞って使う前提で分かりやすい構成。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -306,9 +388,61 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [3.2,7.4,5.0,7.2,5.8];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

@@ -122,6 +122,63 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価（テンプレ表示） ===== */
+    .ai-grid{
+      display:grid;
+      grid-template-columns: 340px 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 760px){
+      .ai-grid{ grid-template-columns: 1fr; }
+    }
+    .ai-card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      background:#fff;
+    }
+    .ai-meta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+    .ai-meta span{
+      border:1px solid var(--line);
+      background:var(--soft2);
+      padding:3px 8px;
+      border-radius:999px;
+      font-weight:700;
+    }
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin:0 0 10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-note{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:8px;
+      line-height:1.5;
+    }
+    .radar-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    canvas{ max-width:100%; height:auto; }
   </style>
 </head>
 
@@ -130,7 +187,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
     <h1>キョーリン メダカの舞 ネクスト</h1>
@@ -294,6 +351,63 @@
       </table>
     </section>
 
+    <!-- AI評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-grid">
+        <div class="ai-card">
+          <div class="ai-meta">
+            <span>Axis1: 6.8</span>
+            <span>Axis2: 6.0</span>
+            <span>Axis3: 6.5</span>
+            <span>Axis4: 7.4</span>
+            <span>Axis5: 6.2</span>
+          </div>
+
+          <div class="radar-wrap">
+            <canvas id="radar" width="320" height="320"></canvas>
+          </div>
+
+          <div class="ai-note">
+            レーダーチャート：満点五角形（薄いピンク）／評価線（水色）
+          </div>
+        </div>
+
+        <div>
+          <div class="ai-box">
+            <strong>Axis1（6.8）</strong>
+            幼魚期の食いつきと摂取のしやすさに寄せた設計で、日々の給餌に組み込みやすい内容です。高浮上と顆粒サイズの狙いが、育成の基礎を支えます。
+          </div>
+
+          <div class="ai-box">
+            <strong>Axis2（6.0）</strong>
+            水面に広がりやすい性格のため、与え方が雑でも散らばりやすい一方、観察しながら調整しやすいタイプです。管理前提で扱うと安定します。
+          </div>
+
+          <div class="ai-box">
+            <strong>Axis3（6.5）</strong>
+            動物性原料に加えて海藻粉末やスピルリナ、生菌剤などの要素が入り、単純な配合に寄りません。育成寄りの中でも、方向性がまとまっています。
+          </div>
+
+          <div class="ai-box">
+            <strong>Axis4（7.4）</strong>
+            「全長1cm〜」の切替え用途を明確に掲げ、粒サイズと加工の意図が説明に直結しています。ステージ2の目的に対して、焦点がはっきりしています。
+          </div>
+
+          <div class="ai-box">
+            <strong>Axis5（6.2）</strong>
+            “ひかり菌”やアミノ酸（メチオニン）、タウリン、カロチノイドの訴求があり、育成用としての個性が出ています。突出ではないものの識別点は作れます。
+          </div>
+
+          <div class="ai-box">
+            <strong>総評</strong>
+            幼魚の段階で「食べやすさ」と「切替え用途」を前面に出した、目的が読み取りやすい育成フードです。高浮上の挙動を前提に、観察しながら量を整える使い方が向きます。
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -311,6 +425,14 @@
       </div>
     </section>
 
+    <!-- 最下部：一覧へ戻る -->
+    <section id="BACK">
+      <h2> <span class="sec-id">LINK</span></h2>
+      <div class="back">
+        <a href="javascript:history.back()">一覧へ戻る</a>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -319,6 +441,100 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script>
+  (function(){
+    const labels = ["Axis1","Axis2","Axis3","Axis4","Axis5"];
+    const values = [6.8, 6.0, 6.5, 7.4, 6.2];
+    const maxV = 10;
+
+    const canvas = document.getElementById("radar");
+    const ctx = canvas.getContext("2d");
+
+    const w = canvas.width, h = canvas.height;
+    const cx = w/2, cy = h/2;
+    const r = Math.min(w,h) * 0.36;
+
+    function polar(i, radius){
+      const ang = (-Math.PI/2) + (i * 2*Math.PI/labels.length);
+      return [cx + Math.cos(ang)*radius, cy + Math.sin(ang)*radius];
+    }
+
+    ctx.clearRect(0,0,w,h);
+
+    // 満点五角形（薄いピンク）
+    ctx.beginPath();
+    for(let i=0;i<labels.length;i++){
+      const [x,y] = polar(i, r);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = "rgba(255, 192, 203, 0.25)";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255, 192, 203, 0.55)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // 補助グリッド（薄い）
+    for(let k=1;k<=4;k++){
+      const rr = r*(k/5);
+      ctx.beginPath();
+      for(let i=0;i<labels.length;i++){
+        const [x,y] = polar(i, rr);
+        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = "rgba(221,221,221,0.9)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // 軸
+    for(let i=0;i<labels.length;i++){
+      const [x,y] = polar(i, r);
+      ctx.beginPath();
+      ctx.moveTo(cx,cy);
+      ctx.lineTo(x,y);
+      ctx.strokeStyle = "rgba(221,221,221,0.9)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // 評価ポリゴン（線＝水色）
+    ctx.beginPath();
+    for(let i=0;i<labels.length;i++){
+      const vv = Math.max(0, Math.min(maxV, values[i]));
+      const [x,y] = polar(i, r*(vv/maxV));
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = "rgba(99, 179, 237, 0.12)";
+    ctx.fill();
+    ctx.strokeStyle = "#63b3ed";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // 点
+    for(let i=0;i<labels.length;i++){
+      const vv = Math.max(0, Math.min(maxV, values[i]));
+      const [x,y] = polar(i, r*(vv/maxV));
+      ctx.beginPath();
+      ctx.arc(x,y,3,0,Math.PI*2);
+      ctx.fillStyle = "#63b3ed";
+      ctx.fill();
+    }
+
+    // ラベル
+    ctx.font = "12px -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif";
+    ctx.fillStyle = "#666666";
+    for(let i=0;i<labels.length;i++){
+      const [x,y] = polar(i, r*1.13);
+      const text = labels[i];
+      const m = ctx.measureText(text).width;
+      ctx.fillText(text, x - m/2, y + 4);
+    }
+  })();
+</script>
 
 </body>
 </html>

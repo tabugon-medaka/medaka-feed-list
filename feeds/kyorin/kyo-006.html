@@ -122,6 +122,38 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
@@ -130,7 +162,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
     <h1>キョーリン メダカの舞 スーパーオレンジ</h1>
@@ -150,7 +182,7 @@
         <dd>市販・メダカ用（CL-02）</dd>
 
         <dt>位置づけ</dt>
-        <dd>育成</dd>
+        <dd>機能</dd>
 
         <dt>対象ステージ</dt>
         <dd>全長約1.5cm以上</dd>
@@ -289,6 +321,47 @@
       </table>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（6.2）</strong>
+        主原料が動物性原料中心で、日常給餌の土台として使いやすい強さがあります。機能訴求の中でも主食寄りの芯が残っています。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（6.0）</strong>
+        構成は一般的な素材が中心で、扱いを大きく選ばない設計です。日々の給餌に組み込みやすいまとまりがあります。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（6.1）</strong>
+        基礎要素と機能素材を同居させた構成で、偏りを作りにくい設計です。継続運用を前提に据えた印象です。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（7.6）</strong>
+        色揚げに対して、カロチノイドを中心に据えた設計が見えており、目的に直結する訴求の組み立てができています。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（6.8）</strong>
+        「朱赤系向け」とカロチノイド訴求が前面に出ており、用途を限定した個性が立っています。選ぶ理由が作りやすい内容です。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        朱赤系の発色を狙う配合意図が明確で、色揚げ用として使い所がはっきりしています。基礎的な栄養要素も備え、日常給餌に組み込みやすい一方、目的は発色寄りに振った内容です。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -311,9 +384,61 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [6.2,6.0,6.1,7.6,6.8];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

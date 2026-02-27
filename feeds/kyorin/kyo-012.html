@@ -116,6 +116,38 @@
       padding-left:18px;
     }
 
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
@@ -130,7 +162,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
 
     <h1>キョーリン メダカのエサ ハイパー色揚</h1>
@@ -144,7 +176,6 @@
     <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
@@ -172,7 +203,7 @@
       </dl>
     </section>
 
-    <!-- S07 特徴（原文抽出のみ） -->
+    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -182,109 +213,86 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
+    <!-- S06 原材料 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>オキアミミール</td>
-            <td>フィッシュミール</td>
-            <td>イカミール</td>
-          </tr>
-          <tr>
-            <td>卵白粉末</td>
-            <td>ビール酵母</td>
-            <td>魚油</td>
-          </tr>
-          <tr>
-            <td>でんぷん類</td>
-            <td>乳化剤</td>
-            <td>大豆ミール</td>
-          </tr>
-          <tr>
-            <td>海藻粉末</td>
-            <td>グルテンミール</td>
-            <td>酵母エキス</td>
-          </tr>
-          <tr>
-            <td>生菌剤</td>
-            <td>スピルリナ</td>
-            <td>粘結剤（ポリアクリル酸Na）</td>
-          </tr>
-          <tr>
-            <td>ガーリック</td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr><td>オキアミミール</td><td>フィッシュミール</td><td>イカミール</td></tr>
+          <tr><td>卵白粉末</td><td>ビール酵母</td><td>魚油</td></tr>
+          <tr><td>でんぷん類</td><td>乳化剤</td><td>大豆ミール</td></tr>
+          <tr><td>海藻粉末</td><td>グルテンミール</td><td>酵母エキス</td></tr>
+          <tr><td>生菌剤</td><td>スピルリナ</td><td>粘結剤（ポリアクリル酸Na）</td></tr>
+          <tr><td>ガーリック</td><td></td><td></td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S09 ミネラル（表形式・3列） -->
+    <!-- S09 ミネラル -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>リン</td>
-            <td>ケイ素</td>
-            <td>カルシウム</td>
-          </tr>
-          <tr>
-            <td>鉄</td>
-            <td>マグネシウム</td>
-            <td>亜鉛</td>
-          </tr>
-          <tr>
-            <td>マンガン</td>
-            <td>銅</td>
-            <td>ヨウ素</td>
-          </tr>
+          <tr><td>リン</td><td>ケイ素</td><td>カルシウム</td></tr>
+          <tr><td>鉄</td><td>マグネシウム</td><td>亜鉛</td></tr>
+          <tr><td>マンガン</td><td>銅</td><td>ヨウ素</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S08 成分（表形式・3列） -->
+    <!-- S08 成分 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>アミノ酸（メチオニン）</td>
-            <td>タウリン</td>
-            <td>カロチノイド</td>
-          </tr>
-          <tr>
-            <td>塩化コリン</td>
-            <td>ビタミンE</td>
-            <td>ビタミンC</td>
-          </tr>
-          <tr>
-            <td>イノシトール</td>
-            <td>ビタミンB5</td>
-            <td>ビタミンB2</td>
-          </tr>
-          <tr>
-            <td>ビタミンA</td>
-            <td>ビタミンB1</td>
-            <td>ビタミンB6</td>
-          </tr>
-          <tr>
-            <td>ビタミンB3</td>
-            <td>葉酸</td>
-            <td>ビタミンD3</td>
-          </tr>
-          <tr>
-            <td>ビオチン</td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr><td>アミノ酸（メチオニン）</td><td>タウリン</td><td>カロチノイド</td></tr>
+          <tr><td>塩化コリン</td><td>ビタミンE</td><td>ビタミンC</td></tr>
+          <tr><td>イノシトール</td><td>ビタミンB5</td><td>ビタミンB2</td></tr>
+          <tr><td>ビタミンA</td><td>ビタミンB1</td><td>ビタミンB6</td></tr>
+          <tr><td>ビタミンB3</td><td>葉酸</td><td>ビタミンD3</td></tr>
+          <tr><td>ビオチン</td><td></td><td></td></tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- AI評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（6.8）</strong>
+        高タンパク設計だが用途は発色補助。主食運用は可能だが軸は色揚げ。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（7.9）</strong>
+        ひかり菌配合と浮上設計で継続給餌を前提とした安定型。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（7.2）</strong>
+        発色素材を中心に基礎栄養は網羅。過度な偏りはない。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（9.4）</strong>
+        カロチノイドとスピルリナ明記で色揚げ用途に対し設計は明確。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（6.6）</strong>
+        王道構成で突出素材は無いが、菌併用設計は中程度の個性。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        発色を目的とした堅実設計。攻める色揚げではなく、日常管理の延長で色を乗せるタイプ。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
     </section>
 
     <!-- S10 注意書き -->
@@ -309,9 +317,61 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [6.8,7.9,7.2,9.4,6.6];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

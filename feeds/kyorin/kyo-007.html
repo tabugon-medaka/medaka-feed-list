@@ -27,6 +27,9 @@
                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       line-height:1.6;
     }
+    a{ color:#0b57d0; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
     header{
       border-bottom:1px solid var(--line);
       background:var(--soft2);
@@ -49,6 +52,8 @@
       color:var(--muted);
       font-size:14px;
     }
+    main{ padding:10px 0 26px; }
+
     section{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -72,6 +77,7 @@
       border-radius:999px;
       background:var(--soft2);
     }
+
     .kv{
       display:grid;
       grid-template-columns:160px 1fr;
@@ -85,23 +91,68 @@
     .kv dd{
       margin:0;
       font-size:14px;
+      word-break:break-word;
     }
+
     table{
       width:100%;
       border-collapse:collapse;
       table-layout:fixed;
       font-size:14px;
     }
-    td{
+    th, td{
       border:1px solid var(--line);
       padding:8px 10px;
       vertical-align:top;
+      word-break:break-word;
     }
+    th{
+      background:var(--soft);
+      font-weight:700;
+    }
+
+    ul{
+      margin:8px 0 0;
+      padding-left:18px;
+    }
+
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
       color:var(--muted);
       font-size:12px;
+    }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
     }
   </style>
 </head>
@@ -111,7 +162,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
     <h1>キョーリン メダカベビー ハイパー育成</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
@@ -203,6 +254,46 @@
       </table>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（6.2）</strong>
+        粗蛋白48％の表示があり、稚魚期の成長を押し上げる力は十分に確保されています。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（5.8）</strong>
+        脂質12％の表示で高カロリー寄りのため、量と回数を調整して使う前提の扱いになります。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（6.0）</strong>
+        高カロリー訴求に寄せつつも、原材料の構成は極端に偏らず、軸は成長に置かれています。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（7.3）</strong>
+        稚魚の食いと伸びを優先した設計が明記されており、「育成」目的に対する一致度が高い内容です。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（6.6）</strong>
+        「超嗜好性・高カロリー」と「ひかり菌」の組み合わせで、狙いが分かりやすい特徴になっています。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        稚魚の立ち上げで「食わせて伸ばす」方向に寄せた育成用。食いの底上げを重視する場面で使いやすい内容です。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -223,9 +314,61 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [6.2,5.8,6.0,7.3,6.6];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

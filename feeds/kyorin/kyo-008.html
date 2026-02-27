@@ -103,6 +103,38 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    /* ===== AI評価 ===== */
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
@@ -111,7 +143,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
     <h1>キョーリン 稚魚のエサ　ハイパー育成</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
@@ -203,6 +235,47 @@
       </table>
     </section>
 
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（6.8）</strong>
+        稚魚期の成長を押し上げる方向に振れた配合で、育成目的としての“伸び”を作りやすい設計です。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（5.2）</strong>
+        成長寄りの押し出しがあるため、給餌量と回数を管理して使うほど安定しやすいタイプです。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（5.9）</strong>
+        稚魚向けに寄せた構成の中で、伸ばす要素と維持要素が両立しており、偏りは強く出にくい内容です。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（7.4）</strong>
+        「稚魚」「高カロリー」の設計意図がそのまま中身に反映されており、育成カテゴリとして狙いが一致しています。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（6.4）</strong>
+        高カロリー志向と「ひかり菌」の組み合わせが軸になっており、育成用途の中で個性を作れる構成です。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        稚魚を伸ばす目的に寄せた育成型。給餌設計を合わせるほど持ち味が出やすい構成です。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -223,9 +296,61 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [6.8,5.2,5.9,7.4,6.4];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

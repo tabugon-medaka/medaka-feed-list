@@ -132,7 +132,6 @@
       font-size:12px;
     }
 
-    /* ===== AI評価 ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -185,29 +184,21 @@
     <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
-
         <dt>位置づけ</dt>
         <dd>主食</dd>
-
         <dt>メーカー想定用途</dt>
         <dd>丈夫なメダカを育てる</dd>
-
         <dt>対象ステージ</dt>
         <dd>稚魚〜成魚</dd>
-
         <dt>形状</dt>
         <dd>高浮上性 ミニフレーク</dd>
-
         <dt>浮沈性</dt>
         <dd>高浮上性</dd>
-
         <dt>粒径</dt>
         <dd>小粒（数値表記なし）</dd>
-
         <dt>メーカー表記</dt>
         <dd>
           昆虫原料　良質なアミノ酸バランス<br>
@@ -230,10 +221,9 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
+    <!-- S06 原材料 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -288,33 +278,33 @@
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
       <div class="ai-box">
-        <strong>主食強度（5.3）</strong>
-        粗蛋白44％で育成用途として十分な水準。成長を支える配合だが、極端に攻めた設計ではない。
+        <strong>主食強度（5.73）</strong>
+        栄養強度は中域に位置し、育成用途として過度に攻めず安定を重視した水準で、連続給餌でも振れ幅が出にくく扱いやすい設計に収まっています。
       </div>
 
       <div class="ai-box">
-        <strong>安心設計（6.7）</strong>
-        脂質は過度に高くなく、給餌後の水質への負担も抑えやすい。扱いやすさのある構成。
+        <strong>安心設計（5.77）</strong>
+        負荷側の傾きも中程度に抑えられており、脂質過多による急激な環境変動を招きにくい範囲で、日常管理に組み込みやすい安定寄りの位置です。
       </div>
 
       <div class="ai-box">
-        <strong>栄養バランス（6.1）</strong>
-        栄養に大きな偏りはなく、育成寄りながらも安定性は保たれている。継続給餌しやすい設計。
+        <strong>栄養バランス（7.9）</strong>
+        基準値からの乖離は小さく、主食としての骨格は保たれているため、育成ベースを崩さず継続運用しやすいバランス帯に位置しています。
       </div>
 
       <div class="ai-box">
-        <strong>分類適合度（4.4）</strong>
-        昆虫原料とビタミンDの訴求はあるが、全体構成は標準的な範囲に収まる。
+        <strong>分類適合度（4.7）</strong>
+        目的適合度は中域で、昆虫原料や成分訴求はあるものの、特化型ではなく実用域にまとめられた構成で、育成用途として無理のない加点幅です。
       </div>
 
       <div class="ai-box">
-        <strong>差別化指数（6.0）</strong>
-        昆虫原料と三菌訴求は明確な特徴となっており、一定の個性を持つ内容。
+        <strong>差別化指数（6.6）</strong>
+        差別化指数は中上位水準で、消化吸収系や成長系、水汚れ抑制系の複合特徴が個性を形成しつつも、突出一点型ではない穏やかな差別化です。
       </div>
 
       <div class="ai-box">
         <strong>総評</strong>
-        育成向けとしては安定型の設計。強い突出はないが、扱いやすさと成長性のバランスを重視した構成。
+        育成標準型　中域の栄養強度と負荷の抑えが両立し、主食としての安定性を保ちながら育成用途に適応する設計です。差別化は複合型で穏やかに効き、突出よりも日常運用の安定を優先した構成となっています。
       </div>
 
       <div class="ai-radar-wrap">
@@ -345,7 +335,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const radarValues = [5.3,6.7,6.1,4.4,6.0];
+const radarValues = [5.73,5.77,7.9,4.7,6.6];
 
 new Chart(document.getElementById('radarChart'), {
   type: 'radar',

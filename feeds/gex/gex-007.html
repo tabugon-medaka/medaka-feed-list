@@ -123,7 +123,6 @@
       font-size:12px;
     }
 
-    /* ===== AI評価（採点モード） ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -182,29 +181,21 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
-
         <dt>位置づけ</dt>
         <dd>育成</dd>
-
         <dt>対象ステージ</dt>
         <dd>仔魚〜親魚</dd>
-
         <dt>形状</dt>
         <dd>顆粒</dd>
-
         <dt>浮沈性</dt>
         <dd>ゆっくり沈む</dd>
-
         <dt>粒径</dt>
         <dd>小粒（数値表記なし）</dd>
-
         <dt>メーカー表記</dt>
         <dd>
           ピュアクリア製法<br>
@@ -213,7 +204,6 @@
       </dl>
     </section>
 
-    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -223,10 +213,8 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -248,10 +236,8 @@
       </table>
     </section>
 
-    <!-- S09 ミネラル（表形式・3列） -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -268,10 +254,8 @@
       </table>
     </section>
 
-    <!-- S08 成分（表形式・3列） -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -288,38 +272,37 @@
       </table>
     </section>
 
-    <!-- AI評価（採点モード） -->
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
       <div class="ai-box">
-        <strong>主食強度（5.4）</strong>
-        維持を主軸にした出力帯です。伸ばす用途は弱く、普段使い寄りの立ち位置です。
+        <strong>主食強度（2.5）</strong>
+        高タンパク域からは離れた数値で、強い栄養押し上げ設計ではなく抑制的な主食水準に位置している。
       </div>
 
       <div class="ai-box">
-        <strong>安心設計（6.6）</strong>
-        ピュアクリア製法の訴求が中心です。水の見た目を崩しにくい方向性が明確です。
+        <strong>安心設計（9.0）</strong>
+        低タンパク側の上限域に位置し、栄養負荷を抑えた方向性が明確な構成である。
       </div>
 
       <div class="ai-box">
-        <strong>栄養バランス（5.5）</strong>
-        素材を広く組み合わせた構成です。突出は少なく、平均寄りに収めた配合です。
+        <strong>栄養バランス（2.5）</strong>
+        基準値から大きく離れた位置にあり、主食としての総合バランスは最低域での評価となる。
       </div>
 
       <div class="ai-box">
-        <strong>分類適合度（6.1）</strong>
-        産卵・育成の表記に対して、実運用は育成側に寄ります。役割の位置づけは妥当です。
+        <strong>分類適合度（6.8）</strong>
+        分類目的との整合は十分に確保され、主材構成の厚みが育成用途との適合を支えている。
       </div>
 
       <div class="ai-box">
-        <strong>差別化指数（5.2）</strong>
-        特色は水質配慮に集約されます。材料面での珍しさは弱く、個性は控えめです。
+        <strong>差別化指数（4.7）</strong>
+        成長訴求と水質配慮を軸とした特徴構成で、突出はないが複合的な差別化を形成している。
       </div>
 
       <div class="ai-box">
         <strong>総評</strong>
-        押し上げより安定を優先した育成タイプです。水を崩さず回したい場面で使い分けやすい一方、尖りは小さめです。
+        育成標準型　栄養負荷を抑えた設計を基盤としつつ、育成用途との整合を確保した構成である。突出した性能型ではないが、安定運用を前提とした実用寄りのポジションに位置する。
       </div>
 
       <div class="ai-radar-wrap">
@@ -331,7 +314,6 @@
       </div>
     </section>
 
-    <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -340,7 +322,6 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
       <div>
@@ -360,15 +341,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const el = document.getElementById('radarChart');
-const ctx = el.getContext('2d');
-
-new Chart(ctx, {
+new Chart(document.getElementById('radarChart'), {
   type: 'radar',
   data: {
     labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
     datasets: [{
-      data: [5.4, 6.6, 5.5, 6.1, 5.2],
+      data: [2.5, 9.0, 2.5, 6.8, 4.7],
       fill: false,
       borderWidth: 3,
       pointRadius: 3,
@@ -378,22 +356,14 @@ new Chart(ctx, {
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    plugins: {
-      legend: { display: false }
-    },
+    plugins: { legend: { display: false } },
     scales: {
       r: {
         min: 0,
         max: 10,
         backgroundColor: "rgba(255,200,220,0.25)",
-        ticks: {
-          display: true,
-          stepSize: 2,
-          font: { size: 12 }
-        },
-        pointLabels: {
-          font: { size: 12 }
-        }
+        ticks: { display: true, stepSize: 2, font: { size: 12 } },
+        pointLabels: { font: { size: 12 } }
       }
     }
   }

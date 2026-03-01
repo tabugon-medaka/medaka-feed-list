@@ -123,7 +123,6 @@
       font-size:12px;
     }
 
-    /* ===== AI評価（テンプレhtmlをそのまま反映） ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -175,30 +174,21 @@
 
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
-
         <dt>位置づけ</dt>
         <dd>育成</dd>
-
         <dt>対象ステージ</dt>
         <dd>成魚</dd>
-
         <dt>形状</dt>
         <dd>顆粒</dd>
-
         <dt>浮沈性</dt>
         <dd>ゆっくり沈む</dd>
-
         <dt>粒径</dt>
         <dd>小粒（数値表記なし）</dd>
-
         <dt>メーカー表記</dt>
         <dd>
-          繁殖・成長用<br>
-          プロバイオフード<br>
           3つの繁殖サポート成分（ビタミンE・亜鉛・カリウム）<br>
           3つの善玉菌（乳酸菌・納豆菌・酵母菌）<br>
           水汚れを抑える<br>
@@ -271,33 +261,33 @@
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
       <div class="ai-box">
-        <strong>主食強度（7.4）</strong>
-        成魚の体力維持に加え、繁殖期の押し上げを意識した栄養帯。伸ばす局面に寄せた主食性能。
+        <strong>主食強度（6.9）</strong>
+        中位域に位置する数値であり、栄養水準は一定の高さを保ちながら極端な高強度設計には至らない構成である。
       </div>
 
       <div class="ai-box">
-        <strong>安心設計（6.8）</strong>
-        ビタミンEと必須ミネラルを軸に、善玉菌構成で腸内環境と水質の双方へ配慮した内容。
+        <strong>安心設計（4.6）</strong>
+        数値はやや低方向に位置しており、高栄養特化ではなく安定運用を意識した設計であることが示されている。
       </div>
 
       <div class="ai-box">
-        <strong>栄養バランス（6.6）</strong>
-        魚粉系中心に植物性素材を組み合わせた設計。繁殖寄りだが維持域も視野に入る。
+        <strong>栄養バランス（9.2）</strong>
+        基準値との差が極めて小さく、主食領域として整ったバランス域に位置する構成であることが明確である。
       </div>
 
       <div class="ai-box">
-        <strong>分類適合度（7.2）</strong>
-        繁殖サポート成分強化と産卵率向上の訴求が明確で、繁殖・成長用カテゴリとの整合性は高い。
+        <strong>分類適合度（5.1）</strong>
+        産卵用途に必要な方向性は満たしているが、加点要素は限定的で中位域での適合となる構成である。
       </div>
 
       <div class="ai-box">
-        <strong>差別化指数（7.9）</strong>
-        繁殖支援を前面に出した設計と善玉菌三種の明示が核。目的特化型として個性は強い。
+        <strong>差別化指数（7.6）</strong>
+        昆虫原料と産卵訴求、成長方向の組合せにより、中上位域の差別化水準を形成している設計である。
       </div>
 
       <div class="ai-box">
         <strong>総評</strong>
-        繁殖局面での押し上げを狙い、栄養強化と菌設計を組み合わせた目的型モデル。成長支援と産卵サポートを同時に狙う運用に適する。
+        産卵標準型　産卵目的を軸に設計された構成であり、栄養バランスは高水準域に位置する。差別化は中上位域にあり、用途理解のもとで安定した性能を発揮する位置付けである。
       </div>
 
       <div class="ai-radar-wrap">
@@ -334,7 +324,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const radarValues = [7.4,6.8,6.6,7.2,7.9];
+const radarValues = [6.9,4.6,9.2,5.1,7.6];
 
 new Chart(document.getElementById('radarChart'), {
   type: 'radar',

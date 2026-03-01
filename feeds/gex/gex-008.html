@@ -123,7 +123,6 @@
       font-size:12px;
     }
 
-    /* ===== AI評価 ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -173,29 +172,21 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
-
         <dt>位置づけ</dt>
         <dd>主食</dd>
-
         <dt>対象ステージ</dt>
         <dd>稚魚〜成魚</dd>
-
         <dt>形状</dt>
         <dd>パウダー</dd>
-
         <dt>浮沈性</dt>
         <dd>高浮上性</dd>
-
         <dt>粒径</dt>
         <dd>パウダー（数値表記なし）</dd>
-
         <dt>メーカー表記</dt>
         <dd>
           稚魚から成魚まで食べやすいパウダーフード
@@ -203,7 +194,6 @@
       </dl>
     </section>
 
-    <!-- S07 特徴 -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -212,7 +202,6 @@
       </ul>
     </section>
 
-    <!-- S06 原材料 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
       <table>
@@ -231,7 +220,6 @@
       </table>
     </section>
 
-    <!-- S09 ミネラル -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
       <table>
@@ -250,7 +238,6 @@
       </table>
     </section>
 
-    <!-- S08 成分 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
       <table>
@@ -269,38 +256,37 @@
       </table>
     </section>
 
-    <!-- AI評価 -->
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
       <div class="ai-box">
-        <strong>主食強度（5.8）</strong>
-        出力は中域。押し上げ狙いには弱いが、日常回転を担う主食としての土台は保てる内容。
+        <strong>主食強度（3.7）</strong>
+        高タンパク域からは距離があり、栄養押し上げ型ではなく抑制寄りの主食水準に位置する設計である。
       </div>
 
       <div class="ai-box">
-        <strong>安心設計（6.4）</strong>
-        高浮上性で拡散しやすい形状が中心。食べ残しを抑えやすく、管理面の扱いやすさが出る設計。
+        <strong>安心設計（7.8）</strong>
+        低タンパク側上位域に位置し、栄養負荷を抑えた方向性が明確な安心設計型の構成である。
       </div>
 
       <div class="ai-box">
-        <strong>栄養バランス（5.6）</strong>
-        基本素材主体の素直な組み立て。偏りは小さい一方で、栄養面の個性は出にくい方向。
+        <strong>栄養バランス（4.5）</strong>
+        基準値からはやや離れた位置にあり、主食としての総合バランスは中位未満の評価域となる。
       </div>
 
       <div class="ai-box">
-        <strong>分類適合度（6.2）</strong>
-        主食カテゴリとの整合は取れている。稚魚〜成魚までの想定とも噛み合い、用途のズレは少ない。
+        <strong>分類適合度（6.8）</strong>
+        主食カテゴリとしての要件は満たしつつ、構成の厚みが実用域での適合を下支えしている。
       </div>
 
       <div class="ai-box">
-        <strong>差別化指数（4.9）</strong>
-        特徴はパウダーと高浮上性に集中。配合面の目立つ要素が少なく、差は付きにくい内容。
+        <strong>差別化指数（5.0）</strong>
+        高浮上性と消化吸収訴求を軸とした構成で、突出は弱いが一定の差別化は形成している。
       </div>
 
       <div class="ai-box">
         <strong>総評</strong>
-        拡散するパウダーで食べさせやすい主食。突出は控えめだが、運用のしやすさを重視する場面で使いやすい。
+        主食低タンパク型　栄養負荷を抑えた設計を基盤とする安定志向型の主食である。強い押し上げ性能は持たないが、水質配慮と扱いやすさを重視した実用寄りの立ち位置にある。
       </div>
 
       <div class="ai-radar-wrap">
@@ -310,7 +296,6 @@
 
     </section>
 
-    <!-- S10 注意書き（共通文のみ） -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -319,7 +304,6 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
       <div>
@@ -339,7 +323,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const radarValues = [5.8,6.4,5.6,6.2,4.9];
+const radarValues = [3.7,7.8,4.5,6.8,5.0];
 
 new Chart(document.getElementById('radarChart'), {
   type: 'radar',

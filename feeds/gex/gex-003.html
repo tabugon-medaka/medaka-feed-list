@@ -94,15 +94,6 @@
       word-break:break-word;
     }
 
-    .mutedbox{
-      padding:10px 12px;
-      background:var(--soft2);
-      border:1px solid var(--line);
-      border-radius:10px;
-      font-size:14px;
-      word-break:break-word;
-    }
-
     table{
       width:100%;
       border-collapse:collapse;
@@ -227,10 +218,9 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
+    <!-- S06 原材料 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
           <tr>
@@ -300,33 +290,33 @@
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
       <div class="ai-box">
-        <strong>Axis1（7.0） 主食強度</strong>
-        粗蛋白50％で繁殖期に必要な栄養量は十分。成長用と同水準の推進力を持ちつつ、産卵期を支える高栄養設計。
+        <strong>主食強度（7.4）</strong>
+        高水準域に位置する数値で、栄養密度の高さが明確に示されている設計である。
       </div>
 
       <div class="ai-box">
-        <strong>Axis2（5.0） 安心設計</strong>
-        高タンパク設計のため万能型ではない。給餌量管理と水質維持を前提とする繁殖期向けの強め設計。
+        <strong>安心設計（7.4）</strong>
+        同水準の値を示し、極端な偏りは見られず、設計全体の安定感が保たれている。
       </div>
 
       <div class="ai-box">
-        <strong>Axis3（5.2） 栄養バランス</strong>
-        高栄養寄りで標準主食より繁殖側へシフト。日常維持よりも「産ませる時」に適した目的型配合。
+        <strong>栄養バランス（8.3）</strong>
+        基準値との差が小さく、主食領域として整ったバランスに位置している構成である。
       </div>
 
       <div class="ai-box">
-        <strong>Axis4（6.0） 分類適合度</strong>
-        昆虫原料（アメリカミズアブ）＋高高度不飽和脂肪酸・リン脂質訴求。さらに「産卵数約2倍」明記で繁殖カテゴリ適合度は高い。
+        <strong>分類適合度（5.4）</strong>
+        分類目的に対する素材配置は一定水準を満たし、用途方向との整合は保たれている。
       </div>
 
       <div class="ai-box">
-        <strong>Axis5（6.5） 差別化指数</strong>
-        産卵数約2倍の明確訴求と繁殖特化設計は特徴性が強い。成長用との差別も明確で、差別化は中上位水準。
+        <strong>差別化指数（4.3）</strong>
+        産卵訴求とりん脂質要素が組み合わさり、差別化は中位水準に位置している。
       </div>
 
       <div class="ai-box">
-        <strong>総評（120字）</strong>
-        産卵数約2倍を明確に打ち出した繁殖特化型。高タンパク設計で推進力は十分だが、常用万能型ではない。繁殖期に集中投入する目的運用向けの戦略型フード。
+        <strong>総評</strong>
+        産卵標準型　産卵目的を軸に設計された構成であり、栄養水準と目的整合の両立が取れている。差別化は突出型ではないが、用途に対して安定した性能を示す位置付けにある。
       </div>
 
       <div class="ai-radar-wrap">
@@ -336,7 +326,7 @@
 
     </section>
 
-    <!-- S10 注意書き -->
+    <!-- S10 -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -345,7 +335,7 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
+    <!-- S12 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
       <div class="mutedbox">
@@ -365,7 +355,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const radarValues = [7.0,5.0,5.2,6.0,6.5];
+const radarValues = [7.4,7.4,8.3,5.4,4.3];
 
 new Chart(document.getElementById('radarChart'), {
   type: 'radar',

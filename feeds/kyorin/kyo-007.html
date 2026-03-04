@@ -123,7 +123,6 @@
       font-size:12px;
     }
 
-    /* ===== AI評価 ===== */
     .ai-box{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -172,201 +171,103 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 基本情報 -->
-    <section id="S02">
-      <h2>基本情報 <span class="sec-id">S02</span></h2>
-      <dl class="kv">
-        <dt>分類</dt>
-        <dd>市販・メダカ用（CL-02）</dd>
+<section id="AI">
+<h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
-        <dt>位置づけ</dt>
-        <dd>育成</dd>
+<div class="ai-box">
+<strong>主食強度（7.6）</strong>
+高タンパク48％を中心とした配合で稚魚の成長を狙った設計が明確であり、動物性原料も含めた構成から育成用途として十分な栄養量を確保したバランスの取れた配合内容。
+</div>
 
-        <dt>対象ステージ</dt>
-        <dd>稚魚</dd>
+<div class="ai-box">
+<strong>安心設計（3.9）</strong>
+稚魚育成を主目的とした設計で方向性は明確だが、特定機能に強く寄せた構成ではなく、一般的な育成用途として扱いやすい標準的な設計範囲の内容。
+</div>
 
-        <dt>形状</dt>
-        <dd>顆粒（粉末状）</dd>
+<div class="ai-box">
+<strong>栄養バランス（8.0）</strong>
+高カロリー設計と嗜好性を重視した構成により稚魚の摂餌量を確保しやすく、成長期の給餌で扱いやすい配合内容となっている育成寄りの設計。
+</div>
 
-        <dt>浮沈性</dt>
-        <dd>浮上性（沈みにくい）</dd>
+<div class="ai-box">
+<strong>分類適合度（8.9）</strong>
+オキアミミールや卵白粉末などの高配点原料を中心とした構成で素材構成の評価が高く、原材料・ミネラル・成分の総合点が高く出やすい設計。
+</div>
 
-        <dt>粒径</dt>
-        <dd>0.2mm以下</dd>
+<div class="ai-box">
+<strong>差別化指数（3.7）</strong>
+高栄養と成長要素を中心とした特徴構成で育成用途の方向性は明確だが、特徴自体は比較的標準的で差別化はやや控えめな設計。
+</div>
 
-        <dt>メーカー表記</dt>
-        <dd>
-          稚魚をぐんぐん大きくしたい方に<br>
-          生まれてから15mmぐらいまで
-        </dd>
-      </dl>
-    </section>
+<div class="ai-box">
+<strong>総評</strong>
+G-A 高タンパク設計と動物性原料を中心とした素材構成により育成用途での安定した栄養供給が期待できる餌であり、特徴は比較的標準的ながら稚魚育成用途として扱いやすい構成。
+</div>
 
-    <!-- S07 特徴 -->
-    <section id="S07">
-      <h2>特徴 <span class="sec-id">S07</span></h2>
-      <ul>
-        <li>超嗜好性・高カロリー</li>
-        <li>稚魚が好む配合を追求し、食が細い個体にもより多く食べさせ、ぐんぐん成長するようカロリーを高めました。</li>
-        <li>生きた善玉菌「ひかり菌」配合</li>
-        <li>ひかり菌が稚魚の腸内でエサを消化吸収しやすい形に分解。また腸内環境を保ち、健康を維持し、生まれた稚魚の生残をサポートします。</li>
-      </ul>
-    </section>
+<div class="ai-radar-wrap">
+<canvas id="radarChart"></canvas>
+<p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+</div>
+</section>
 
-    <!-- S06 原材料 -->
-    <section id="S06">
-      <h2>原材料 <span class="sec-id">S06</span></h2>
-      <table>
-        <tbody>
-          <tr><td>オキアミミール</td><td>フィッシュミール</td><td>卵白粉末</td></tr>
-          <tr><td>イカミール</td><td>ビール酵母</td><td>でんぷん類</td></tr>
-          <tr><td>魚油</td><td>乳化剤</td><td>グルテンミール</td></tr>
-          <tr><td>大豆ミール</td><td>海藻粉末</td><td>酵母エキス</td></tr>
-          <tr><td>スピルリナ</td><td>粘結剤（ポリアクリル酸Na）</td><td>ガーリック</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- S09 ミネラル -->
-    <section id="S09">
-      <h2>ミネラル <span class="sec-id">S09</span></h2>
-      <table>
-        <tbody>
-          <tr><td>リン</td><td>カルシウム</td><td>ケイ素</td></tr>
-          <tr><td>鉄</td><td>マグネシウム</td><td>亜鉛</td></tr>
-          <tr><td>マンガン</td><td>銅</td><td>ヨウ素</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- S08 成分 -->
-    <section id="S08">
-      <h2>成分 <span class="sec-id">S08</span></h2>
-      <table>
-        <tbody>
-          <tr><td>アミノ酸（メチオニン）</td><td>タウリン</td><td>カロチノイド</td></tr>
-          <tr><td>塩化コリン</td><td>ビタミンE</td><td>ビタミンC</td></tr>
-          <tr><td>イノシトール</td><td>ビタミンB5</td><td>ビタミンB2</td></tr>
-          <tr><td>ビタミンA</td><td>ビタミンB1</td><td>ビタミンB6</td></tr>
-          <tr><td>ビタミンB3</td><td>葉酸</td><td>ビタミンD3</td></tr>
-          <tr><td>ビオチン</td><td></td><td></td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- 評価 -->
-    <section id="AI">
-      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
-
-      <div class="ai-box">
-        <strong>主食強度（6.2）</strong>
-        粗蛋白48％の表示があり、稚魚期の成長を押し上げる力は十分に確保されています。
-      </div>
-
-      <div class="ai-box">
-        <strong>安心設計（5.8）</strong>
-        脂質12％の表示で高カロリー寄りのため、量と回数を調整して使う前提の扱いになります。
-      </div>
-
-      <div class="ai-box">
-        <strong>栄養バランス（6.0）</strong>
-        高カロリー訴求に寄せつつも、原材料の構成は極端に偏らず、軸は成長に置かれています。
-      </div>
-
-      <div class="ai-box">
-        <strong>分類適合度（7.3）</strong>
-        稚魚の食いと伸びを優先した設計が明記されており、「育成」目的に対する一致度が高い内容です。
-      </div>
-
-      <div class="ai-box">
-        <strong>差別化指数（6.6）</strong>
-        「超嗜好性・高カロリー」と「ひかり菌」の組み合わせで、狙いが分かりやすい特徴になっています。
-      </div>
-
-      <div class="ai-box">
-        <strong>総評</strong>
-        稚魚の立ち上げで「食わせて伸ばす」方向に寄せた育成用。食いの底上げを重視する場面で使いやすい内容です。
-      </div>
-
-      <div class="ai-radar-wrap">
-        <canvas id="radarChart"></canvas>
-        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
-      </div>
-    </section>
-
-    <!-- S10 注意書き -->
-    <section id="S10">
-      <h2>注意書き <span class="sec-id">S10</span></h2>
-      <ul>
-        <li>本ページはメーカーが明記している内容のみを整理しています（比較・評価・推測は行いません）。</li>
-        <li>給餌量・回数・保管方法などは、パッケージおよびメーカー案内に従ってください。</li>
-      </ul>
-    </section>
-
-    <!-- S12 一言 -->
-    <section id="S12">
-      <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
-      <div>本ページではメーカーが明記している内容のみを整理しています。</div>
-    </section>
-
-  </div>
+</div>
 </main>
 
 <footer>
-  <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ<br><br>
-    <a href="javascript:history.back()">一覧へ戻る</a>
-  </div>
+<div class="wrap">
+CL-02（市販・メダカ用）個別ページ<br><br>
+<a href="javascript:history.back()">一覧へ戻る</a>
+</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const radarValues = [6.2,5.8,6.0,7.3,6.6];
+const radarValues = [7.6,3.9,8.0,8.9,3.7];
 
 new Chart(document.getElementById('radarChart'), {
-  type: 'radar',
-  data: {
-    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
-    datasets: [{
-      data: radarValues,
-      borderColor: "#4da6ff",
-      borderWidth: 3,
-      pointRadius: 4,
-      fill: false
-    }]
-  },
-  options: {
-    plugins: {
-      legend: { display: false },
-      tooltip: { enabled: false }
-    },
-    scales: {
-      r: {
-        min: 0,
-        max: 10,
-        backgroundColor: "rgba(255,200,220,0.25)",
-        grid: { color: "#dddddd" },
-        angleLines: { color: "#dddddd" },
-        pointLabels: {
-          color: "#111111",
-          font: { size: 14 }
-        }
-      }
-    }
-  },
-  plugins: [{
-    id: 'valueLabels',
-    afterDatasetsDraw(chart){
-      const ctx = chart.ctx;
-      ctx.save();
-      ctx.fillStyle = "#111111";
-      ctx.font = "14px sans-serif";
-      chart.getDatasetMeta(0).data.forEach((point, i) => {
-        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
-      });
-      ctx.restore();
-    }
-  }]
+type: 'radar',
+data: {
+labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+datasets: [{
+data: radarValues,
+borderColor: "#4da6ff",
+borderWidth: 3,
+pointRadius: 4,
+fill: false
+}]
+},
+options: {
+plugins: {
+legend: { display: false },
+tooltip: { enabled: false }
+},
+scales: {
+r: {
+min: 0,
+max: 10,
+backgroundColor: "rgba(255,200,220,0.25)",
+grid: { color: "#dddddd" },
+angleLines: { color: "#dddddd" },
+pointLabels: {
+color: "#111111",
+font: { size: 14 }
+}
+}
+}
+},
+plugins: [{
+id: 'valueLabels',
+afterDatasetsDraw(chart){
+const ctx = chart.ctx;
+ctx.save();
+ctx.fillStyle = "#111111";
+ctx.font = "14px sans-serif";
+chart.getDatasetMeta(0).data.forEach((point, i) => {
+ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+});
+ctx.restore();
+}
+}]
 });
 </script>
 

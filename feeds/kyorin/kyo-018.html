@@ -1,308 +1,121 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex,nofollow" />
-  <title>キョーリン　メダカプロス｜個別ページ｜CL-02</title>
+<meta charset="UTF-8">
+<title>餌評価ページ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    :root{
-      --bg:#ffffff;
-      --fg:#111111;
-      --muted:#666666;
-      --line:#dddddd;
-      --soft:#f6f6f6;
-      --soft2:#fafafa;
-      --radius:10px;
-      --pad:14px;
-      --max:980px;
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--fg);
-      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI",
-                  "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-      line-height:1.6;
-    }
-    a{ color:#0b57d0; text-decoration:none; }
-    a:hover{ text-decoration:underline; }
+<style>
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
+"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+margin:40px;
+line-height:1.7;
+background:#ffffff;
+color:#111;
+max-width:900px;
+}
 
-    header{
-      border-bottom:1px solid var(--line);
-      background:var(--soft2);
-    }
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:16px;
-    }
-    .back{
-      font-size:14px;
-      margin-bottom:6px;
-    }
-    h1{
-      margin:0 0 6px;
-      font-size:26px;
-    }
-    .sub{
-      margin:0 0 12px;
-      color:var(--muted);
-      font-size:14px;
-    }
-    main{ padding:10px 0 26px; }
-
-    section{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:#fff;
-      padding:var(--pad);
-      margin-bottom:14px;
-    }
-    section h2{
-      margin:0 0 10px;
-      font-size:18px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .sec-id{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:700;
-      padding:3px 8px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:var(--soft2);
-    }
-
-    .kv{
-      display:grid;
-      grid-template-columns:160px 1fr;
-      gap:8px 12px;
-    }
-    .kv dt{
-      color:var(--muted);
-      font-weight:700;
-      font-size:14px;
-    }
-    .kv dd{
-      margin:0;
-      font-size:14px;
-      word-break:break-word;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      table-layout:fixed;
-      font-size:14px;
-    }
-    th, td{
-      border:1px solid var(--line);
-      padding:8px 10px;
-      vertical-align:top;
-      word-break:break-word;
-    }
-    th{
-      background:var(--soft);
-      font-weight:700;
-    }
-
-    ul{
-      margin:8px 0 0;
-      padding-left:18px;
-    }
-
-    footer{
-      border-top:1px solid var(--line);
-      background:var(--soft2);
-      color:var(--muted);
-      font-size:12px;
-    }
-  </style>
+h1{font-size:26px;margin-bottom:10px;}
+h2{margin-top:28px;border-bottom:2px solid #ddd;padding-bottom:6px;}
+.section{margin-top:18px;}
+.score{font-size:22px;font-weight:bold;margin-top:6px;}
+.block{
+background:#fafafa;
+border:1px solid #ddd;
+padding:14px;
+margin-top:8px;
+}
+canvas{
+margin-top:20px;
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  <div class="wrap">
-    <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
-    </div>
+<h1>キョーリン メダカプロス</h1>
 
-    <h1>キョーリン　メダカプロス</h1>
-    <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
-  </div>
-</header>
+<div class="section">
+<strong>Category</strong><br>
+主食（M系）
+</div>
 
-<main>
-  <div class="wrap">
+<h2>主食強度（Axis1）</h2>
+<div class="score">6.5</div>
+<div class="block">
+主食強度（Axis1）は6.5。日常給餌を前提とした標準的な主食設計で、過度に高栄養へ寄せない構成となっており、継続給餌でも扱いやすいバランス型の主食フードです。
+</div>
 
-    <!-- S02 基本情報 -->
-    <section id="S02">
-      <h2>基本情報 <span class="sec-id">S02</span></h2>
+<h2>安心設計（Axis2）</h2>
+<div class="score">5.0</div>
+<div class="block">
+安心設計（Axis2）は5.0。ひかり菌とGB菌による分解機構を採用し、フンや食べ残しの分解を促す設計が組み込まれています。水質悪化を抑える仕組みを持つ点が特徴です。
+</div>
 
-      <dl class="kv">
-        <dt>分類</dt>
-        <dd>市販・メダカ用（CL-02）</dd>
+<h2>栄養バランス（Axis3）</h2>
+<div class="score">9.3</div>
+<div class="block">
+栄養バランス（Axis3）は9.3。多数のビタミン類とミネラル類が体系的に配合されており、総合栄養フードとして必要な栄養要素が整理された高い栄養バランスを持つ構成です。
+</div>
 
-        <dt>位置づけ</dt>
-        <dd>主食</dd>
+<h2>分類適合度（Axis4）</h2>
+<div class="score">4.7</div>
+<div class="block">
+分類適合度（Axis4）は4.7。主材構成は基本的な魚粉系原料を中心とした構成で、主食用途としての基礎的な素材は揃っていますが、一部基礎原材料の欠落により適合度は中程度に位置します。
+</div>
 
-        <dt>対象ステージ</dt>
-        <dd>メダカ</dd>
+<h2>差別化指数（Axis5）</h2>
+<div class="score">6.6</div>
+<div class="block">
+差別化指数（Axis5）は6.6。腸内で働くひかり菌と、水中の有機物を分解するGB菌の組み合わせにより、消化補助と水質維持を同時に意識した設計が主な差別化要素となっています。
+</div>
 
-        <dt>形状</dt>
-        <dd>フレークタイプ</dd>
+<h2>総合分類</h2>
+<div class="score">M-B｜主食バランス型</div>
 
-        <dt>浮沈性</dt>
-        <dd>高浮上性</dd>
+<h2>総評</h2>
+<div class="block">
+主食カテゴリとして日常給餌を想定したバランス型の飼料です。菌による分解機構を取り入れた設計により、消化補助と水質維持の両面を意識した構成が特徴で、継続給餌でも扱いやすい標準的な主食フードの位置付けです。
+</div>
 
-        <dt>粒径</dt>
-        <dd></dd>
+<h2>レーダーチャート</h2>
+<canvas id="radarChart" width="400" height="400"></canvas>
 
-        <dt>メーカー表記</dt>
-        <dd>
-          W生菌がフンや残餌を分解して水キレイ！<br>
-          善玉菌“ひかり菌”と水質浄化菌“GB菌”を毎日プラス。生きた菌入りフレークタイプのフード。
-        </dd>
-      </dl>
-    </section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('radarChart');
 
-    <!-- S07 特徴（原文抽出のみ） -->
-    <section id="S07">
-      <h2>特徴 <span class="sec-id">S07</span></h2>
-      <ul>
-        <li>水の汚れをおさえる</li>
-        <li>“ひかり菌”がメダカの体内から生きたまま排泄されてフンを分解。食べ残しを“GB（ガーベッジバスター）菌”が分解。</li>
-        <li>健康的な消化をサポート</li>
-        <li>W生菌が腸内でエサを消化吸収しやすい形に分解。</li>
-      </ul>
-    </section>
-
-    <!-- S06 原材料（表形式・3列） -->
-    <section id="S06">
-      <h2>原材料 <span class="sec-id">S06</span></h2>
-
-      <table>
-        <tbody>
-          <tr>
-            <td>フィッシュミール</td>
-            <td>大豆ミール</td>
-            <td>でんぷん類</td>
-          </tr>
-          <tr>
-            <td>オキアミミール</td>
-            <td>小麦粉</td>
-            <td>グルテンミール</td>
-          </tr>
-          <tr>
-            <td>乳化剤</td>
-            <td>米ぬか</td>
-            <td>ビール酵母</td>
-          </tr>
-          <tr>
-            <td>濃縮アルファルファ</td>
-            <td>海藻粉末</td>
-            <td>ガーリック</td>
-          </tr>
-          <tr>
-            <td>粘結剤（ポリアクリル酸Na）</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- S09 ミネラル（表形式・3列） -->
-    <section id="S09">
-      <h2>ミネラル <span class="sec-id">S09</span></h2>
-
-      <table>
-        <tbody>
-          <tr>
-            <td>リン</td>
-            <td>ナトリウム</td>
-            <td>塩素</td>
-          </tr>
-          <tr>
-            <td>鉄</td>
-            <td>マグネシウム</td>
-            <td>亜鉛</td>
-          </tr>
-          <tr>
-            <td>マンガン</td>
-            <td>銅</td>
-            <td>ヨウ素</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- S08 成分（表形式・3列） -->
-    <section id="S08">
-      <h2>成分 <span class="sec-id">S08</span></h2>
-
-      <table>
-        <tbody>
-          <tr>
-            <td>カロチノイド</td>
-            <td>生菌剤</td>
-            <td>塩化コリン</td>
-          </tr>
-          <tr>
-            <td>ビタミンE</td>
-            <td>ビタミンC</td>
-            <td>イノシトール</td>
-          </tr>
-          <tr>
-            <td>ビタミンB5</td>
-            <td>ビタミンB2</td>
-            <td>ビタミンA</td>
-          </tr>
-          <tr>
-            <td>ビタミンB1</td>
-            <td>ビタミンB6</td>
-            <td>ビタミンB3</td>
-          </tr>
-          <tr>
-            <td>葉酸</td>
-            <td>ビタミンD3</td>
-            <td>ビオチン</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- S10 注意書き -->
-    <section id="S10">
-      <h2>注意書き <span class="sec-id">S10</span></h2>
-      <ul>
-        <li>本ページはメーカーが明記している内容のみを整理しています（比較・評価・推測は行いません）。</li>
-        <li>給餌量・回数・保管方法などは、パッケージおよびメーカー案内に従ってください。</li>
-      </ul>
-    </section>
-
-    <!-- S12 一言 -->
-    <section id="S12">
-      <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
-      <div>
-        本ページではメーカーが明記している内容のみを整理しています。
-      </div>
-    </section>
-
-  </div>
-</main>
-
-<footer>
-  <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
-  </div>
-</footer>
+new Chart(ctx, {
+type: 'radar',
+data: {
+labels: [
+'主食強度',
+'安心性能',
+'栄養バランス',
+'分類適合度',
+'差別化指数'
+],
+datasets: [{
+label: '評価値',
+data: [6.5,5.0,9.3,4.7,6.6],
+fill: true
+}]
+},
+options: {
+responsive: true,
+scales: {
+r: {
+min: 0,
+max: 10,
+ticks: {
+stepSize: 2
+}
+}
+}
+}
+});
+</script>
 
 </body>
 </html>

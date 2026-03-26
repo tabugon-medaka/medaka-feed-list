@@ -27,6 +27,9 @@
                   "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
       line-height:1.6;
     }
+    a{ color:#0b57d0; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
     header{
       border-bottom:1px solid var(--line);
       background:var(--soft2);
@@ -49,6 +52,9 @@
       color:var(--muted);
       font-size:14px;
     }
+
+    main{ padding:10px 0 26px; }
+
     section{
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -72,6 +78,7 @@
       border-radius:999px;
       background:var(--soft2);
     }
+
     .kv{
       display:grid;
       grid-template-columns:160px 1fr;
@@ -85,23 +92,67 @@
     .kv dd{
       margin:0;
       font-size:14px;
+      word-break:break-word;
     }
+
     table{
       width:100%;
       border-collapse:collapse;
       table-layout:fixed;
       font-size:14px;
     }
-    td{
+    th, td{
       border:1px solid var(--line);
       padding:8px 10px;
       vertical-align:top;
+      word-break:break-word;
     }
+    th{
+      background:var(--soft);
+      font-weight:700;
+    }
+
+    ul{
+      margin:8px 0 0;
+      padding-left:18px;
+    }
+
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
       color:var(--muted);
       font-size:12px;
+    }
+
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+      word-break:break-word;
+    }
+    .ai-box strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+    .ai-note{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
     }
   </style>
 </head>
@@ -111,7 +162,7 @@
 <header>
   <div class="wrap">
     <div class="back">
-      <a href="../../index.html">一覧に戻る</a>
+      <a href="javascript:history.back()">一覧へ戻る</a>
     </div>
     <h1>すくすくメダカ</h1>
     <p class="sub">市販メダカ餌のメーカー想定用途を整理した個別ページ（CL-02）</p>
@@ -175,9 +226,9 @@
       <h2>ミネラル <span class="sec-id">S09</span></h2>
       <table>
         <tbody>
-          <tr><td>P</td><td>Na</td><td>Cl</td></tr>
-          <tr><td>Fe</td><td>Mg</td><td>Zn</td></tr>
-          <tr><td>Mn</td><td>Cu</td><td>I</td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
         </tbody>
       </table>
     </section>
@@ -187,13 +238,54 @@
       <h2>成分 <span class="sec-id">S08</span></h2>
       <table>
         <tbody>
-          <tr><td>塩化コリン</td><td>E</td><td>C</td></tr>
-          <tr><td>イノシトール</td><td>B5</td><td>B2</td></tr>
-          <tr><td>A</td><td>B1</td><td>B6</td></tr>
-          <tr><td>B3</td><td>葉酸</td><td>D3</td></tr>
+          <tr><td>塩化コリン</td><td></td><td></td></tr>
+          <tr><td>イノシトール</td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td>葉酸</td><td></td></tr>
           <tr><td>ビオチン</td><td></td><td></td></tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- 評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（3.3）</strong>
+        主食強度（Axis1）は3.3。タンパク質35％の控えめな栄養強度で、主食として成長を強く押し上げる設計ではなく、日常維持を目的とした穏やかな栄養設計が数値に表れています。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心設計（8.2）</strong>
+        安心設計（Axis2）は8.2。脂質3％の低脂肪設計により給餌負荷が低く、日常給餌を前提とした扱いやすい構成です。維持重視の安全寄り設計が明確に読み取れる数値となっています。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（3.4）</strong>
+        栄養バランス（Axis3）は3.4。高栄養型とは異なり、基本栄養を抑えたシンプル構成で、栄養強化よりも扱いやすさを優先した設計バランスが数値として表れています。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（2.5）</strong>
+        分類適合度（Axis4）は2.5。主材構成はシンプルで機能素材の強化は見られず、原材料構成としては最低評価域となる設計で、素材強度よりも簡易配合を重視した構成です。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（2.9）</strong>
+        差別化指数（Axis5）は2.9。特徴訴求は食べやすい顆粒設計のみで、機能素材や特殊機能の表示は少なく、差別化要素は限定的な構成として評価されています。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        M-C｜維持安定型　低脂肪で給餌負荷を抑えた軽量設計が特徴のベーシック主食です。高栄養や機能特化を狙った構成ではなく、日常維持を目的とした穏やかな栄養設計で、安定運用を前提としたシンプルな飼料設計となっています。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+        <p class="ai-note">本評価はChatGPTによるルールベース算出結果です。</p>
+      </div>
+
     </section>
 
     <!-- S10 注意書き -->
@@ -216,9 +308,61 @@
 
 <footer>
   <div class="wrap">
-    CL-02（市販・メダカ用）個別ページ
+    CL-02（市販・メダカ用）個別ページ<br><br>
+    <a href="javascript:history.back()">一覧へ戻る</a>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [3.3,8.2,3.4,2.5,2.9];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        backgroundColor: "rgba(255,200,220,0.25)",
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" },
+        pointLabels: {
+          color: "#111111",
+          font: { size: 14 }
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'valueLabels',
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      ctx.save();
+      ctx.fillStyle = "#111111";
+      ctx.font = "14px sans-serif";
+      chart.getDatasetMeta(0).data.forEach((point, i) => {
+        ctx.fillText(String(radarValues[i]), point.x + 6, point.y - 6);
+      });
+      ctx.restore();
+    }
+  }]
+});
+</script>
 
 </body>
 </html>

@@ -105,6 +105,18 @@
       font-size:14px;
       background:#fff;
     }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
@@ -210,34 +222,32 @@
     <section id="AI">
       <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
 
-      <div class="ai-box">
-        <strong>主食強度（4.5）</strong>
+      <div class="ai-box"><strong>主食強度（4.5）</strong>
         主食強度（Axis1）は4.5。極端な高栄養型ではないものの主食として継続給餌できる基礎強度を持ち、日常給餌の中心として安定運用できる中庸域の栄養強度となっています。
       </div>
 
-      <div class="ai-box">
-        <strong>安心性能（7.0）</strong>
+      <div class="ai-box"><strong>安心性能（7.0）</strong>
         安心性能（Axis2）は7.0。攻め寄りの栄養設計ではなく給餌負荷が抑えられており、日常給餌でも扱いやすい安定域に位置する設計として評価されます。
       </div>
 
-      <div class="ai-box">
-        <strong>栄養バランス（6.6）</strong>
+      <div class="ai-box"><strong>栄養バランス（6.6）</strong>
         栄養バランス（Axis3）は6.6。主食として必要な基本栄養を確保しながら極端な偏りを避けた構成で、日常給餌でも栄養バランスを崩しにくい内容となっています。
       </div>
 
-      <div class="ai-box">
-        <strong>分類適合度（3.0）</strong>
+      <div class="ai-box"><strong>分類適合度（3.0）</strong>
         分類適合度（Axis4）は3.0。主食用途としての基本素材構成は確認できるものの、主材強化や機能素材による設計意図は弱く分類適合度は低めの評価となります。
       </div>
 
-      <div class="ai-box">
-        <strong>差別化指数（2.5）</strong>
+      <div class="ai-box"><strong>差別化指数（2.5）</strong>
         差別化指数（Axis5）は2.5。特徴として強く打ち出された機能要素は少なく、主食用途を中心とした標準的な構成で差別化要素は限定的な設計です。
       </div>
 
-      <div class="ai-box">
-        <strong>総評</strong>
+      <div class="ai-box"><strong>総評</strong>
         M-B：日常給餌を前提としたベーシックな主食飼料です。極端な高栄養型ではなく扱いやすさを優先した設計で、基本栄養を維持しながら安定した給餌運用を行う用途に適した内容となっています。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
       </div>
 
     </section>
@@ -263,6 +273,39 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [4.5,7.0,6.6,3.0,2.5];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心性能","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" }
+      }
+    }
+  }
+});
+</script>
 
 </body>
 </html>

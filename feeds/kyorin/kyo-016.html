@@ -116,6 +116,29 @@
       padding-left:18px;
     }
 
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+    }
+
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
+
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
@@ -141,10 +164,8 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
-
       <dl class="kv">
         <dt>分類</dt>
         <dd>市販・メダカ用（CL-02）</dd>
@@ -169,7 +190,6 @@
       </dl>
     </section>
 
-    <!-- S07 特徴（原文抽出のみ） -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -178,102 +198,76 @@
       </ul>
     </section>
 
-    <!-- S06 原材料（表形式・3列） -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>フィッシュミール</td>
-            <td>小麦粉</td>
-            <td>オキアミミール</td>
-          </tr>
-          <tr>
-            <td>大豆ミール</td>
-            <td>ビール酵母</td>
-            <td>海藻粉末</td>
-          </tr>
-          <tr>
-            <td>スピルリナ</td>
-            <td>米ぬか</td>
-            <td>ガーリック</td>
-          </tr>
-          <tr>
-            <td>粘結剤（ポリアクリル酸Na）</td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr><td>フィッシュミール</td><td>小麦粉</td><td>オキアミミール</td></tr>
+          <tr><td>大豆ミール</td><td>ビール酵母</td><td>海藻粉末</td></tr>
+          <tr><td>スピルリナ</td><td>米ぬか</td><td>ガーリック</td></tr>
+          <tr><td>粘結剤（ポリアクリル酸Na）</td><td></td><td></td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S09 ミネラル（表形式・3列） -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>ケイ素</td>
-            <td>リン</td>
-            <td>食塩</td>
-          </tr>
-          <tr>
-            <td>鉄</td>
-            <td>マグネシウム</td>
-            <td>亜鉛</td>
-          </tr>
-          <tr>
-            <td>マンガン</td>
-            <td>銅</td>
-            <td>ヨウ素</td>
-          </tr>
+          <tr><td>ケイ素</td><td>リン</td><td>食塩</td></tr>
+          <tr><td>鉄</td><td>マグネシウム</td><td>亜鉛</td></tr>
+          <tr><td>マンガン</td><td>銅</td><td>ヨウ素</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S08 成分（表形式・3列） -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
-
       <table>
         <tbody>
-          <tr>
-            <td>カロチノイド</td>
-            <td>アミノ酸（メチオニン）</td>
-            <td>塩化コリン</td>
-          </tr>
-          <tr>
-            <td>ビタミンE</td>
-            <td>ビタミンC</td>
-            <td>イノシトール</td>
-          </tr>
-          <tr>
-            <td>ビタミンB5</td>
-            <td>ビタミンB2</td>
-            <td>ビタミンA</td>
-          </tr>
-          <tr>
-            <td>ビタミンB1</td>
-            <td>ビタミンB6</td>
-            <td>ビタミンB3</td>
-          </tr>
-          <tr>
-            <td>葉酸</td>
-            <td>ビタミンD3</td>
-            <td>ビオチン</td>
-          </tr>
-          <tr>
-            <td>ビタミンB12</td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr><td>カロチノイド</td><td>アミノ酸（メチオニン）</td><td>塩化コリン</td></tr>
+          <tr><td>ビタミンE</td><td>ビタミンC</td><td>イノシトール</td></tr>
+          <tr><td>ビタミンB5</td><td>ビタミンB2</td><td>ビタミンA</td></tr>
+          <tr><td>ビタミンB1</td><td>ビタミンB6</td><td>ビタミンB3</td></tr>
+          <tr><td>葉酸</td><td>ビタミンD3</td><td>ビオチン</td></tr>
+          <tr><td>ビタミンB12</td><td></td><td></td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S10 注意書き -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box"><strong>主食強度（5.5）</strong>
+        主食強度（Axis1）は5.5。主食としての基礎的な給餌強度は確保されていますが、特別に高栄養な設計ではなく、日常給餌の中で補助的に運用される水準の主食強度です。
+      </div>
+
+      <div class="ai-box"><strong>安心性能（6.0）</strong>
+        安心性能（Axis2）は6.0。極端な高栄養設計ではなく、給餌量を調整しながら日常的に使用できる範囲に収まっています。扱いやすさと安全性のバランスが取れた設計です。
+      </div>
+
+      <div class="ai-box"><strong>栄養バランス（7.9）</strong>
+        栄養バランス（Axis3）は7.9。稚魚期の成長に必要な栄養要素が整理されており、基本栄養をこの餌のみで成立させる構成です。継続給餌でも栄養バランスを維持しやすい設計です。
+      </div>
+
+      <div class="ai-box"><strong>分類適合度（5.0）</strong>
+        分類適合度（Axis4）は5.0。主材構成は基本的な配合を中心としていますが、栄養素材と補助素材が一定数含まれており、育成カテゴリとしての素材構成には一定の適合が見られます。
+      </div>
+
+      <div class="ai-box"><strong>差別化指数（4.8）</strong>
+        差別化指数（Axis5）は4.8。特徴は稚魚期の栄養補給を前提とした設計に集約されており、消化や初期成長を意識した機能表現が主な差別化要素として位置づけられています。
+      </div>
+
+      <div class="ai-box"><strong>総評</strong>
+        G-B：育成カテゴリとして稚魚期の成長を想定した基本構成の飼料です。栄養設計は整っており日常給餌でも扱いやすい内容ですが、素材構成による分類適合度や特徴の強さは中程度にとどまり、標準的な育成飼料の位置付けです。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+      </div>
+
+    </section>
+
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -282,7 +276,6 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
       <div>
@@ -298,6 +291,39 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [5.5,6.0,7.9,5.0,4.8];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心性能","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" }
+      }
+    }
+  }
+});
+</script>
 
 </body>
 </html>

@@ -122,6 +122,27 @@
       color:var(--muted);
       font-size:12px;
     }
+
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+    }
+    .ai-radar-wrap{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:14px;
+      background:#fff;
+    }
+    #radarChart{
+      width:100% !important;
+      height:auto !important;
+      display:block;
+    }
   </style>
 </head>
 
@@ -286,6 +307,40 @@
       </table>
     </section>
 
+    <!-- AI評価 -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box"><strong>主食強度（8.1）</strong>
+        主食強度（Axis1）は8.1。産卵数やふ化率の向上を狙ったハイカロリータイプで、繁殖期に消耗しやすい体力を補うためのエネルギー供給を重視した給餌強度の高い飼料です。
+      </div>
+
+      <div class="ai-box"><strong>安心設計（3.4）</strong>
+        安心設計（Axis2）は3.4。高エネルギー給餌を前提とした繁殖期向けフードで、ひかり菌とGB菌による分解作用を利用し、水中の有機物を処理しやすい仕組みが取り入れられています。
+      </div>
+
+      <div class="ai-box"><strong>栄養バランス（7.1）</strong>
+        栄養バランス（Axis3）は7.1。動物性原料を主体としながらビタミン類とミネラル類を整理して配合し、繁殖期の体力維持と卵形成を支える基礎栄養をまとめた内容です。
+      </div>
+
+      <div class="ai-box"><strong>分類適合度（8.6）</strong>
+        分類適合度（Axis4）は8.6。繁殖期の栄養補給を目的とした高カロリー型で、産卵期の給餌を前提とした用途適合性の高い繁殖向け飼料です。
+      </div>
+
+      <div class="ai-box"><strong>差別化指数（5.4）</strong>
+        差別化指数（Axis5）は5.4。産卵数とふ化率を重視した繁殖用途に特化した特徴を持ち、菌による分解機能を組み合わせた点が主な差別化要素です。
+      </div>
+
+      <div class="ai-box"><strong>総評</strong>
+        S-A｜産卵特化型：繁殖期の給餌に強く適合した産卵用フードです。高エネルギー設計による主食強度の高さと用途適合度の高さが評価の中心となり、繁殖期の栄養補給を重視する飼育環境で評価される飼料です。
+      </div>
+
+      <div class="ai-radar-wrap">
+        <canvas id="radarChart"></canvas>
+      </div>
+
+    </section>
+
     <!-- S10 注意書き -->
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
@@ -311,6 +366,39 @@
     CL-02（市販・メダカ用）個別ページ
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const radarValues = [8.1,3.4,7.1,8.6,5.4];
+
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ["主食強度","安心設計","栄養バランス","分類適合度","差別化指数"],
+    datasets: [{
+      data: radarValues,
+      borderColor: "#4da6ff",
+      borderWidth: 3,
+      pointRadius: 4,
+      fill: false
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        grid: { color: "#dddddd" },
+        angleLines: { color: "#dddddd" }
+      }
+    }
+  }
+});
+</script>
 
 </body>
 </html>

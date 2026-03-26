@@ -97,6 +97,14 @@
       padding:8px 10px;
       vertical-align:top;
     }
+    .ai-box{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:10px;
+      font-size:14px;
+      background:#fff;
+    }
     footer{
       border-top:1px solid var(--line);
       background:var(--soft2);
@@ -121,7 +129,6 @@
 <main>
   <div class="wrap">
 
-    <!-- S02 基本情報 -->
     <section id="S02">
       <h2>基本情報 <span class="sec-id">S02</span></h2>
       <dl class="kv">
@@ -148,7 +155,6 @@
       </dl>
     </section>
 
-    <!-- S07 特徴（原文抽出のみ） -->
     <section id="S07">
       <h2>特徴 <span class="sec-id">S07</span></h2>
       <ul>
@@ -165,7 +171,6 @@
       </ul>
     </section>
 
-    <!-- S06 原材料 -->
     <section id="S06">
       <h2>原材料 <span class="sec-id">S06</span></h2>
       <table>
@@ -174,12 +179,10 @@
           <tr><td>米ぬか</td><td>小麦粉</td><td>グルテンミール</td></tr>
           <tr><td>乳化剤</td><td>ビール酵母</td><td>濃縮アルファルファ</td></tr>
           <tr><td>魚油</td><td>海藻粉末</td><td>ガーリック</td></tr>
-          <tr><td>カロチノイド</td><td>ビタミン類（塩化コリン,E,C,イノシトール,B5,B2,A,B1,B6,B3,葉酸,D3,ビオチン）</td><td>ミネラル類（リン,食塩,鉄,マグネシウム,亜鉛,マンガン,銅,ヨウ素）</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- S09 ミネラル -->
     <section id="S09">
       <h2>ミネラル <span class="sec-id">S09</span></h2>
       <table>
@@ -191,7 +194,6 @@
       </table>
     </section>
 
-    <!-- S08 成分 -->
     <section id="S08">
       <h2>成分 <span class="sec-id">S08</span></h2>
       <table>
@@ -205,7 +207,41 @@
       </table>
     </section>
 
-    <!-- S10 注意書き -->
+    <section id="AI">
+      <h2>5軸AI総合評価 <span class="sec-id">AI評価</span></h2>
+
+      <div class="ai-box">
+        <strong>主食強度（4.5）</strong>
+        主食強度（Axis1）は4.5。極端な高栄養型ではないものの主食として継続給餌できる基礎強度を持ち、日常給餌の中心として安定運用できる中庸域の栄養強度となっています。
+      </div>
+
+      <div class="ai-box">
+        <strong>安心性能（7.0）</strong>
+        安心性能（Axis2）は7.0。攻め寄りの栄養設計ではなく給餌負荷が抑えられており、日常給餌でも扱いやすい安定域に位置する設計として評価されます。
+      </div>
+
+      <div class="ai-box">
+        <strong>栄養バランス（6.6）</strong>
+        栄養バランス（Axis3）は6.6。主食として必要な基本栄養を確保しながら極端な偏りを避けた構成で、日常給餌でも栄養バランスを崩しにくい内容となっています。
+      </div>
+
+      <div class="ai-box">
+        <strong>分類適合度（3.0）</strong>
+        分類適合度（Axis4）は3.0。主食用途としての基本素材構成は確認できるものの、主材強化や機能素材による設計意図は弱く分類適合度は低めの評価となります。
+      </div>
+
+      <div class="ai-box">
+        <strong>差別化指数（2.5）</strong>
+        差別化指数（Axis5）は2.5。特徴として強く打ち出された機能要素は少なく、主食用途を中心とした標準的な構成で差別化要素は限定的な設計です。
+      </div>
+
+      <div class="ai-box">
+        <strong>総評</strong>
+        M-B：日常給餌を前提としたベーシックな主食飼料です。極端な高栄養型ではなく扱いやすさを優先した設計で、基本栄養を維持しながら安定した給餌運用を行う用途に適した内容となっています。
+      </div>
+
+    </section>
+
     <section id="S10">
       <h2>注意書き <span class="sec-id">S10</span></h2>
       <ul>
@@ -214,7 +250,6 @@
       </ul>
     </section>
 
-    <!-- S12 一言 -->
     <section id="S12">
       <h2>ページ作成者からの一言 <span class="sec-id">S12</span></h2>
       <div>本ページではメーカーが明記している内容のみを整理しています。</div>
